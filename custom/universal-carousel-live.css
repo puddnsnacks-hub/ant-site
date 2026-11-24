@@ -1,0 +1,60 @@
+/* Universal hero carousel, live: a flat-color carousel that follows the documented rules. Shell tokens only. */
+.x-universal-carousel { display: grid; gap: 14px; }
+.x-universal-carousel-hint { font: 500 17px/1.4 var(--sx-ui); color: var(--sx-ink); max-width: var(--sx-measure); }
+
+.x-universal-carousel-stage { position: relative; display: flex; flex-direction: column; border: 2px solid var(--sx-ink); box-shadow: var(--sx-shadow); background: var(--g-color-brand-gray-90); color: var(--g-color-brand-gray-0); }
+
+.x-universal-carousel-top { position: absolute; z-index: 3; top: 16px; left: 16px; right: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; pointer-events: none; }
+.x-universal-carousel-top > * { pointer-events: auto; }
+.x-universal-carousel-motion { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; min-width: 44px; padding: 0 16px 0 12px; border: 2px solid var(--g-color-brand-gray-0); background: var(--g-color-brand-gray-90); color: var(--g-color-brand-gray-0); font: 600 16px/1 var(--sx-ui); cursor: pointer; }
+.x-universal-carousel-motion:hover { background: var(--g-color-brand-gray-0); color: var(--g-color-brand-gray-90); }
+.x-universal-carousel-ico { width: 20px; height: 20px; fill: currentColor; }
+.x-universal-carousel-ico-play { display: none; }
+.x-universal-carousel[data-state="paused"] .x-universal-carousel-ico-play { display: block; }
+.x-universal-carousel[data-state="paused"] .x-universal-carousel-ico-pause { display: none; }
+.x-universal-carousel-count { margin: 0 !important; padding: 6px 10px; background: var(--g-color-brand-gray-90); font: 600 15px/1.2 var(--sx-code); font-variant-numeric: tabular-nums; color: var(--g-color-brand-gray-0); }
+
+.x-universal-carousel-slides { order: 1; position: relative; min-height: 400px; touch-action: pan-y; overflow: hidden; }
+.x-universal-carousel-slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 88px 88px 28px; }
+.x-universal-carousel-slide[hidden] { display: none; }
+.x-universal-carousel-slide.is-in { animation: x-universal-carousel-fade .45s ease-out both; }
+@keyframes x-universal-carousel-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .x-universal-carousel-slide.is-in { animation: none; } }
+.x-universal-carousel-slide[data-tone="1"] { background: var(--g-color-brand-primary-60); }
+.x-universal-carousel-slide[data-tone="2"] { background: var(--g-color-brand-accent-60); }
+.x-universal-carousel-slide[data-tone="3"] { background: var(--g-color-brand-primary-70); }
+.x-universal-carousel-slide[data-tone="4"] { background: var(--g-color-brand-gray-70); }
+.x-universal-carousel-slide[data-tone="5"] { background: var(--g-color-brand-accent-70); }
+.x-universal-carousel-eyebrow { margin: 0 !important; font: 600 14px/1.2 var(--sx-ui); letter-spacing: .1em; text-transform: uppercase; color: var(--g-color-brand-accent-10); }
+.x-universal-carousel-head { margin: 8px 0 0 !important; font: 600 clamp(30px, 4.2vw, 48px)/1.05 var(--sx-display); color: var(--g-color-brand-gray-0); max-width: 18ch; }
+.x-universal-carousel-body { margin: 12px 0 0 !important; font: 400 18px/1.45 var(--sx-body); color: var(--g-color-brand-gray-0); max-width: 34rem; }
+
+.x-universal-carousel-arrow { position: absolute; z-index: 2; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; display: grid; place-items: center; border: 2px solid var(--g-color-brand-gray-0); background: var(--g-color-brand-gray-90); color: var(--g-color-brand-gray-0); cursor: pointer; }
+.x-universal-carousel-arrow:hover { background: var(--g-color-brand-gray-0); color: var(--g-color-brand-gray-90); }
+.x-universal-carousel-arrow svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+.x-universal-carousel-prev { left: 16px; }
+.x-universal-carousel-next { right: 16px; }
+
+.x-universal-carousel-tabs { order: 2; display: flex; flex-wrap: wrap; gap: 4px 24px; padding: 14px 88px 12px; background: var(--g-color-brand-gray-90); }
+.x-universal-carousel-tabs [role="tab"] { min-height: 44px; padding: 0 2px; border: 0; border-bottom: 3px solid transparent; background: none; color: var(--g-color-brand-gray-20); font: 500 16px/1 var(--sx-ui); cursor: pointer; }
+.x-universal-carousel-tabs [role="tab"]:hover { color: var(--g-color-brand-gray-0); }
+.x-universal-carousel-tabs [role="tab"][aria-selected="true"] { color: var(--g-color-brand-gray-0); border-bottom-color: var(--g-color-brand-gray-0); font-weight: 700; }
+
+.x-universal-carousel-timer { order: 3; height: 6px; background: var(--g-color-brand-gray-60); }
+.x-universal-carousel-bar { display: block; height: 100%; width: 0; background: var(--g-color-brand-accent-20); }
+
+.x-universal-carousel-stage :focus-visible { outline: 3px solid var(--g-color-brand-accent-20); outline-offset: 2px; }
+.x-universal-carousel-status { margin: 0 !important; font: 500 16px/1.4 var(--sx-caption); color: var(--sx-ink-2); min-height: 1.4em; }
+
+/* Phones: dots in place of labeled tabs, arrows and text stacked below the art area. */
+@media (max-width: 639px) {
+  .x-universal-carousel-slides { min-height: 440px; }
+  .x-universal-carousel-slide { padding: 84px 20px 84px; }
+  .x-universal-carousel-arrow { top: auto; bottom: 18px; transform: none; }
+  .x-universal-carousel-prev { left: auto; right: 76px; }
+  .x-universal-carousel-tabs { justify-content: flex-start; gap: 0; padding: 4px 8px; }
+  .x-universal-carousel-tabs [role="tab"] { width: 44px; min-height: 44px; padding: 0; border: 0; display: grid; place-items: center; }
+  .x-universal-carousel-tabs [role="tab"]::before { content: ""; width: 10px; height: 10px; border: 2px solid var(--g-color-brand-gray-0); }
+  .x-universal-carousel-tabs [role="tab"][aria-selected="true"]::before { background: var(--g-color-brand-gray-0); }
+  .x-universal-carousel-tablabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}

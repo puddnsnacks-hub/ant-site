@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lyric Video Studio · Michael Lombardi</title>
+<meta name="description" content="A phone app for lyric videos: press when a line starts, let go when it ends, and one thumb times every line.">
+<link rel="stylesheet" href="pp/system.css">
+<style>
+  /* Per-project hooks: the yellow the app took from his cover, and a dark olive for the turn on paper (7.5:1). */
+  :root{ --accent:#fef700; --accent-text:#3d5a00; }
+  /* Page parts. Everything here is prefixed lvs- so nothing clashes with system.css. */
+  :root{--lvs-ground:#051502;--lvs-panel:#0c2207;--lvs-well:#020a01;--lvs-line:#2c4421;--lvs-ink:#f3f1dc;--lvs-dim:#b4bea4;--lvs-acc:#fef700;--lvs-held:#fff6e8}
+  .lvs-vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .lvs-say{font-weight:600}
+  .hero__fig.lvs-fig{margin-right:0}
+  .lvs-h3{font:600 var(--t-h3)/var(--lh-h3) var(--f-ui);margin-bottom:var(--s2)}
+  .lvs-shot img{width:100%;background:var(--lvs-ground)}
+  .lvs-narrow{max-width:600px}
+  .close__title{max-width:20ch}
+  .lvs-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4);align-items:start}
+  .lvs-two figcaption,.lvs-shot figcaption{margin-top:var(--s1);font:400 var(--t-caption)/var(--lh-caption) var(--f-small)}
+  .lvs-two>figure>figcaption{color:var(--ink-2)}
+  .sec--dark .lvs-two>figure>figcaption{color:var(--paper)}
+  .lvs-two figcaption b{font-weight:500}
+  .feature picture{display:block;margin-bottom:var(--s2)}
+  .feature img{width:100%}
+
+  /* The Sync simulation (ported from the version he ranked first) */
+  .lvs-sim{background:var(--lvs-panel);color:var(--lvs-ink);padding:var(--s2);border:1px solid var(--lvs-line);font-family:var(--f-ui);--focus:var(--lvs-held);position:relative}
+  .lvs-tag{display:flex;gap:8px;align-items:center;margin:0 0 12px;color:var(--lvs-dim);font:400 12px/1.3 var(--f-code);letter-spacing:.07em;text-transform:uppercase}
+  .lvs-tag::before{content:"";width:8px;height:8px;border:1px solid var(--lvs-dim);flex:none}
+  .lvs-win{min-height:112px;padding:12px 16px;border:2px solid #fff;display:grid;place-items:center;text-align:center;background:var(--lvs-well);font:600 clamp(18px,1rem + .6vw,24px)/1.25 var(--f-ui);color:#fef70073;overflow-wrap:anywhere;text-wrap:balance}
+  .lvs-win.lvs-lit{color:var(--lvs-held);border-color:var(--lvs-acc);box-shadow:0 0 0 3px #fef70055}
+  .lvs-guide{position:relative;display:grid;grid-template-columns:76px minmax(0,1fr);gap:6px 8px;align-items:center;margin:14px 0 4px}
+  .lvs-gl{color:var(--lvs-dim);font:400 12px/1 var(--f-code);letter-spacing:.04em;text-transform:uppercase}
+  .lvs-track{position:relative;height:18px;background:var(--lvs-well);overflow:hidden}
+  .lvs-track b{position:absolute;top:0;bottom:0;background:#6f7d62}
+  .lvs-track.lvs-me b{background:var(--lvs-acc)}
+  .lvs-head{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--lvs-held);left:84px;pointer-events:none}
+  .lvs-read{display:flex;justify-content:space-between;align-items:baseline;margin:10px 0 12px;color:var(--lvs-dim);font:400 13px/1.2 var(--f-code);letter-spacing:.04em;text-transform:uppercase}
+  .lvs-read output{font:400 22px/1 var(--f-code);color:var(--lvs-ink)}
+  .lvs-stop{width:100%;min-height:44px;margin-bottom:12px;background:none;color:var(--lvs-ink);border:1px solid #ffffff59;font:500 16px var(--f-ui);cursor:pointer}
+  .lvs-stop:disabled{color:#8b9680;border-color:#ffffff26;cursor:default}
+  .lvs-big{display:block;width:100%;min-height:84px;padding:8px;border:0;background:var(--lvs-acc);color:var(--lvs-ground);cursor:pointer;font:700 20px/1.1 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+  .lvs-big small{display:block;margin-top:6px;font:600 14px/1.2 var(--f-ui);letter-spacing:.02em;text-transform:none}
+  .lvs-big.lvs-down{background:var(--lvs-held);box-shadow:inset 0 0 0 4px var(--lvs-acc)}
+  .lvs-rows{list-style:none;margin:12px 0 0;padding:0;font:400 15px/1.3 var(--f-ui)}
+  .lvs-rows li{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;align-items:center;min-height:30px;padding:4px 10px;margin-top:4px;background:var(--lvs-well);color:var(--lvs-dim)}
+  .lvs-rows li span{min-width:0;overflow-wrap:anywhere}
+  .lvs-rows li span:first-child,.lvs-rows li span:last-child{font:400 13px/1.3 var(--f-code);white-space:nowrap}
+  .lvs-rows li.lvs-timed{color:var(--lvs-ink)}
+  .lvs-rows li.lvs-on{box-shadow:inset 0 0 0 2px var(--lvs-acc)}
+  .lvs-hint{margin:10px 0 0;min-height:2.8em;color:var(--lvs-dim);font:400 15px/1.4 var(--f-ui)}
+
+  /* What it does without */
+  .lvs-cuts{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+  .lvs-cuts li{display:grid;grid-template-columns:minmax(0,5fr) 120px minmax(0,6fr);gap:8px var(--s3);align-items:baseline;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .lvs-cuts s{font:700 clamp(22px,1rem + 1.4vw,36px)/1.1 var(--f-display);letter-spacing:-.02em;text-decoration-thickness:.09em;text-decoration-color:#8a1a1a}
+  .lvs-cuts em{font:500 12px/1.3 var(--f-code);font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-text)}
+  .lvs-cuts span{font:400 1rem/1.5 var(--f-body)}
+
+  /* Two colors from the cover */
+  .lvs-chips{display:flex;flex-wrap:wrap;gap:10px}
+  .prose .lvs-chips{margin-top:var(--s3)}
+  .lvs-chips span{display:inline-flex;align-items:center;gap:8px;padding:6px 10px 6px 6px;border:1px solid var(--rule);font:400 14px var(--f-code)}
+  .lvs-chips i{width:22px;height:22px;border-radius:50%;box-shadow:0 0 0 1px var(--ink-2)}
+
+  /* The ladybug and its report */
+  .lvs-holdit{display:flex;align-items:center;gap:var(--s3);max-width:440px;padding:var(--s2);border:1px solid rgba(255,248,235,.4)}
+  .lvs-holdit p{font:600 1.25rem/1.25 var(--f-ui)}
+  .lvs-holdit p span{display:block;margin-top:4px;font:400 var(--t-caption)/1.4 var(--f-small);color:var(--night-2)}
+  .lvs-bug{flex:none;width:88px;height:88px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+  .lvs-bug img{width:88px;height:88px;border-radius:50%}
+  .lvs-bug.lvs-down img{transform:scale(.94)}
+  .lvs-tip{max-width:440px;margin-top:var(--s2);padding:12px 14px;background:var(--lvs-held);color:#1a0a08;font:400 1rem/1.4 var(--f-ui)}
+  .lvs-tip button{display:block;margin-top:8px;min-height:44px;padding:0 14px;border:0;background:#1a0a08;color:var(--lvs-held);font:600 1rem var(--f-ui);cursor:pointer;--focus:#8a1a1a}
+  .lvs-dlg{width:min(430px,calc(100vw - 24px));max-height:calc(100vh - 24px);padding:0;border:0;background:#1b1b1b;color:#eee;--focus:#fff}
+  .lvs-dlg::backdrop{background:#000000b3}
+  .lvs-rep{padding:18px;font-family:var(--f-ui);line-height:1.35}
+  .lvs-rephead{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid #3a3a3a}
+  .lvs-rephead strong{flex:1;display:grid;place-items:center;min-height:36px;background:#343434;font:700 14px var(--f-ui);letter-spacing:.08em;text-transform:uppercase}
+  .lvs-rephead button{width:44px;height:44px;border-radius:50%;border:1px solid #666;background:#1b1b1b;color:#fff;font-size:20px;cursor:pointer}
+  .lvs-simtag{margin:12px 0 0;color:#bdbdbd;font:400 12px/1.4 var(--f-code);letter-spacing:.06em;text-transform:uppercase}
+  .lvs-rep h3{margin:16px 0 8px;color:#bdbdbd;font:700 13px var(--f-ui);letter-spacing:.08em;text-transform:uppercase}
+  .lvs-rep ol{list-style:none;margin:0;padding:0}
+  .lvs-rep ol li{display:flex;justify-content:space-between;gap:10px;margin-top:6px;padding:8px 12px;border:1px solid #444;background:#262626;font-size:15px}
+  .lvs-rep ol li span{color:#bdbdbd;font-size:13px;white-space:nowrap}
+  .lvs-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .lvs-f{padding:8px 12px;border:1px solid #444;background:#262626;font-size:15px}
+  .lvs-rep p{margin:14px 0 0;color:#d5d5d5;font-size:15px;line-height:1.45}
+
+  @media (max-width:899px){
+    .hero__fig.lvs-fig{margin-inline:0}
+    .hero .lvs-say{order:2}
+  }
+  @media (max-width:640px){
+    .lvs-two{grid-template-columns:minmax(0,1fr);gap:var(--s3)}
+    .lvs-cuts li{grid-template-columns:minmax(0,1fr);gap:4px}
+  }
+  @media (max-width:360px){
+    .lvs-sim{padding:12px}
+    .lvs-guide{grid-template-columns:64px minmax(0,1fr)}
+    .lvs-rows li{grid-template-columns:44px minmax(0,1fr) auto;gap:6px;padding-inline:6px}
+  }
+</style>
+<link rel="stylesheet" href="pp/chrome.css">
+<style id="thread">html:root{--teal:#452f23;--teal-deep:#22140d}</style>
+</head>
+<body id="top">
+<header class="gh gh--std" style="--acc:#fef700;--acc-ink:#22140d;--acc-on-dark:#fef700">
+  <a class="gh__skip" href="#main">Skip to content</a>
+  <div class="gh__strip" aria-hidden="true"></div>
+  <div class="gh__bar">
+    <div class="gh__who"><a class="gh__home" href="index.html" aria-label="Story" title="Story"><img src="assets/hatlamp-mark@2x.png" srcset="assets/hatlamp-mark@2x.png 2x, assets/hatlamp-mark@3x.png 3x" width="79" height="101" alt=""></a><button class="gh__btn gh__name" type="button" aria-expanded="false" aria-controls="gh-name">Michael Lombardi</button>
+      <div class="gh__panel gh__panel--who" id="gh-name"><ul><li><span class="gh__k">Email</span><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></li><li><span class="gh__k">Résumé</span><a href="resume.html">View the résumé</a></li></ul></div></div>
+    <button class="gh__toggle" type="button" aria-expanded="false" aria-controls="gh-nav">Menu<svg class="gh__io" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/></svg><svg class="gh__ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2"/></svg></button>
+    <nav class="gh__nav" id="gh-nav" aria-label="Site"><ul class="gh__list">
+      <li><a class="gh__link" href="index.html">Story</a></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-featured">Featured</button><span class="gh__glabel">Featured</span><div class="gh__panel" id="gh-featured"><p class="gh__ph">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-cases">Case Studies</button><span class="gh__glabel">Case Studies</span><div class="gh__panel" id="gh-cases"><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-snacks"><span class="gh__star" aria-hidden="true"><img src="assets/hatlamp-star@2x.png" srcset="assets/hatlamp-star@2x.png 2x, assets/hatlamp-star@3x.png 3x" width="27" height="45" alt=""></span>Snacks</button><span class="gh__glabel">Snacks</span><div class="gh__panel" id="gh-snacks"><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html" aria-current="page">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div></li>
+      <li><a class="gh__link" href="resume.html">Résumé</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">Lyric Video Studio · a web app for the phone</p>
+        <h1 class="hero__title" id="hero-title">Hold <span class="turn">the line.</span></h1>
+        <p class="lede hero__lede lvs-say">Press when the line starts. Let go when it ends.</p>
+        <p class="lede hero__lede">I write songs, and I wanted videos of them that are easy to pass around, with the words as the picture. Lyric Video Studio turns a song and its lyrics into a vertical lyric video in five steps: Song, Lyrics, Sync, Style, Save.</p>
+        <div class="actions">
+          <a class="btn" href="https://lyricvideostudio.netlify.app" target="_blank" rel="noopener">Open the app<span class="lvs-vh"> (opens in a new tab)</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+          <a class="btn btn--quiet" href="#idea">See the idea</a>
+        </div>
+      </div>
+      <figure class="hero__fig lvs-fig">
+        <div class="lvs-sim" id="lvs-sim" role="group" aria-label="Simulation of the Sync step">
+          <p class="lvs-tag">Simulation · no sound</p>
+          <div class="lvs-win" id="lvs-win" aria-hidden="true"></div>
+          <div class="lvs-guide" aria-hidden="true">
+            <span class="lvs-gl">The song</span><div class="lvs-track" id="lvs-tSong"></div>
+            <span class="lvs-gl">My thumb</span><div class="lvs-track lvs-me" id="lvs-tMe"></div>
+            <div class="lvs-head" id="lvs-head"></div>
+          </div>
+          <div class="lvs-read"><span>92 BPM · 4/4</span><output id="lvs-pos" aria-label="Position in bars, beats and sixteenths">1.1.1</output></div>
+          <button class="lvs-stop" id="lvs-stop" type="button" disabled>Stop</button>
+          <button class="lvs-big" id="lvs-big" type="button"><span id="lvs-bigA">Start Sync</span><small id="lvs-bigB">tap once to begin</small></button>
+          <ol class="lvs-rows" id="lvs-rows" aria-label="Lines"></ol>
+          <p class="lvs-hint" id="lvs-hint">Tap Start Sync. Then hold the button while each gray block passes the marker. (The blocks stand in for the singing.)</p>
+          <p class="lvs-vh" id="lvs-live" aria-live="polite"></p>
+          <noscript><p class="lvs-hint">The simulation needs JavaScript. The pictures below show the same thing.</p></noscript>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec" id="problem" aria-labelledby="s1">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The problem</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s1">111 lines is <span class="turn">222 moments to mark.</span></h2>
+        <div class="prose">
+          <p>A lyric video is the words of a song on screen. Each line arrives when it is sung and leaves when it ends, so each line needs two times: in and out.</p>
+          <p>“Keep it to Myself though” has 111 lines. I wanted to mark all of them on my phone, and a timeline with two handles for every line does not fit under a thumb.</p>
+        </div>
+        <figure class="fig lvs-shot lvs-narrow">
+          <img src="pp/img/lyric-video-studio-v2/lyrics-step.webp" width="1206" height="945" alt="The Lyrics step of the app. The instruction reads: Paste your lyrics. Each non-blank line is one on-screen cue. An Import from file button sits beside it, and a text box below is filled with the lines of the song.">
+          <figcaption><b>The Lyrics step.</b> Every line in that box that is not blank becomes one cue, and every cue needs its two times.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--dark sec--tilt" id="idea" aria-labelledby="s2">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The idea</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s2">Don’t edit the timing. <span class="turn">Play it.</span></h2>
+        <div class="prose"><p>The song plays. When a line starts, press. When it ends, let go. One thumb on one button gives both times, and the line is on screen for as long as your thumb is down.</p></div>
+        <figure class="fig">
+          <div class="lvs-two">
+            <figure class="lvs-shot">
+              <picture><source media="(max-width:640px)" srcset="pp/img/lyric-video-studio-v2/window-waiting-m.webp" width="800" height="620"><img src="pp/img/lyric-video-studio-v2/window-waiting.webp" width="1179" height="620" alt="The Sync screen before a press. Two timed lines sit above a window. Inside the window the words Third line wait at reduced strength. The next line is marked on deck below."></picture>
+              <figcaption><b>Thumb up.</b> The next line waits in the window, dim.</figcaption>
+            </figure>
+            <figure class="lvs-shot">
+              <picture><source media="(max-width:640px)" srcset="pp/img/lyric-video-studio-v2/window-held-m.webp" width="800" height="620"><img src="pp/img/lyric-video-studio-v2/window-held.webp" width="1179" height="620" alt="The Sync screen during a press. The same window now has a glowing frame and the words Third line at full strength."></picture>
+              <figcaption><b>Thumb down.</b> The same line, lit. It stays lit until you let go.</figcaption>
+            </figure>
+          </div>
+          <figcaption>These two are teal because the test project’s cover is teal. The app takes its colors from the cover.</figcaption>
+        </figure>
+        <ul class="features">
+          <li class="feature"><picture><source media="(max-width:640px)" srcset="pp/img/lyric-video-studio-v2/btn-start-m.webp" width="800" height="380"><img src="pp/img/lyric-video-studio-v2/btn-start.webp" width="1179" height="380" alt="The Sync button at rest. It reads Start Sync, tap once to begin. A Stop button above it is inactive."></picture>
+            <h3>Tap once and the song plays.</h3><p>The button is the largest thing on the screen, and it sits under the thumb.</p></li>
+          <li class="feature"><picture><source media="(max-width:640px)" srcset="pp/img/lyric-video-studio-v2/btn-press-m.webp" width="800" height="380"><img src="pp/img/lyric-video-studio-v2/btn-press.webp" width="1179" height="380" alt="The Sync button while the song plays. It reads Press / hold / release, press when the lyric starts."></picture>
+            <h3>Press to start the line.</h3><p>The button’s own words are the instructions. Nothing is typed, dragged or nudged.</p></li>
+          <li class="feature"><picture><source media="(max-width:640px)" srcset="pp/img/lyric-video-studio-v2/btn-pressed-m.webp" width="800" height="380"><img src="pp/img/lyric-video-studio-v2/btn-pressed.webp" width="1179" height="380" alt="The Sync button while held. It has changed color and reads Pressed, release when the line ends."></picture>
+            <h3>Let go to end it.</h3><p>The gap before the next press is a blank screen in the video.</p></li>
+        </ul>
+        <div class="code-pair">
+          <div class="prose">
+            <h3 class="lvs-h3">It counts the way a musician counts.</h3>
+            <p>Each timed line shows where it starts in bars, beats and sixteenths, worked out from the song’s tempo and time signature. It is a readout. Nothing moves your press onto a beat.</p>
+            <p>A whole song has been timed in it.</p>
+          </div>
+          <figure class="fig lvs-shot">
+            <picture><source media="(max-width:640px)" srcset="pp/img/lyric-video-studio-v2/sync-complete-m.webp" width="800" height="790"><img src="pp/img/lyric-video-studio-v2/sync-complete.webp" width="1206" height="1090" alt="The Sync screen on the phone after the whole song is timed. Eight lines of the song are listed, each with a position such as 3.2.1 and 3.3.2 in a mono face. Below are Re-sync and Edit, and the message Sync Complete, hit play below to review."></picture>
+            <figcaption><b>“Sync Complete” on my phone.</b> The first line starts at 3.2.1: bar 3, beat 2, first sixteenth.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s3">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">One screen</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s3">Time, fix and review <span class="turn">on one screen.</span></h2>
+        <div class="prose">
+          <p>The earlier design spread timing across four modes on several screens. One screen now covers the first pass, recovery, editing and review.</p>
+          <p>Most of my decisions on this app were about what to leave off the screen.</p>
+        </div>
+        <div class="code-pair">
+          <div class="prose">
+            <h3 class="lvs-h3">Fix a line with the same gesture.</h3>
+            <p>There is no second editing mode. Pick the line and press it again. When you resume, the song starts one line early so you hear the run-up, and that earlier line keeps its timing.</p>
+          </div>
+          <figure class="fig lvs-shot">
+            <picture><source media="(max-width:640px)" srcset="pp/img/lyric-video-studio-v2/sync-start-button-m.webp" width="800" height="400"><img src="pp/img/lyric-video-studio-v2/sync-start-button.webp" width="1206" height="400" alt="The bottom of the Sync screen on the phone, in yellow and near-black. Buttons read Re-sync and Edit. The large yellow button reads Start Sync, song starts at the previous line for runway."></picture>
+            <figcaption><b>Resuming, with my own song loaded.</b> The small print on the button is the run-up.</figcaption>
+          </figure>
+        </div>
+        <div>
+          <h3 class="lvs-h3">What it does without</h3>
+          <ul class="lvs-cuts">
+            <li><s>The quality menu</s><em>Removed</em><span>One use needs one setting: 540 by 960, 30 frames a second, MP4.</span></li>
+            <li><s>The QR ending card</s><em>Built, then removed</em><span>The link behind it was unreliable, and the streaming info can go in the post.</span></li>
+            <li><s>Silence before the song</s><em>Removed</em><span>Sound and picture start together.</span></li>
+            <li><s>Snap to beat</s><em>Not on the new screen</em><span>The earlier Sync screen had the switch. The press is the timing.</span></li>
+            <li><s>Nudge buttons</s><em>None</em><span>To fix a line, press it again.</span></li>
+            <li><s>A results page</s><em>None</em><span>The review plays on the same screen.</span></li>
+            <li><s>Fades on the words</s><em>None</em><span>A line changes at once, and so does a strobe.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s4">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The same idea, twice</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s4">Pick the colors <span class="turn">from the cover.</span></h2>
+        <div class="prose">
+          <p class="lede">The timing is already in the song, so play it. The colors are already in the cover art, so point at them.</p>
+          <p>Add a cover, and the app takes two colors from it and wears them on every screen. With my cover those two are a yellow and a near-black, and the app keeps the pair at a contrast of 4.5 to 1 or better.</p>
+          <p class="lvs-chips" aria-hidden="true"><span><i style="background:#fef700"></i>#fef700</span><span><i style="background:#051502"></i>#051502</span></p>
+        </div>
+        <figure class="fig lvs-shot lvs-narrow">
+          <img src="pp/img/lyric-video-studio-v2/song-colors.webp" width="1206" height="730" alt="The Song step on the phone. Two color chips read #fef700 and #051502. Below them are the song title Keep it to Myself though in a yellow pixel face, the font name Workbench at 56 points, the artist name Snacks, and the five step tabs with Song lit in yellow.">
+          <figcaption><b>The Song step.</b> The two chips at the top are what the app took from the cover. The lit tab is already wearing one.</figcaption>
+        </figure>
+        <div class="lvs-two">
+          <figure class="fig lvs-shot">
+            <img src="pp/img/lyric-video-studio-v2/tap-a-spot.webp" width="1206" height="1260" alt="The color picker in the Style step, open on its Cover tab. The cover art fills the panel: a man in a bowler hat on a park bench beside a seated figure made of yellow blocks. A small label at the top left reads Tap a spot.">
+            <figcaption><b>The picker opens on the cover.</b> Its only instruction is “Tap a spot.”</figcaption>
+          </figure>
+          <figure class="fig lvs-shot">
+            <img src="pp/img/lyric-video-studio-v2/nine-swatches.webp" width="1206" height="870" alt="The picker after a tap. Nine swatches in three rows: yellows and a blue, an olive, a green and a navy, and three near-blacks. Two sliders are labeled Light and Sat, and a button reads Pick another spot.">
+            <figcaption><b>Tap once for nine swatches from that spot,</b> with sliders for light and saturation.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--dark" id="reporter" aria-labelledby="s5">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">On every screen</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s5">Hold the ladybug. <span class="turn">It already knows what you did.</span></h2>
+        <div class="prose">
+          <p class="lede">A red ladybug sits at the top right of every screen. Hold it to open a bug report. It opens on a hold and ignores a tap because the Sync button is a hold, and a button that opened on a tap would fire in the middle of a line.</p>
+          <p>The app keeps a list of your last actions. When the form opens, the screen you were on and the steps to repeat are already filled in. Type one line and one paragraph.</p>
+          <p>The reporter was my idea. It is part of the live app, so you can file a bug from the site itself.</p>
+        </div>
+        <div>
+          <div class="lvs-holdit">
+            <button class="lvs-bug" type="button" data-lvs-bug aria-label="Bug report. Hold to open." aria-haspopup="dialog"><img src="pp/img/lyric-video-studio-v2/ladybug.webp" width="88" height="88" alt=""></button>
+            <p>Hold the ladybug.<span>Simulation. Nothing is filed or sent.</span></p>
+          </div>
+          <div class="lvs-tip" id="lvs-tip" role="status" hidden>A tap does nothing. Hold it. <button type="button" id="lvs-tipopen">Open without holding</button></div>
+        </div>
+        <div class="pair">
+          <blockquote class="quote">
+            <p>A circle button with a 1px white stroke, a very dark red fill, and a white ladybug icon.</p>
+            <footer>From my first report, about the reporter’s own button</footer>
+          </blockquote>
+          <figure class="fig lvs-shot">
+            <picture><source media="(max-width:640px)" srcset="pp/img/lyric-video-studio-v2/report-form-m.webp" width="800" height="1088"><img src="pp/img/lyric-video-studio-v2/report-form.webp" width="1085" height="1088" alt="The bug report form on the phone. Tabs read File a bug and My bugs. Under the heading What triggered it? are four rows: Opened Export modal, Tapped Pause, Tapped Play, Tapped Pause. Under One-line summary: The tempo did not save. Area and Severity fields follow."></picture>
+            <figcaption><b>A report typed on my phone.</b> The four rows under “What triggered it?” were written by the app.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="close-title">
+    <div class="wrap">
+      <h2 class="close__title" id="close-title">Hold the line.<br>Let go when it ends.</h2>
+      <div class="actions">
+        <a class="btn" href="https://lyricvideostudio.netlify.app" target="_blank" rel="noopener">Open the app<span class="lvs-vh"> (opens in a new tab)</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+        <a class="btn btn--quiet" href="mailto:mccabelombardi@gmail.com">Email Michael</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<dialog class="lvs-dlg" id="lvs-report" aria-labelledby="lvs-repT">
+  <div class="lvs-rep">
+    <div class="lvs-rephead"><strong id="lvs-repT">File a bug</strong><button type="button" id="lvs-repX" aria-label="Close">&times;</button></div>
+    <p class="lvs-simtag">Simulation · nothing is filed or sent</p>
+    <h3>What triggered it?</h3>
+    <ol id="lvs-repLog"></ol>
+    <div class="lvs-fields">
+      <div><h3>Area</h3><div class="lvs-f" id="lvs-repArea">The page</div></div>
+      <div><h3>Severity</h3><div class="lvs-f">Medium</div></div>
+    </div>
+    <p>In the app, the area and these rows are filled in before you type. Two fields are left for you: a one-line summary and what is wrong.</p>
+  </div>
+</dialog>
+
+<footer class="gf gf--std" style="--acc:#fef700;--acc-ink:#22140d;--acc-on-dark:#fef700">
+  <div class="gf__wrap">
+    <div class="gf__map">
+      <div class="gf__me" id="contact" tabindex="-1"><p class="gf__nm">Michael Lombardi</p><p><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p></div>
+      <nav class="gf__cols" aria-label="Site map">
+        <div class="gf__solo"><p class="gf__h"><a href="index.html">Story</a></p></div>
+        <div><p class="gf__h">Featured</p><p class="gf__sub">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div>
+        <div><p class="gf__h">Case Studies</p><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div>
+        <div><p class="gf__h">Snacks</p><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html" aria-current="page">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div>
+        <div class="gf__solo"><p class="gf__h"><a href="resume.html">Résumé</a></p></div>
+      </nav>
+    </div>
+    <div class="gf__base"><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+<script src="pp/system.js"></script>
+<script>
+// Michael: paste your eight lyric lines here, one string per line.
+var LVS_LINES = [
+  "First line of the song",
+  "Second line of the song",
+  "Third line of the song",
+  "Fourth line of the song",
+  "Fifth line of the song",
+  "Sixth line of the song",
+  "Seventh line of the song",
+  "Eighth line of the song"
+];
+
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+var LINES=(LVS_LINES||[]).filter(function(s){return String(s).trim()}).map(String);
+if(!LINES.length)LINES=["First line of the song"];
+var N=LINES.length;
+
+/* ---- action log, as the app keeps one ---- */
+var log=[],lastArea="The page";
+function act(label,area){log.push({t:Date.now(),label:label});if(log.length>30)log.shift();if(area)lastArea=area}
+function ago(t){var s=Math.round((Date.now()-t)/1000);return s<60?(s<2?"just now":s+"s ago"):Math.round(s/60)+"m ago"}
+if("IntersectionObserver" in window){
+  var seen={};
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    var lab=e.target.querySelector(".sec__label");if(!e.isIntersecting||!lab)return;
+    var t=lab.textContent;if(seen[t])return;seen[t]=1;act("Viewed "+t,t)})},{threshold:.35});
+  [].forEach.call(document.querySelectorAll("main .sec"),function(s){io.observe(s)});
+}
+
+/* ---- ladybug: opens on a 300 ms hold, ignores a tap ---- */
+var dlg=$("lvs-report"),tip=$("lvs-tip"),opener=null,openedAt=0,armed=false,downOnBackdrop=false;
+function hideTip(){tip.hidden=true}
+function openReport(from){
+  hideTip();opener=from;
+  var rows=log.slice(-10).reverse(),ol=$("lvs-repLog");ol.textContent="";
+  if(!rows.length){var li0=document.createElement("li");li0.textContent="No actions recorded yet";ol.appendChild(li0)}
+  rows.forEach(function(r){var li=document.createElement("li"),s=document.createElement("span");li.textContent=r.label;s.textContent=ago(r.t);li.appendChild(s);ol.appendChild(li)});
+  $("lvs-repArea").textContent=lastArea;
+  armed=false;downOnBackdrop=false;openedAt=performance.now();
+  if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","");
+  $("lvs-repX").focus();
+}
+function closeReport(){if(dlg.close)dlg.close();else dlg.removeAttribute("open")}
+dlg.addEventListener("close",function(){if(opener)opener.focus()});
+$("lvs-repX").addEventListener("click",closeReport);
+/* A backdrop click closes the report only when that press began on the backdrop after the report opened:
+   the finger that opened it is still down, and its release must not close it. */
+dlg.addEventListener("pointerdown",function(e){armed=true;downOnBackdrop=(e.target===dlg)});
+dlg.addEventListener("click",function(e){if(e.target===dlg&&armed&&downOnBackdrop&&performance.now()-openedAt>500)closeReport()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")hideTip()});
+[].forEach.call(document.querySelectorAll("[data-lvs-bug]"),function(btn){
+  var timer=null,opened=false,isDown=false;
+  function clear(){clearTimeout(timer);timer=null;isDown=false;btn.classList.remove("lvs-down")}
+  btn.addEventListener("pointerdown",function(e){
+    if(e.button>0)return;opened=false;isDown=true;btn.classList.add("lvs-down");
+    timer=setTimeout(function(){opened=true;btn.classList.remove("lvs-down");openReport(btn)},300);
+  });
+  btn.addEventListener("pointerup",function(){var was=isDown;clear();if(was&&!opened){tip.hidden=false;act("Tapped the ladybug")}});
+  btn.addEventListener("pointercancel",clear);
+  btn.addEventListener("pointerleave",function(){if(!opened)clear()});
+  btn.addEventListener("contextmenu",function(e){e.preventDefault()});
+  btn.addEventListener("click",function(e){if(e.detail===0)openReport(btn)}); /* keyboard */
+});
+$("lvs-tipopen").addEventListener("click",function(){openReport(document.querySelector("[data-lvs-bug]"))});
+
+/* ---- Sync simulation: 92 BPM, 4/4, readout to the nearest sixteenth, nothing snaps ---- */
+var BEAT=60/92,SIX=BEAT/4,LEN=[3,2.5,3.5,2.5],GUIDE=[],b0=2;
+for(var g=0;g<N;g++){GUIDE.push([b0,b0+LEN[g%4]]);b0+=LEN[g%4]+2}
+var END=(b0)*BEAT;
+var win=$("lvs-win"),big=$("lvs-big"),bigA=$("lvs-bigA"),bigB=$("lvs-bigB"),stopB=$("lvs-stop"),hint=$("lvs-hint"),posO=$("lvs-pos"),head=$("lvs-head"),tSong=$("lvs-tSong"),tMe=$("lvs-tMe"),live=$("lvs-live");
+var rowsEl=$("lvs-rows"),rowEls=LINES.map(function(t){var li=document.createElement("li");
+  ["-",t,""].forEach(function(x){var s=document.createElement("span");s.textContent=x;li.appendChild(s)});rowsEl.appendChild(li);return li});
+var st="idle",t0=0,now=0,line=0,holds=[],down=false,seg=null,raf=0,iv=0,swallow=false,keyHeld=false;
+var HINT0="Tap Start Sync. Then hold the button while each gray block passes the marker. (The blocks stand in for the singing.)";
+GUIDE.forEach(function(gd){var b=document.createElement("b");b.style.left=(gd[0]*BEAT/END*100)+"%";b.style.width=((gd[1]-gd[0])*BEAT/END*100)+"%";tSong.appendChild(b)});
+function pos(t){var s=Math.round(t/SIX);return (Math.floor(s/16)+1)+"."+(Math.floor((s%16)/4)+1)+"."+(s%4+1)}
+function label(a,b){bigA.textContent=a;bigB.textContent=b}
+function setHead(t){var w=tSong.getBoundingClientRect().width;head.style.left=(tSong.offsetLeft+Math.min(1,t/END)*w)+"px";posO.textContent=pos(t)}
+function loop(){
+  now=(performance.now()-t0)/1000;
+  if(now>=END){now=END;setHead(now);if(st==="run"){if(down)release();if(st==="run")finish(false)}else if(st==="review")endReview();return}
+  setHead(now);
+  if(st==="run"&&down&&seg)seg.style.width=((now-holds[line].in)/END*100)+"%";
+  if(st==="review")paintReview();
+  if(!reduce)raf=requestAnimationFrame(loop);
+}
+function startClock(){t0=performance.now();cancelAnimationFrame(raf);clearInterval(iv);if(reduce)iv=setInterval(loop,80);else raf=requestAnimationFrame(loop)}
+function stopClock(){cancelAnimationFrame(raf);clearInterval(iv)}
+function showWaiting(){win.classList.remove("lvs-lit");win.textContent=line<N?LINES[line]:""}
+function clearRows(){rowEls.forEach(function(li){li.className="";li.children[0].textContent="-";li.children[2].textContent=""})}
+function start(){st="run";line=0;holds=[];down=false;tMe.textContent="";stopB.disabled=false;stopB.textContent="Stop";clearRows();
+  label("Press / hold / release","press when the lyric starts");showWaiting();
+  hint.textContent="Hold the button while each gray block passes the marker.";act("Tapped Start Sync","Sync");startClock()}
+function press(){if(st!=="run"||down||line>=N)return;now=(performance.now()-t0)/1000;down=true;holds[line]={in:now,out:now};
+  seg=document.createElement("b");seg.style.left=(now/END*100)+"%";seg.style.width="0%";tMe.appendChild(seg);
+  win.classList.add("lvs-lit");big.classList.add("lvs-down");label("Pressed","release when the line ends");act("Started press-hold on line "+(line+1),"Sync")}
+function release(){if(!down)return;now=Math.min(END,(performance.now()-t0)/1000);down=false;var h=holds[line];h.out=now;
+  if(seg)seg.style.width=((h.out-h.in)/END*100)+"%";
+  var li=rowEls[line];li.className="lvs-timed";li.children[0].textContent=pos(h.in);li.children[2].textContent="held "+(h.out-h.in).toFixed(1)+" s";
+  live.textContent="Line "+(line+1)+" starts at "+pos(h.in)+", held "+(h.out-h.in).toFixed(1)+" seconds.";
+  act("Released press-hold on line "+(line+1),"Sync");big.classList.remove("lvs-down");line++;
+  if(line>=N){finish(true)}else{label("Press / hold / release","press when the lyric starts");showWaiting()}}
+function finish(all){stopClock();st="done";down=false;big.classList.remove("lvs-down");win.classList.remove("lvs-lit");win.textContent="";
+  var n=holds.filter(function(h){return h&&h.out>h.in}).length;
+  stopB.disabled=false;stopB.textContent="Re-sync";
+  if(n){label("Play review","the line shows only between its in and out");
+    hint.textContent=(all?"Sync Complete. ":"Stopped with "+n+" of "+N+" lines timed. ")+"Each press was the start of a line and each release was its end. The gaps are blank screen.";}
+  else{label("Start Sync","tap once to begin");st="idle";stopB.disabled=true;stopB.textContent="Stop";line=0;showWaiting();setHead(0);
+    hint.textContent="No line was timed. Tap Start Sync, then hold the button while each gray block passes the marker.";}
+}
+function review(){st="review";label("Stop review","the window shows what the video will show");stopB.disabled=true;act("Tapped Play","Sync");startClock()}
+function paintReview(){var on=-1;holds.forEach(function(h,i){if(h&&now>=h.in&&now<h.out)on=i});
+  win.classList.toggle("lvs-lit",on>-1);win.textContent=on>-1?LINES[on]:"";
+  rowEls.forEach(function(li,i){li.classList.toggle("lvs-on",i===on)})}
+function endReview(){stopClock();st="done";win.classList.remove("lvs-lit");win.textContent="";rowEls.forEach(function(li){li.classList.remove("lvs-on")});
+  label("Play review","the line shows only between its in and out");stopB.disabled=false}
+function reset(){stopClock();st="idle";line=0;holds=[];down=false;tMe.textContent="";setHead(0);stopB.disabled=true;stopB.textContent="Stop";clearRows();
+  label("Start Sync","tap once to begin");showWaiting();hint.textContent=HINT0;act("Tapped Re-sync","Sync");big.focus()}
+
+big.addEventListener("pointerdown",function(e){if(e.button>0)return;if(st==="run"){swallow=true;try{big.setPointerCapture(e.pointerId)}catch(x){}press();e.preventDefault()}else swallow=false});
+big.addEventListener("pointerup",function(){if(down&&!keyHeld)release()});
+big.addEventListener("pointercancel",function(){if(down&&!keyHeld)release()});
+big.addEventListener("contextmenu",function(e){e.preventDefault()});
+big.addEventListener("click",function(){if(swallow){swallow=false;return}
+  if(st==="idle")start();else if(st==="done")review();else if(st==="review"){act("Tapped Pause","Sync");endReview()}});
+big.addEventListener("keydown",function(e){if(e.key!==" "&&e.key!=="Enter")return;
+  if(st==="run"){e.preventDefault();if(!e.repeat&&!down){keyHeld=true;press()}}});
+big.addEventListener("keyup",function(e){if(e.key!==" "&&e.key!=="Enter")return;if(keyHeld){e.preventDefault();keyHeld=false;release()}});
+big.addEventListener("blur",function(){if(down){keyHeld=false;release()}});
+stopB.addEventListener("click",function(){if(st==="run"){if(down)release();if(st==="run"){act("Tapped Stop","Sync");finish(false)}}else if(st==="done")reset()});
+window.addEventListener("resize",function(){setHead(st==="idle"?0:now)});
+showWaiting();setHead(0);
+})();
+</script>
+<script src="pp/chrome.js"></script>
+</body>
+</html>

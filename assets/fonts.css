@@ -1,0 +1,13 @@
+/* Suite faces, all self-hosted (no network requests). Afacad Flux and Fraunces come from type/pds-fonts.css and
+   type/pds-faces.css. Licenses sit beside each file: fonts/OFL-*.txt, fonts/LICENSE-*.txt, aods/assets/fonts/LICENSES. */
+@font-face { font-family: "Sarabun"; font-weight: 300; font-style: normal; font-display: swap; src: url("fonts/sarabun-300.woff2") format("woff2"); }
+@font-face { font-family: "Sarabun"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/sarabun-400.woff2") format("woff2"); }
+@font-face { font-family: "Sarabun"; font-weight: 500; font-style: normal; font-display: swap; src: url("fonts/sarabun-500.woff2") format("woff2"); }
+@font-face { font-family: "Sarabun"; font-weight: 600; font-style: normal; font-display: swap; src: url("fonts/sarabun-600.woff2") format("woff2"); }
+@font-face { font-family: "Sarabun"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/sarabun-700.woff2") format("woff2"); }
+@font-face { font-family: "Fira Code"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/fira-code-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Fira Code"; font-weight: 500; font-style: normal; font-display: swap; src: url("fonts/fira-code-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Fira Sans"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/fira-sans-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Fira Sans"; font-weight: 500; font-style: normal; font-display: swap; src: url("fonts/fira-sans-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Fira Sans"; font-weight: 400; font-style: italic; font-display: swap; src: url("fonts/fira-sans-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Share Tech Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/share-tech-mono-400.woff2") format("woff2"); }

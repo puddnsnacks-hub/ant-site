@@ -1,0 +1,30 @@
+/* FOUR RINGS x FIVE GROUNDS: each cell is painted with a real ground of this site and holds a
+   chip wearing that style's ring exactly as the site draws it there. The number is the part of
+   the ring that carries 3:1; "band" is the colored band measured alone (struck where it fails). */
+.x-accessibility-grid { display: grid; gap: 6px; font-family: var(--s-font-family-ui, sans-serif); color: var(--g-color-brand-gray-90, #26231f); }
+.x-accessibility-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.x-accessibility-gr { display: grid; grid-template-columns: 8.5rem repeat(5, minmax(0, 1fr)); gap: 6px; }
+.x-accessibility-ghead span { font: 700 12px/1.25 var(--s-font-family-ui, sans-serif); letter-spacing: .08em; text-transform: uppercase; color: var(--g-color-brand-gray-60, #4c453c); align-self: end; padding-bottom: 4px; }
+.x-accessibility-gname { align-self: center; font: 700 16px/1.2 var(--s-font-family-ui, sans-serif); color: var(--g-color-brand-primary-60, #452f23); }
+.x-accessibility-gc { display: grid; justify-items: center; align-content: center; gap: 4px; min-height: 128px; padding: 22px 6px 12px; box-shadow: inset 0 0 0 1px var(--g-color-brand-gray-20, #dcccbc); }
+.x-accessibility-gc.x-accessibility-dark { color: var(--g-color-brand-accent-5, #fff8eb); box-shadow: none; }
+.x-accessibility-chip { display: block; width: 30px; height: 18px; margin-bottom: 16px; background: var(--g-color-brand-vivid-50, #007190); }
+.x-accessibility-r-standard { outline: 3px solid #2e8577; outline-offset: 2px; }
+.x-accessibility-dark .x-accessibility-r-standard { outline-color: #6bc7b4; }
+.x-accessibility-r-periwinkle { outline: 8px solid #6b85e0; outline-offset: 4px; box-shadow: 0 0 0 2px #26231f; }
+.x-accessibility-dark .x-accessibility-r-periwinkle { box-shadow: 0 0 0 2px #ffffff; }
+.x-accessibility-r-mint { outline: 8px solid #a7d2c8; outline-offset: 4px; box-shadow: 0 0 0 2px #26231f; }
+.x-accessibility-r-highvis { outline: 3px solid #26231f; outline-offset: 2px; box-shadow: 0 0 0 2px #ffb700; }
+.x-accessibility-gv { font: 500 16px/1.1 var(--s-font-family-code, monospace); }
+.x-accessibility-gl, .x-accessibility-gband { font: 600 12px/1.2 var(--s-font-family-ui, sans-serif); text-align: center; }
+.x-accessibility-gband { opacity: .9; }
+.x-accessibility-gband s { text-decoration-thickness: 2px; }
+@container (max-width: 600px) {
+  .x-accessibility-gr { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+  .x-accessibility-gcorner { display: none; }
+  .x-accessibility-gname { grid-column: 1 / -1; margin-top: 10px; }
+  .x-accessibility-ghead span { font-size: 11px; letter-spacing: 0; }
+  .x-accessibility-gc { min-height: 112px; padding: 22px 2px 10px; }
+  .x-accessibility-gv { font-size: 13px; }
+  .x-accessibility-gl, .x-accessibility-gband { font-size: 11px; }
+}

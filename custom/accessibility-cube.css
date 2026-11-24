@@ -1,0 +1,74 @@
+/* THE CUBE: press it and it turns to another of his 24 cases. Fills by register:
+   permanent primary 20, temporary accent 10, situational vivid 20; ink gray 90 on all. */
+.x-accessibility-cq { container-type: inline-size; }
+.x-accessibility-cubebeat {
+  --x-accessibility-s: 264px;
+  display: grid; gap: var(--s-space-2xl, 32px); grid-template-columns: minmax(0, 1fr); justify-items: center; max-width: 40rem;
+  color: var(--g-color-brand-gray-90, #26231f);
+  font-family: var(--s-font-family-body, sans-serif);
+}
+.x-accessibility-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+.x-accessibility-cubewrap { display: grid; justify-items: center; gap: 28px; padding: 26px; }
+.x-accessibility-cube-btn { position: relative; width: var(--x-accessibility-s); height: var(--x-accessibility-s); padding: 0; border: 0; background: none; cursor: pointer; perspective: 1100px; color: inherit; font: inherit; }
+.x-accessibility-cube { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(calc(var(--x-accessibility-s) / -2)) rotateY(var(--x-accessibility-turn, 0deg)); transition: transform .7s cubic-bezier(.3, .7, .2, 1); }
+.x-accessibility-cube-shadow { position: absolute; inset: 0; transform: translate(10px, 10px); background: var(--g-color-brand-gray-100, #000); }
+.x-accessibility-face { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between;
+  padding: 24px 24px 22px; text-align: left; color: var(--g-color-brand-gray-90, #26231f);
+  background: var(--g-color-brand-gray-0, #fff);
+  box-shadow: inset 0 0 0 3px var(--g-color-brand-gray-90, #26231f); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.x-accessibility-face[data-reg="permanent"], .x-accessibility-keys [data-reg="permanent"], .x-accessibility-lists [data-reg="permanent"] .x-accessibility-lh { background: var(--g-color-brand-primary-20, #f3d6c9); }
+.x-accessibility-face[data-reg="temporary"], .x-accessibility-keys [data-reg="temporary"], .x-accessibility-lists [data-reg="temporary"] .x-accessibility-lh { background: var(--g-color-brand-accent-10, #ffebc7); }
+.x-accessibility-face[data-reg="situational"], .x-accessibility-keys [data-reg="situational"], .x-accessibility-lists [data-reg="situational"] .x-accessibility-lh { background: var(--g-color-brand-vivid-20, #a5e1fa); }
+.x-accessibility-reg { font: 700 13px/1.2 var(--s-font-family-ui, sans-serif); letter-spacing: .16em; text-transform: uppercase; }
+.x-accessibility-case { font: 700 29px/1.1 var(--s-font-family-display, serif); text-wrap: balance; }
+.x-accessibility-hint { font: 600 14px/1.3 var(--s-font-family-ui, sans-serif); }
+.x-accessibility-f0 { transform: rotateY(0deg) translateZ(calc(var(--x-accessibility-s) / 2)); }
+.x-accessibility-f1 { transform: rotateY(90deg) translateZ(calc(var(--x-accessibility-s) / 2)); }
+.x-accessibility-f2 { transform: rotateY(180deg) translateZ(calc(var(--x-accessibility-s) / 2)); }
+.x-accessibility-f3 { transform: rotateY(270deg) translateZ(calc(var(--x-accessibility-s) / 2)); }
+/* the ring sits 14px out, clear of the face and of the 10px offset shadow */
+html .x-accessibility-cq .x-accessibility-cube-btn:focus-visible { outline: var(--c-page-focus-width, 3px) solid var(--c-page-focus-ring, #2e8577) !important; outline-offset: calc(var(--c-page-focus-gap, 2px) + 12px) !important; }
+
+.x-accessibility-keys { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; list-style: none; margin: 0; padding: 0; }
+.x-accessibility-keys li { font: 700 12px/1 var(--s-font-family-ui, sans-serif); letter-spacing: .14em; text-transform: uppercase; padding: 6px 9px 5px; box-shadow: inset 0 0 0 1.5px var(--g-color-brand-gray-90, #26231f); }
+
+/* his short version, beside the cube */
+.x-accessibility-short { align-self: center; padding: 22px 24px 24px; background: var(--g-color-brand-gray-0, #fff); box-shadow: inset 0 0 0 2px var(--g-color-brand-gray-90, #26231f), 8px 8px 0 var(--g-color-brand-gray-100, #000); }
+.x-accessibility-short p { margin: 0; font: 500 18px/1.55 var(--s-font-family-body, sans-serif); }
+.x-accessibility-cubebeat .x-accessibility-short .x-accessibility-short-h { margin: 0 0 10px; font: 700 13px/1.2 var(--s-font-family-ui, sans-serif); letter-spacing: .14em; text-transform: uppercase; color: var(--g-color-brand-primary-60, #452f23); }
+
+/* every case, readable without operating the cube */
+.x-accessibility-all { grid-column: 1 / -1; width: 100%; background: var(--g-color-brand-gray-0, #fff); box-shadow: inset 0 0 0 2px var(--g-color-brand-gray-30, #b9a694); }
+.x-accessibility-all > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 0 18px; cursor: pointer; list-style: none;
+  font: 700 16px/1.2 var(--s-font-family-ui, sans-serif); color: var(--g-color-brand-primary-60, #452f23); }
+.x-accessibility-all > summary::-webkit-details-marker { display: none; }
+.x-accessibility-all > summary::after { content: "+"; font: 700 22px/1 var(--s-font-family-ui, sans-serif); }
+.x-accessibility-all[open] > summary::after { content: "\2212"; }
+.x-accessibility-all > summary:focus-visible { outline: var(--c-page-focus-width, 3px) solid var(--c-page-focus-ring, #2e8577); outline-offset: var(--c-page-focus-gap, 2px); }
+.x-accessibility-lists { display: grid; gap: 20px; padding: 4px 18px 20px; grid-template-columns: minmax(0, 1fr); }
+.x-accessibility-lh { display: inline-block; margin: 0 0 8px; padding: 5px 8px 4px; font: 700 12px/1 var(--s-font-family-ui, sans-serif); letter-spacing: .14em; text-transform: uppercase; box-shadow: inset 0 0 0 1.5px var(--g-color-brand-gray-90, #26231f); }
+.x-accessibility-lists ul { margin: 0; padding: 0 0 0 18px; font: 500 16px/1.5 var(--s-font-family-body, sans-serif); }
+.x-accessibility-lists li + li { margin-top: 4px; }
+
+@container (min-width: 600px) {
+  .x-accessibility-cubebeat { grid-template-columns: auto minmax(0, 1fr); align-items: center; justify-items: stretch; gap: 32px 40px; }
+  .x-accessibility-lists { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .x-accessibility-lists ul { font-size: 15px; }
+  /* wide: the lists stand open (the JS opens the disclosure); no summary to operate */
+  .x-accessibility-all.x-accessibility-open { background: transparent; box-shadow: none; }
+  .x-accessibility-all.x-accessibility-open > summary { display: none; }
+  .x-accessibility-all.x-accessibility-open .x-accessibility-lists { padding: 8px 0 0; }
+}
+@container (max-width: 400px) {
+  .x-accessibility-cubebeat { --x-accessibility-s: min(264px, calc(100cqw - 24px)); }
+  .x-accessibility-case { font-size: 27px; }
+  .x-accessibility-face { padding: 20px 20px 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .x-accessibility-cube { transition: none; } }
+@media print { .x-accessibility-cubewrap { display: none; } .x-accessibility-all > .x-accessibility-lists { display: grid; } }
+/* Mint and Periwinkle carry their near-black keyline at the element's edge, which the face covers
+   here. Move the keyline out to the ring's inner edge so the band still sits against near-black. */
+html[data-focus-style="mint"] .x-accessibility-cq .x-accessibility-cube-btn:focus-visible,
+html[data-focus-style="periwinkle"] .x-accessibility-cq .x-accessibility-cube-btn:focus-visible {
+  box-shadow: 0 0 0 calc(var(--c-page-focus-gap) + 10px) var(--sx-ground, #f6f3ee), 0 0 0 calc(var(--c-page-focus-gap) + 12px) #26231f !important;
+}

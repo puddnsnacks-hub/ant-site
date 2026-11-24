@@ -1,0 +1,104 @@
+/* The letter (L1). Self-contained: every color, face and size is a custom property with a fallback, so the suite and the
+   bundled AODS reference load the same file. Set the --pl-* properties on :root (or .pl-letter) to map them to a theme.
+   Square corners, a hard offset shadow, no gradients. See qa/shell-review/L1-CONTRACT.md. */
+.pl-letter {
+  --pl-paper: var(--sx-paper, #ffffff);
+  --pl-ground-line: var(--sx-line, #dcccbc);
+  --pl-ink: var(--sx-ink, #26231f);
+  --pl-ink-2: var(--sx-ink-2, #4c453c);
+  --pl-rule: var(--sx-brown, #452f23);
+  --pl-accent: var(--sx-link, #005167);            /* email link, list marks */
+  --pl-button-bg: var(--sx-ink, #26231f);
+  --pl-button-ink: var(--sx-cream, #fff8eb);
+  --pl-button-shadow: var(--g-color-brand-vivid-60, #18746d);
+  --pl-shadow: var(--sx-brown, #452f23);
+  --pl-backdrop: rgba(38, 35, 31, 0.62);
+  --pl-focus: var(--c-page-focus-ring, #2e8577);
+  --pl-draft: var(--g-color-warning-30, #ffb700);
+  --pl-face-name: var(--sx-ui, "Afacad Flux pds", "Afacad Flux", sans-serif);
+  --pl-face-body: var(--sx-body, "Sarabun pds", "Sarabun", sans-serif);
+  --pl-face-sig: var(--sx-quote, "Fraunces pds", "Fraunces", serif);
+  --pl-face-ui: var(--sx-ui, "Afacad Flux pds", "Afacad Flux", sans-serif);
+
+  box-sizing: border-box; width: min(640px, calc(100vw - 48px)); max-width: none; max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px);
+  margin: auto; padding: 0; border: 2px solid var(--pl-ink); border-radius: 0; background: var(--pl-paper); color: var(--pl-ink);
+  box-shadow: 10px 10px 0 0 var(--pl-shadow); overflow: hidden;
+}
+.pl-letter[open] { display: flex; }
+.pl-letter::backdrop { background: var(--pl-backdrop); }
+.pl-letter *, .pl-letter *::before, .pl-letter *::after { box-sizing: border-box; }
+.pl-letter__sheet { display: flex; flex-direction: column; width: 100%; min-height: 0; max-height: inherit; }
+.pl-letter__sr { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* letterhead: the mark, the name, the role, the email, a rule */
+.pl-letter__head { flex: none; position: relative; display: flex; align-items: center; gap: 16px; margin: 0 32px; padding: 24px 52px 18px 0;
+  border-bottom: 3px solid var(--pl-rule); }
+.pl-letter__mark { flex: none; display: block; width: 40px; height: auto; margin: -4px 0 -2px; }
+.pl-letter__who { min-width: 0; }
+.pl-letter__name { margin: 0; font: 500 28px/1.1 var(--pl-face-name); letter-spacing: -0.01em; font-feature-settings: "ss02" 1, "ss03" 1, "ss04" 1; color: var(--pl-ink); }
+.pl-letter__role { margin: 4px 0 0; font: 400 16px/1.3 var(--pl-face-ui); letter-spacing: 0.01em; color: var(--pl-ink-2); }
+.pl-letter__email { display: inline-flex; align-items: center; min-height: 44px; margin: -6px 0 -12px; font: 500 17px/1.3 var(--pl-face-ui); color: var(--pl-accent) !important;
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.pl-letter__close { position: absolute; top: 14px; right: -12px; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px;
+  margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--pl-ink); cursor: pointer; }
+.pl-letter__close:hover { background: var(--pl-ground-line); }
+
+/* body: the letter itself, about 60 characters to the line */
+.pl-letter__body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 22px 32px 8px; outline: none;
+  font: 400 17px/1.6 var(--pl-face-body); color: var(--pl-ink); }
+.pl-letter__body > * { max-width: 60ch; }
+.pl-letter__greet { margin: 0 0 12px; font-weight: 600; }
+.pl-letter__p { margin: 0 0 12px; }
+.pl-letter__lead { margin-bottom: 4px; font-weight: 600; }
+.pl-letter__list { margin: 0 0 14px; padding: 0 0 0 22px; list-style: square; }
+.pl-letter__list li { margin: 0 0 6px; padding-left: 2px; }
+.pl-letter__list li::marker { color: var(--pl-accent); }
+.pl-letter__offer { margin-top: 4px; }
+.pl-letter__signoff { margin: 16px 0 0; }
+.pl-letter__sig { margin: 0 0 8px; font: italic 400 30px/1.2 var(--pl-face-sig); font-variation-settings: "opsz" 44, "SOFT" 50, "WONK" 1; color: var(--pl-rule); }
+
+/* actions and the footer line */
+.pl-letter__foot { flex: none; padding: 14px 32px 18px; border-top: 1px solid var(--pl-ground-line); background: var(--pl-paper); }
+.pl-letter__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.pl-letter__primary { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 10px 22px; margin: 0 4px 4px 0;
+  border: 2px solid var(--pl-button-bg); border-radius: 0; background: var(--pl-button-bg); color: var(--pl-button-ink) !important;
+  box-shadow: 4px 4px 0 0 var(--pl-button-shadow); font: 500 19px/1.2 var(--pl-face-ui); letter-spacing: 0.01em; text-decoration: none !important; cursor: pointer; }
+.pl-letter__primary:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 0 var(--pl-button-shadow); }
+.pl-letter__secondary { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 6px; border: 0; border-radius: 0; background: transparent;
+  color: var(--pl-ink) !important; font: 500 18px/1.2 var(--pl-face-ui); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.pl-letter__line { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 12px 0 0; font: 400 14px/1.4 var(--pl-face-ui); color: var(--pl-ink-2); }
+.pl-letter__draft { display: inline-block; flex: none; width: 10px; height: 10px; background: var(--pl-draft); border: 1px solid var(--pl-ink); }
+
+/* focus: visible on paper; the suite's focus styles (html[data-focus-style]) override with their own rule */
+.pl-letter :focus-visible { outline: 3px solid var(--pl-focus); outline-offset: 2px; }
+/* the text container takes focus only so a screen reader starts at the top (tabindex -1, not a tab stop): no ring. It keeps focus, so
+   arrow keys, Page Up/Down and Space scroll it when it overflows on a phone. */
+.pl-letter .pl-letter__body:focus, .pl-letter .pl-letter__body:focus-visible { outline: none !important; box-shadow: none !important; }
+
+/* the page behind does not scroll */
+html.pl-lock, html.pl-lock body { overflow: hidden !important; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-letter[open] { animation: pl-in 180ms ease-out; }
+  @keyframes pl-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+}
+
+/* phone: a full-height sheet, letterhead fixed at the top, the body scrolls, the button stays in reach */
+@media (max-width: 640px) {
+  .pl-letter { width: 100%; height: 100vh; height: 100dvh; max-height: 100vh; max-height: 100dvh; margin: 0; border: 0; box-shadow: none; }
+  .pl-letter__head { margin: 0 16px; padding: 16px 48px 12px 0; gap: 12px; }
+  .pl-letter__mark { width: 32px; }
+  .pl-letter__name { font-size: 24px; }
+  .pl-letter__role { font-size: 15px; }
+  .pl-letter__email { font-size: 16px; }
+  .pl-letter__close { top: 8px; right: -8px; }
+  .pl-letter__body { padding: 16px 16px 8px; font-size: 16px; }
+  .pl-letter__sig { font-size: 26px; }
+  .pl-letter__foot { padding: 12px 16px 16px; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+  .pl-letter__primary { width: calc(100% - 4px); }
+}
+
+@media print { .pl-letter, .pl-letter::backdrop { display: none !important; } html.pl-lock, html.pl-lock body { overflow: visible !important; } }
+
+/* reopen controls printed by the page (hidden until letter.js runs) */
+[data-letter-row][hidden], [data-letter-open][hidden] { display: none !important; }

@@ -1,0 +1,98 @@
+/* How a machine reads · the live piece */
+.x-machine-legibility-read *{font-variant-ligatures:none}
+.x-machine-legibility-read{border:2px solid var(--sx-ink); background:var(--sx-paper); box-shadow:var(--sx-shadow); padding:clamp(16px,3vw,32px); display:grid; gap:20px; min-width:0}
+.x-machine-legibility-read__top{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 24px}
+.x-machine-legibility-read__hint{margin:0; flex:1 1 18rem; font-family:var(--sx-body); font-size:17px; line-height:1.45; color:var(--sx-ink)}
+.x-machine-legibility-read__nav button:focus-visible{outline:3px solid var(--sx-focus); outline-offset:3px; position:relative; z-index:1}
+.x-machine-legibility-read__task{margin:0; font-family:var(--sx-ui); font-size:15px; color:var(--sx-ink-2); overflow-wrap:anywhere}
+.x-machine-legibility-read__task span{font-family:var(--sx-code); font-size:12px; letter-spacing:.08em; text-transform:uppercase; margin-right:8px}
+.x-machine-legibility-read code{font-family:var(--sx-code); font-size:.92em; font-variant-ligatures:none; font-feature-settings:"liga" 0,"calt" 0}
+.x-machine-legibility-read__line{background:var(--g-color-brand-primary-90); padding:clamp(14px,2.4vw,26px) clamp(14px,2.6vw,28px); min-height:5.2em; display:flex; align-items:center}
+.x-machine-legibility-read__src{margin:0; font-family:var(--sx-code); font-size:clamp(16px,2vw,24px); line-height:1.6; color:var(--g-color-brand-gray-0); overflow-wrap:anywhere}
+.x-machine-legibility-read__src[hidden]{display:none}
+.x-ml-seg{display:inline-block}
+.x-machine-legibility-read__src i{font-style:normal}
+.x-machine-legibility-read__src i.x-ml-on{background:var(--g-color-brand-accent-15); color:var(--g-color-brand-primary-80); box-shadow:inset 0 -3px 0 var(--g-color-brand-accent-40)}
+.x-machine-legibility-read__src i.x-ml-on i{background:transparent; color:inherit; box-shadow:none}
+.x-machine-legibility-read__src--keys{color:var(--g-color-brand-accent-10)}
+.x-machine-legibility-read__meter{grid-column:1 / -1; margin:0; font-family:var(--sx-ui); font-size:18px; color:var(--sx-ink-2); display:flex; align-items:baseline; gap:12px}
+.x-machine-legibility-read__meter b{font-family:var(--sx-display); font-size:56px; line-height:1; color:var(--sx-ink)}
+[data-mode="keys"] .x-machine-legibility-read__meter b{color:var(--g-color-brand-accent-60)}
+[data-mode="keys"] .x-ml-q{text-decoration:line-through; text-decoration-thickness:2px; color:var(--sx-ink-3)}
+.x-machine-legibility-read__card{border:2px solid var(--sx-ink); padding:18px 20px; background:var(--sx-paper); display:grid; gap:14px}
+.x-machine-legibility-read__step{margin:0; font-family:var(--sx-code); font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--sx-ink-2)}
+.x-machine-legibility-read__readings{margin:0; display:grid; gap:12px}
+.x-machine-legibility-read__readings div{padding:10px 14px; border-left:4px solid var(--sx-ink)}
+.x-machine-legibility-read__readings .x-ml-wrong{border-left-color:var(--g-color-brand-primary-50); background:var(--sx-sunken)}
+[data-mode="keys"] .x-machine-legibility-read__readings .x-ml-wrong{border-left-color:var(--g-color-brand-accent-60); background:var(--g-color-brand-accent-5)}
+.x-machine-legibility-read__readings dt{font-family:var(--sx-ui); font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--sx-ink-2); margin:0 0 4px}
+.x-machine-legibility-read__readings dd{margin:0; font-family:var(--sx-body); font-size:18px; line-height:1.4; color:var(--sx-ink)}
+[data-mode="keys"] .x-ml-right dd{color:var(--sx-ink-3)}
+.x-machine-legibility-read__nav{display:flex; flex-wrap:wrap; gap:10px}
+.x-machine-legibility-read__nav button{appearance:none; min-height:44px; padding:8px 16px; font-family:var(--sx-ui); font-size:16px; font-weight:600; border:2px solid var(--sx-ink); background:var(--sx-paper); color:var(--sx-ink); cursor:pointer}
+.x-machine-legibility-read__nav button[data-x-ml-next]{background:var(--sx-ink); color:var(--sx-paper)}
+.x-machine-legibility-read__nav button:disabled{color:var(--sx-ink-2); border-style:dashed; border-color:var(--sx-ink-2); cursor:default}
+@media (max-width:767px){
+  .x-machine-legibility-read__body{grid-template-columns:minmax(0,1fr)}
+  .x-machine-legibility-read__meter b{font-size:44px}
+}
+@media (prefers-reduced-motion:reduce){.x-machine-legibility-read *{transition:none!important}}
+/* revision: the question in the card, key spans, phone layout */
+.x-machine-legibility-read__q{margin:0; font-family:var(--sx-display); font-size:22px; line-height:1.25; color:var(--sx-ink)}
+.x-machine-legibility-read__q code{font-size:.95em; background:var(--g-color-brand-accent-15); padding:0 .15em}
+[data-mode="keys"] .x-machine-legibility-read__q{text-decoration:line-through; text-decoration-thickness:2px; color:var(--sx-ink-3)}
+.x-machine-legibility-read__src--keys i{font-style:normal}
+.x-machine-legibility-read__src--keys i.x-ml-on{background:var(--g-color-brand-accent-50); color:var(--g-color-brand-gray-0); box-shadow:none}
+.x-machine-legibility-read__src--keys .x-ml-seg.x-ml-on{outline:2px solid var(--g-color-brand-accent-40); outline-offset:3px}
+@media (max-width:767px){
+  .x-machine-legibility-read{gap:14px}
+  .x-machine-legibility-read__line{position:sticky; top:calc(var(--sx-head-h, 56px) + 4px); z-index:3; min-height:0; box-shadow:0 4px 0 var(--sx-paper)}
+  .x-machine-legibility-read__src{font-size:clamp(13px,4.1vw,17px)}
+  .x-machine-legibility-read__src--keys .x-ml-seg{white-space:nowrap}
+  .x-machine-legibility-read__body{display:flex; flex-direction:column; gap:14px}
+  .x-machine-legibility-read__card{order:1; padding:14px 16px}
+  .x-machine-legibility-read__meter{order:3}
+  .x-machine-legibility-read__nav{display:grid; grid-template-columns:1fr 1.4fr; gap:8px}
+  .x-machine-legibility-read__nav button{min-height:52px; font-size:17px}
+  .x-machine-legibility-read__q{font-size:20px}
+}
+/* revision 2: keep everything inside the frame on phones */
+.x-machine-legibility-read{grid-template-columns:minmax(0,1fr)}
+.x-machine-legibility-read__body{width:100%; min-width:0}
+@media (max-width:767px){
+  .x-machine-legibility-read__src--keys{font-size:clamp(11px,3.4vw,16px)}
+  .x-machine-legibility-read__line{padding:12px}
+  .x-machine-legibility-read__body{align-items:stretch}
+}
+
+/* revision 3: controls are the shell's .s-seg; questions live in the card */
+.x-machine-legibility-read__body{display:grid; grid-template-columns:minmax(0,1fr); gap:14px; width:100%; min-width:0}
+.x-machine-legibility-read__modes{flex:0 0 auto}
+.x-machine-legibility-read__list .x-ml-q{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.x-machine-legibility-read__list .s-seg__btn{justify-content:center}
+[data-mode="keys"] .x-machine-legibility-read__list .s-seg__btn:not([aria-current]) .s-seg__n{background:var(--g-color-brand-accent-60); border-color:var(--g-color-brand-accent-60); color:var(--g-color-brand-gray-0)}
+@media (max-width:767px){ .x-machine-legibility-read__card{order:2} .x-machine-legibility-read__list{order:1} .x-machine-legibility-read__meter{order:3} }
+.x-machine-legibility-read__list.s-seg{flex-wrap:nowrap}
+.x-machine-legibility-read__list > li{flex:1 1 0; min-width:0}
+.x-machine-legibility-read__list .s-seg__btn{flex:1 1 0; min-width:0; padding-left:0; padding-right:0}
+
+/* revision 4 (Replot 1d): the definition, the trigger, two readings on one row */
+.x-machine-legibility-read__def{flex:1 1 22rem; min-width:0}
+.x-machine-legibility-read__def p{margin:0; font-family:var(--sx-body); font-size:17px; line-height:1.5; color:var(--sx-ink); max-width:60ch}
+.x-machine-legibility-read__def b{font-family:var(--sx-ui); font-weight:600}
+.x-machine-legibility-read__task{font-size:16px; color:var(--sx-ink)}
+.x-machine-legibility-read__task span{color:var(--sx-ink-2)}
+.x-ml-trig{margin-left:10px; text-transform:none; letter-spacing:0; color:var(--sx-ink)}
+.x-ml-trig code{background:var(--g-color-brand-accent-15); box-shadow:inset 0 -3px 0 var(--g-color-brand-accent-40); padding:1px 6px; font-size:15px}
+.x-ml-trig:empty{display:none}
+p.x-machine-legibility-read__readings{display:flex; flex-wrap:wrap; gap:8px 10px; margin:0}
+p.x-machine-legibility-read__readings > span{flex:1 1 12rem; min-width:0; padding:8px 12px; border-left:4px solid var(--sx-ink); font-family:var(--sx-body); font-size:17px; line-height:1.4; color:var(--sx-ink); background:var(--sx-paper)}
+p.x-machine-legibility-read__readings > span + span{border-left-color:var(--g-color-brand-primary-50); background:var(--sx-sunken)}
+p.x-machine-legibility-read__readings b{display:block; font-family:var(--sx-ui); font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--sx-ink-2); margin-bottom:2px}
+p.x-machine-legibility-read__readings > span.x-ml-now{border-left-color:var(--g-color-brand-accent-60); background:var(--g-color-brand-accent-5); flex-basis:100%}
+[data-mode="keys"] .x-machine-legibility-read__q{text-decoration:none; color:var(--sx-ink-2); font-size:19px}
+@media (max-width:767px){
+  .x-machine-legibility-read__def p{font-size:16px}
+  .x-machine-legibility-read__q{font-size:19px}
+  p.x-machine-legibility-read__readings > span{font-size:16px; flex-basis:100%}
+}

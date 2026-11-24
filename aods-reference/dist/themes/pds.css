@@ -1,0 +1,86 @@
+/* Puddn (PDS) theme, DRAFT. Not part of AODS 1.0.3: the draft theme sheet, shaped like a generated theme file, carried into
+   this portfolio copy. The 70 globals below are the draft's, unchanged. g tier only: no s or c token, no component rule.
+   The faces point at self-hosted copies in assets/fonts/pds/ (Afacad Flux and Fraunces with the PDS stylistic sets built in).
+   Linked on every page after tokens.css. It applies only under html[data-theme="pds"]. */
+@font-face { font-family: "Sarabun pds"; font-weight: 300; font-style: normal; font-display: swap; src: url("../../assets/fonts/pds/sarabun-300.woff2") format("woff2"); }
+@font-face { font-family: "Sarabun pds"; font-weight: 400; font-style: normal; font-display: swap; src: url("../../assets/fonts/pds/sarabun-400.woff2") format("woff2"); }
+@font-face { font-family: "Sarabun pds"; font-weight: 500; font-style: normal; font-display: swap; src: url("../../assets/fonts/pds/sarabun-500.woff2") format("woff2"); }
+@font-face { font-family: "Sarabun pds"; font-weight: 600; font-style: normal; font-display: swap; src: url("../../assets/fonts/pds/sarabun-600.woff2") format("woff2"); }
+@font-face { font-family: "Sarabun pds"; font-weight: 700; font-style: normal; font-display: swap; src: url("../../assets/fonts/pds/sarabun-700.woff2") format("woff2"); }
+@font-face { font-family: "Fira Code pds"; font-weight: 400; font-style: normal; font-display: swap; src: url("../../assets/fonts/pds/fira-code-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Fira Code pds"; font-weight: 500 700; font-style: normal; font-display: swap; src: url("../../assets/fonts/pds/fira-code-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Afacad Flux pds"; font-weight: 100 1000; font-style: normal; font-display: swap; src: url("../../assets/fonts/pds/afacad-flux-pds-variable.woff2") format("woff2-variations"), url("../../assets/fonts/pds/afacad-flux-pds-variable.woff2") format("woff2"); }
+@font-face { font-family: "Fraunces pds"; font-weight: 100 900; font-style: normal; font-display: swap; src: url("../../assets/fonts/pds/fraunces-pds-variable.woff2") format("woff2-variations"), url("../../assets/fonts/pds/fraunces-pds-variable.woff2") format("woff2"); }
+@font-face { font-family: "Fraunces pds"; font-weight: 100 900; font-style: italic; font-display: swap; src: url("../../assets/fonts/pds/fraunces-pds-italic-variable.woff2") format("woff2-variations"), url("../../assets/fonts/pds/fraunces-pds-italic-variable.woff2") format("woff2"); }
+html[data-theme="pds"] {
+  --g-color-brand-primary-5: #fff9f7;
+  --g-color-brand-primary-10: #fff4ef;
+  --g-color-brand-primary-20: #f3d6c9;
+  --g-color-brand-primary-30: #e4bba8;
+  --g-color-brand-primary-40: #ba8a73;
+  --g-color-brand-primary-50: #8a5941;
+  --g-color-brand-primary-60: #452f23;
+  --g-color-brand-primary-70: #2f1f16;
+  --g-color-brand-primary-80: #2c180e;
+  --g-color-brand-primary-90: #22140d;
+  --g-color-brand-vivid-5: #f7fdff;
+  --g-color-brand-vivid-10: #e7f8ff;
+  --g-color-brand-vivid-20: #a5e1fa;
+  --g-color-brand-vivid-30: #72d3f8;
+  --g-color-brand-vivid-40: #10b3e1;
+  --g-color-brand-vivid-50: #007190;
+  --g-color-brand-vivid-60: #005167;
+  --g-color-brand-vivid-70: #003242;
+  --g-color-brand-vivid-80: #00232f;
+  --g-color-brand-vivid-90: #001821;
+  --g-color-brand-accent-5: #fff8eb;
+  --g-color-brand-accent-10: #ffebc7;
+  --g-color-brand-accent-15: #f5dbaa;
+  --g-color-brand-accent-20: #eacd98;
+  --g-color-brand-accent-30: #ddbc84;
+  --g-color-brand-accent-40: #c39c50;
+  --g-color-brand-accent-50: #18746d;
+  --g-color-brand-accent-60: #0e514c;
+  --g-color-brand-accent-70: #073633;
+  --g-color-brand-accent-80: #0b2d2c;
+  --g-color-brand-accent-90: #011e1d;
+  --g-color-brand-gray-0: #ffffff;
+  --g-color-brand-gray-1: #fcfbfa;
+  --g-color-brand-gray-3: #f7f5f3;
+  --g-color-brand-gray-5: #f6f3ee;
+  --g-color-brand-gray-10: #eae3db;
+  --g-color-brand-gray-20: #dcccbc;
+  --g-color-brand-gray-30: #b9a694;
+  --g-color-brand-gray-40: #958c81;
+  --g-color-brand-gray-50: #675f54;
+  --g-color-brand-gray-60: #4c453c;
+  --g-color-brand-gray-70: #3e3831;
+  --g-color-brand-gray-80: #36312b;
+  --g-color-brand-gray-90: #26231f;
+  --g-color-brand-gray-100: #000000;
+  --g-color-overlay-scrim: rgb(34 20 13 / 0.64);
+  --g-color-overlay-primary-80: rgb(44 24 14 / 0.8);
+  --g-color-overlay-primary-60: rgb(44 24 14 / 0.6);
+  --g-font-family-ui: Afacad Flux pds;
+  --g-font-family-body: Sarabun pds;
+  --g-font-family-heading: Fraunces pds;
+  --g-font-family-display: Fraunces pds;
+  --g-font-family-code: Fira Code pds;
+  --g-theme-label-case: uppercase;
+  --g-theme-label-variant: normal;
+  --g-theme-label-tracking: 0.6px;
+  --g-theme-border-hairline: 1px;
+  --g-theme-border-thick: 2px;
+  --g-theme-border-heavy: 3px;
+  --g-theme-edge-1: 1px;
+  --g-theme-edge-2: 3px;
+  --g-theme-edge-3: 6px;
+  --g-theme-edge-4: 12px;
+  --g-theme-shadow-raised: 0 0 0 0 transparent;
+  --g-theme-shadow-overlay: 0 0 0 0 transparent;
+  --g-theme-radius-base: 0;
+  --g-type-display-xl-size: 72px;
+  --g-type-display-xl-line-height: 88px;
+  --g-type-heading-xl-size: 40px;
+  --g-type-heading-xl-line-height: 48px;
+}

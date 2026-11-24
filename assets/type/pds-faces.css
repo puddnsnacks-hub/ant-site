@@ -1,0 +1,30 @@
+/* Load after pds-fonts.css. Lives beside fonts/ like pds-fonts.css does. */
+/* PDS faces. The PDS family tokens name these first (themes/pds.css: --g-font-family-ui and the heading and display families),
+   so every component reaches them through the token chain, with no CSS rule changes. Each is the original file from pds-fonts.css with the
+   Character Study stylistic sets built in (the character map points at the alternate glyphs), because AODS 1.0.2 carries no
+   font features. Built with opentype-feature-freezer, 2026-11-11; modified under the same SIL Open Font License.
+   Afacad Flux pds: the ui role's sets, ss02 (single-story a), ss03 (alternate l), ss04 (3/4 em dash), zero (slashed zero).
+   Fraunces pds: ss01, the display and heading roles' set.
+   One set list per face: roles that list fewer sets (label: ss04 only; buttonSmall, buttonLarge, eyebrow: none) render with
+   the ui sets until a hook for features exists. The plain faces in pds-fonts.css stay for the type specimens, which set features per role. */
+@font-face {
+  font-family: "Afacad Flux pds";
+  src: url("fonts/afacad-flux-pds-variable.woff2") format("woff2-variations"), url("fonts/afacad-flux-pds-variable.woff2") format("woff2");
+  font-weight: 100 1000;
+  font-style: oblique -14deg 14deg;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces pds";
+  src: url("fonts/fraunces-pds-variable.woff2") format("woff2-variations"), url("fonts/fraunces-pds-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces pds";
+  src: url("fonts/fraunces-pds-italic-variable.woff2") format("woff2-variations"), url("fonts/fraunces-pds-italic-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}

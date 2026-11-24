@@ -1,0 +1,193 @@
+/* T150: capital O for the audition grid's 24 families (Google Fonts, text=O subsets) */
+@font-face {
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-e97dc812ae.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Archivo Black';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-bb0f4b6ca2.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-a4aca2639a.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Bungee';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-8f9fcf8425.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-44fc632973.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-a5f3acf050.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'DM Serif Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-51c39f4165.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-a41952897c.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Gloock';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-ee0a62c5e0.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-87c1ddcda2.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Italiana';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-44d7a90d62.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-14baced026.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Libre Bodoni';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-d3dc39b3b5.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-411480fdf4.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Macondo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-3b8192a33d.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Major Mono Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-7a81f85796.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-fcbf3206c0.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-b6c4479d27.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Rye';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-2351f71667.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-0c62443ab1.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-25713e8cac.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Unbounded';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-84c4c7ea5e.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'UnifrakturMaguntia';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-f08563aa35.woff2) format('woff2');
+  unicode-range: U+4F;
+}
+@font-face {
+  font-family: 'Young Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(o-1c5ede5970.woff2) format('woff2');
+  unicode-range: U+4F;
+}

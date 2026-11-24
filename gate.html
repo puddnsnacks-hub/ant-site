@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Michael Lombardi · Portfolio</title>
+<style>
+@font-face{font-family:"Afacad Flux";src:url("pp/fonts/afacad-flux-variable.woff2") format("woff2");font-weight:100 1000;font-display:swap}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{display:grid;place-items:center;padding:24px;background:#fff8eb;color:#22140d;font:400 18px/1.5 "Afacad Flux",system-ui,sans-serif}
+main{width:100%;max-width:26rem;border-top:8px solid #452f23;padding-top:24px}
+h1{margin:0 0 4px;font-weight:600;font-size:2rem;line-height:1.1;letter-spacing:-.01em}
+p{margin:0 0 24px;color:#5c4a3d}
+label{display:block;font-weight:600;margin-bottom:8px}
+input{width:100%;min-height:48px;padding:8px 12px;border:2px solid #452f23;border-radius:0;background:#fff;color:#22140d;font:inherit}
+button{margin-top:16px;min-height:48px;padding:8px 24px;border:0;border-radius:0;background:#452f23;color:#fff8eb;font:600 18px/1 "Afacad Flux",system-ui,sans-serif;cursor:pointer}
+button:hover{background:#22140d}
+:focus-visible{outline:3px solid #005167;outline-offset:3px}
+#msg{min-height:1.5em;margin:12px 0 0;color:#a3244a;font-weight:600}
+.mail{margin-top:32px;font-size:16px}.mail a{color:#005167}
+</style>
+<script src="gate-config.js"></script>
+</head>
+<body>
+<main>
+  <h1>Michael Lombardi</h1>
+  <p>Senior Product Designer · Portfolio</p>
+  <form id="f" autocomplete="off">
+    <label for="pw">Password</label>
+    <input id="pw" name="pw" type="password" required autofocus aria-describedby="msg" autocapitalize="off" spellcheck="false">
+    <button type="submit">Open the portfolio</button>
+    <p id="msg" role="alert"></p>
+  </form>
+  <p class="mail">No password? <a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p>
+</main>
+<script>
+(function () {
+  var G = window.GATE || {}, msg = document.getElementById("msg"), f = document.getElementById("f");
+  function dest() { var t = new URLSearchParams(location.search).get("to") || "index.html";
+    return /^[A-Za-z0-9._\/#?=&%-]+$/.test(t) && t.indexOf("//") < 0 && t.indexOf("..") < 0 && t.charAt(0) !== "/" ? t : "index.html"; }
+  function hex(b) { return [].map.call(new Uint8Array(b), function (x) { return ("0" + x.toString(16)).slice(-2); }).join(""); }
+  if (!G.hash) { msg.textContent = "The password has not been set up yet."; }
+  f.addEventListener("submit", function (e) { e.preventDefault(); if (!G.hash) return;
+    if (!window.crypto || !crypto.subtle) { msg.textContent = "This page needs a secure (https) address to check the password."; return; }
+    var enc = new TextEncoder();
+    crypto.subtle.importKey("raw", enc.encode(document.getElementById("pw").value), "PBKDF2", false, ["deriveBits"]).then(function (k) {
+      return crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: enc.encode(G.salt), iterations: G.rounds }, k, 256);
+    }).then(function (bits) {
+      if (hex(bits) === G.hash) { try { localStorage.setItem("ant-pass", G.hash.slice(0, 24)); } catch (e2) {} location.replace(dest()); }
+      else { msg.textContent = "That password did not match. Try again."; document.getElementById("pw").select(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

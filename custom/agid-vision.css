@@ -1,0 +1,49 @@
+/* AGID heat-map vision switch: shell tokens for chrome; hex only for the product's own legend colors shown as content. */
+.x-agid-vision { display: grid; gap: 16px; padding: 24px; background: var(--sx-paper); border: 2px solid var(--sx-ink); box-shadow: var(--sx-shadow); }
+.x-agid-vision__hint { margin: 0; font: 500 17px/1.4 var(--sx-ui); color: var(--sx-ink); }
+.x-agid-vision__body { display: grid; gap: 16px; }
+.x-agid-vision__frame:focus-visible { outline: 3px solid var(--sx-focus); outline-offset: 2px; }
+.x-agid-vision__view { display: grid; gap: 10px; align-content: start; }
+.x-agid-vision__now { margin: 0; min-height: 3em; font: 400 17px/1.5 var(--sx-body); color: var(--sx-ink); }
+.x-agid-vision__now strong { font-family: var(--sx-ui); font-weight: 600; }
+.x-agid-vision__frame { position: relative; display: block; aspect-ratio: 1600 / 1049; background: #fff; border: 2px solid var(--sx-ink); overflow: hidden; color: var(--sx-ink); text-decoration: none; }
+.x-agid-vision__frame picture, .x-agid-vision__frame img { display: block; width: 100%; height: 100%; }
+.x-agid-vision__frame img { object-fit: contain; }
+.x-agid-vision__full { position: absolute; left: 0; bottom: 0; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; background: var(--sx-ink); color: var(--g-color-brand-accent-5); font: 600 14px/1 var(--sx-ui); }
+.x-agid-vision__legend { display: grid; gap: 8px; }
+.x-agid-vision__legend-h { margin: 0; font: 600 14px/1.2 var(--sx-ui); letter-spacing: .1em; text-transform: uppercase; color: var(--sx-ink-2); }
+.x-agid-vision__steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0; }
+.x-agid-vision__steps li { display: grid; grid-template-rows: 44px auto; gap: 6px; margin: 0; padding: 0; min-width: 0; }
+.x-agid-vision__steps li:nth-child(3n) { margin-right: 6px; }
+.x-agid-vision__chip { display: block; border-top: 2px solid var(--sx-ink); border-bottom: 2px solid var(--sx-ink); }
+.x-agid-vision__lab { font: 500 14px/1.2 var(--sx-code); color: var(--sx-ink); white-space: nowrap; }
+.x-agid-vision__note { margin: 0; max-width: var(--sx-measure); font: 400 15px/1.45 var(--sx-body); color: var(--sx-ink-2); }
+.x-agid-vision__chip--y0 { background: #FFFA99; }
+.x-agid-vision__chip--a0 { background: #99F6FF; }
+.x-agid-vision__chip--b0 { background: #C2C5FF; }
+.x-agid-vision__chip--c0 { background: #FF999B; }
+.x-agid-vision__chip--a1 { background: url("../img/agid/tiles/pattern-a1.svg") repeat; }
+.x-agid-vision__chip--a2 { background: url("../img/agid/tiles/pattern-a2.svg") repeat; }
+.x-agid-vision__chip--b1 { background: url("../img/agid/tiles/pattern-b1.svg") repeat; }
+.x-agid-vision__chip--b2 { background: url("../img/agid/tiles/pattern-b2.svg") repeat; }
+.x-agid-vision__chip--c1 { background: url("../img/agid/tiles/pattern-c1.svg") repeat; }
+.x-agid-vision__chip--c2 { background: url("../img/agid/tiles/pattern-c2.svg") repeat; }
+.x-agid-vision__chip--d1 { background: url("../img/agid/tiles/pattern-d1.svg") repeat; }
+.x-agid-vision__chip--d2 { background: url("../img/agid/tiles/pattern-d2.svg") repeat; }
+@media (min-width: 1280px) {
+  .x-agid-vision__body { grid-template-columns: 220px minmax(0, 1fr); align-items: start; }
+  .x-agid-vision__controls { flex-direction: column; flex-wrap: nowrap; }
+  .x-agid-vision__controls .s-seg__btn { width: 100%; justify-content: flex-start; }
+}
+@media (max-width: 767px) {
+  .x-agid-vision { padding: 16px; }
+  .x-agid-vision__frame { aspect-ratio: 960 / 1049; }
+  .x-agid-vision__now { min-height: 4.5em; font-size: 16px; }
+  .x-agid-vision__steps { grid-template-columns: repeat(6, minmax(0, 1fr)); row-gap: 12px; }
+  .x-agid-vision__steps li:nth-child(3n) { margin-right: 0; }
+  .x-agid-vision__steps li:nth-child(3) { margin-right: 6px; }
+  .x-agid-vision__steps li:nth-child(9) { margin-right: 6px; }
+  .x-agid-vision__lab { font-size: 14px; }
+}
+@media (prefers-reduced-motion: no-preference) { .x-agid-vision__frame img { transition: opacity .15s; } }
+.x-agid-vision__fig { margin: 0; }

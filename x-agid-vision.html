@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-theme="pds">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script><meta charset="utf-8"><base target="_blank"><meta name="viewport" content="width=device-width, initial-scale=1"><title>The heat map through eight kinds of color vision</title>
+<link rel="stylesheet" href="assets/type/pds-fonts.css">
+<link rel="stylesheet" href="assets/type/pds-faces.css">
+<link rel="stylesheet" href="assets/type/pds-type.css">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/aods/dist/tokens.css">
+<link rel="stylesheet" href="assets/pds/theme.css">
+<link rel="stylesheet" href="assets/aods/dist/aods.css">
+<link rel="stylesheet" href="assets/pds/layer-tokens.css">
+<link rel="stylesheet" href="assets/pds/layer.css">
+<link rel="stylesheet" href="assets/suite.css">
+<link rel="stylesheet" href="custom/agid-personas.css">
+<link rel="stylesheet" href="custom/agid-query.css">
+<link rel="stylesheet" href="custom/agid-vision.css">
+<style>html,body{margin:0;background:#fff8eb}html{overflow-x:hidden}body{padding:24px;min-height:0;display:block}body>*{max-width:100%;min-width:0;box-sizing:border-box}@media (max-width:520px){body{padding:12px}}</style></head>
+<body class="s-page">
+<div class="x-agid-vision" data-x-agid-vision>
+  <p class="x-agid-vision__hint" id="x-agid-vision-hint">Pick a kind of color vision to see the same map through it.</p>
+  <div class="x-agid-vision__body">
+    <div class="x-agid-vision__controls s-seg s-seg--scroll" role="radiogroup" aria-labelledby="x-agid-vision-hint">
+      <button type="button" class="s-seg__btn" role="radio" aria-checked="true" data-v="normal">Non-colorblind</button>
+      <button type="button" class="s-seg__btn" role="radio" aria-checked="false" data-v="protanomaly">Protanomaly</button>
+      <button type="button" class="s-seg__btn" role="radio" aria-checked="false" data-v="deuteranomaly">Deuteranomaly</button>
+      <button type="button" class="s-seg__btn" role="radio" aria-checked="false" data-v="protanopia">Protanopia</button>
+      <button type="button" class="s-seg__btn" role="radio" aria-checked="false" data-v="deuteranopia">Deuteranopia</button>
+      <button type="button" class="s-seg__btn" role="radio" aria-checked="false" data-v="tritanomaly">Tritanomaly</button>
+      <button type="button" class="s-seg__btn" role="radio" aria-checked="false" data-v="tritanopia">Tritanopia</button>
+      <button type="button" class="s-seg__btn" role="radio" aria-checked="false" data-v="achromatopsia">Achromatopsia</button>
+    </div>
+    <p class="s-scrolls-cue">Scroll sideways for more</p>
+    <div class="x-agid-vision__view">
+      <p class="x-agid-vision__now" aria-live="polite"><strong>Non-colorblind.</strong> Typical color vision, the map as designed.</p>
+      <figure class="x-agid-vision__fig">
+      <a class="x-agid-vision__frame" href="img/agid/heatmap-normal.jpg" data-viewer data-full="img/agid/heatmap-normal.jpg">
+        <picture>
+          <source media="(max-width: 767px)" srcset="img/agid/heatmap-normal-phone.jpg">
+          <img src="img/agid/heatmap-normal.jpg" width="1600" height="1049" alt="Heat map of the United States: each state filled with one of twelve steps, four hues (yellow, cyan, lavender, pink to red) each in solid, light stripe and dense stripe, with a legend from 0 to 10k at the lower right.">
+        </picture>
+        <span class="x-agid-vision__full">View full size</span>
+      </a>
+      <figcaption class="visually-hidden">Typical color vision, the map as designed.</figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="x-agid-vision__legend">
+    <p class="x-agid-vision__legend-h" id="x-agid-vision-legend">The twelve steps, as delivered</p>
+    <ol class="x-agid-vision__steps" aria-labelledby="x-agid-vision-legend">
+      <li><span class="x-agid-vision__lab">0+</span></li>
+      <li><span class="visually-hidden">light stripe</span></li>
+      <li><span class="visually-hidden">dense stripe</span></li>
+      <li><span class="x-agid-vision__lab">2.5k+</span></li>
+      <li><span class="visually-hidden">light stripe</span></li>
+      <li><span class="visually-hidden">dense stripe</span></li>
+      <li><span class="x-agid-vision__lab">5k+</span></li>
+      <li><span class="visually-hidden">light stripe</span></li>
+      <li><span class="visually-hidden">dense stripe</span></li>
+      <li><span class="x-agid-vision__lab">7.5k+</span></li>
+      <li><span class="visually-hidden">light stripe</span></li>
+      <li><span class="visually-hidden">dense stripe, to 10k</span></li>
+    </ol>
+    <p class="x-agid-vision__note">Each band of three runs solid, light stripe, dense stripe. The solids carry the band by lightness, and the stripes carry the step.</p>
+  </div>
+</div>
+<script src="assets/aods/dist/aods.js"></script>
+<script src="custom/agid-vision.js"></script>
+<script>(function(){function h(){parent.postMessage({xframe:location.pathname.split('/').pop(),h:document.documentElement.scrollHeight},'*')}
+new ResizeObserver(h).observe(document.body);addEventListener('load',h);h()})();</script>
+</body></html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en"><head>
+<script src="gate-config.js"></script><script src="gate.js"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Résumé · Michael Lombardi</title>
+<meta name="description" content="Résumé of Michael Lombardi, senior UX designer: design systems for people and AI agents.">
+<link rel="stylesheet" href="pp/system.css">
+<style>
+.rs{--accent:#f5c64a;--accent-text:#005167;padding:72px 0 96px}
+.rs-wrap{max-width:62rem;margin-inline:auto;padding-inline:var(--gutter)}
+.rs-head h1{font:800 clamp(2.75rem,7vw,5rem)/.95 var(--f-display);letter-spacing:-.04em;margin:0 0 var(--s3)}
+.rs-tag{font:600 1.125rem/1.5 var(--f-ui);margin:0;color:var(--ink)}
+.rs-tag--2{font-weight:400;color:var(--ink-2,#4a3a30)}
+.rs-contact{font:400 1rem/1.6 var(--f-small);margin:var(--s3) 0 0}
+.rs-contact a{color:var(--accent-text);display:inline-block;padding:10px 0}
+.rs-dl{margin-top:var(--s4)}
+.rs-sec{display:grid;grid-template-columns:10rem minmax(0,1fr);gap:var(--s3) var(--s5);border-top:2px solid var(--ink);margin-top:var(--s6);padding-top:var(--s3)}
+.rs-sec>h2{font:600 .875rem/1.5 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-text);margin:0}
+.rs-body p{margin:0 0 var(--s2);font:400 1.0625rem/1.65 var(--f-body);max-width:46rem}
+.rs-body ul{margin:0 0 var(--s3);padding-left:1.1em;max-width:46rem}
+.rs-body li{font:400 1rem/1.6 var(--f-body);margin-bottom:.45em}
+.rs-focus{list-style:none;padding:0!important;border-left:4px solid var(--accent);padding-left:var(--s3)!important}
+.rs-role{margin-bottom:var(--s5);break-inside:auto}
+.rs-role__h{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 var(--s3);align-items:baseline;margin-bottom:var(--s2)}
+.rs-role h3{font:700 1.25rem/1.3 var(--f-ui);margin:0;grid-column:1}
+.rs-org{grid-column:1;margin:0!important;font:400 1rem/1.5 var(--f-ui)!important}
+.rs-date{font:400 .875rem/1.5 var(--f-small);color:var(--ink-2,#4a3a30);white-space:nowrap}
+.rs-role__h .rs-date{grid-column:2;grid-row:1;margin:0!important}
+.rs-role h4{font:600 1.0625rem/1.4 var(--f-ui);margin:var(--s3) 0 var(--s1);display:flex;flex-wrap:wrap;justify-content:space-between;gap:0 var(--s3)}
+.rs-intro{color:var(--ink-2,#4a3a30)}
+.rs-skills{margin:0;max-width:46rem}
+.rs-skills div{margin-bottom:var(--s2)}
+.rs-skills dt{font:600 1rem/1.5 var(--f-ui)}
+.rs-skills dd{margin:0;font:400 .9375rem/1.6 var(--f-body)}
+.rs-ref{color:var(--ink-2,#4a3a30)}
+@media (max-width:760px){.rs-sec{grid-template-columns:1fr}.rs-role__h{grid-template-columns:1fr}.rs-role__h .rs-date{grid-column:1;grid-row:auto}}
+@media print{
+  @page{size:Letter;margin:.55in .6in}
+  html,body{background:#fff!important;color:#000}
+  .sh,.sm,.skip,.rs-dl{display:none!important}
+  .rs{padding:0}.rs-wrap{max-width:none;padding:0}
+  .rs-head h1{font-size:26pt;margin-bottom:4pt}
+  .rs-tag{font-size:9.5pt}.rs-contact{font-size:9pt;margin-top:4pt}.rs-contact a{color:#000;padding:0;text-decoration:none}
+  .rs-sec{grid-template-columns:1fr;gap:2pt;margin-top:9pt;padding-top:4pt;border-top:1pt solid #000}
+  .rs-sec>h2{font-size:8.5pt;color:#000}
+  .rs-body p,.rs-body li,.rs-skills dd{font-size:9.4pt;line-height:1.38;max-width:none}
+  .rs-body ul{max-width:none;margin-bottom:5pt}.rs-body li{margin-bottom:1.5pt}
+  .rs-role{margin-bottom:7pt}.rs-role h3{font-size:10.5pt}.rs-org{font-size:9.4pt!important}.rs-date{font-size:8.5pt;color:#000}
+  .rs-role h4{font-size:9.8pt;margin:5pt 0 2pt}.rs-role__h{margin-bottom:2pt;break-after:avoid}
+  .rs-skills dt{font-size:9.4pt}.rs-skills div{margin-bottom:3pt}
+  .rs-focus{border-left:2pt solid #000}
+  h3,h4{break-after:avoid}li{break-inside:avoid}
+  @page{margin:.42in .55in}
+  .rs-head h1{font-size:22pt}.rs-sec{margin-top:6pt;padding-top:3pt}.rs-role{margin-bottom:5pt}.rs-role h4{margin:3pt 0 1pt}
+  .rs-body p{margin-bottom:3pt}.rs-body p,.rs-body li,.rs-skills dd,.rs-skills dt{font-size:8.9pt;line-height:1.27}
+  .rs-skills dt,.rs-skills dd{display:inline}.rs-skills dt::after{content:': '}.rs-skills div{margin-bottom:2.5pt;font-size:9pt;line-height:1.34}
+  .rs-focus{margin-top:3pt}.rs-intro{margin-bottom:2pt}
+}
+</style><link rel="stylesheet" href="pp/chrome.css">
+</head>
+<body id="top">
+<header class="gh gh--std">
+  <a class="gh__skip" href="#main">Skip to content</a>
+  <div class="gh__strip" aria-hidden="true"></div>
+  <div class="gh__bar">
+    <div class="gh__who"><a class="gh__home" href="index.html" aria-label="Story" title="Story"><img src="assets/hatlamp-mark@2x.png" srcset="assets/hatlamp-mark@2x.png 2x, assets/hatlamp-mark@3x.png 3x" width="79" height="101" alt=""></a><button class="gh__btn gh__name" type="button" aria-expanded="false" aria-controls="gh-name">Michael Lombardi</button>
+      <div class="gh__panel gh__panel--who" id="gh-name"><ul><li><span class="gh__k">Email</span><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></li><li><span class="gh__k">Résumé</span><a href="resume.html" aria-current="page">View the résumé</a></li></ul></div></div>
+    <button class="gh__toggle" type="button" aria-expanded="false" aria-controls="gh-nav">Menu<svg class="gh__io" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/></svg><svg class="gh__ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2"/></svg></button>
+    <nav class="gh__nav" id="gh-nav" aria-label="Site"><ul class="gh__list">
+      <li><a class="gh__link" href="index.html">Story</a></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-featured">Featured</button><span class="gh__glabel">Featured</span><div class="gh__panel" id="gh-featured"><p class="gh__ph">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-cases">Case Studies</button><span class="gh__glabel">Case Studies</span><div class="gh__panel" id="gh-cases"><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-snacks">Snacks</button><span class="gh__glabel">Snacks</span><div class="gh__panel" id="gh-snacks"><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div></li>
+      <li><a class="gh__link" href="resume.html" aria-current="page"><span class="gh__star" aria-hidden="true"><img src="assets/hatlamp-star@2x.png" srcset="assets/hatlamp-star@2x.png 2x, assets/hatlamp-star@3x.png 3x" width="27" height="45" alt=""></span>Résumé</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="main" class="rs"><div class="rs-wrap">
+<header class="rs-head"><h1>Michael Lombardi</h1><p class="rs-tag">Senior UX Designer | Product Design and Design Systems | Human-Computer Interaction (HCI)</p><p class="rs-tag rs-tag--2">Design systems legible to people and AI agents | Tokens, theming, and automated checks | Section 508 and WCAG 2.1 AA</p>
+<p class="rs-contact"><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a> <span aria-hidden="true">·</span> Houston, Texas <span aria-hidden="true">·</span> <a href="https://linkedin.com/in/michaelmccabelombardi" target="_blank" rel="noopener">linkedin.com/in/michaelmccabelombardi<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a> <span aria-hidden="true">·</span> <a href="https://behance.net/puddnsnacks" target="_blank" rel="noopener">behance.net/puddnsnacks<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></p></header>
+<section class="rs-sec" aria-labelledby="rs-sum"><h2 id="rs-sum">Summary</h2><div class="rs-body">
+<p>Senior UX designer specializing in design system authoring and management. After around 20 years in human-computer interaction (HCI), I have come to believe that just about everything is better when there are rules to preserve its identity.</p>
+<p>I have managed design systems for Google Meet and Duo and spent a three-month contract getting YouTube&#x27;s system neat and orderly. I created a modular marketing design system for the redesign of Gillette.com and built another for joy+glee from scratch. I have worked on three AAA video games spanning Xbox, PlayStation, and PC, creating menu architecture, uniting UX across platforms, and contributing heavily to defining the brand.</p>
+<p>I now author design systems specifically for AI agents, keeping their builds predictable and consistent through measurable standards and rules enforced by gates.</p>
+<ul class="rs-focus"><li>AI-consumable design systems. Contracts, tokens, and accessibility requirements published as typed data an agent reads, not prose it interprets.</li><li>Governance as gates, not documents. Rules written as automated checks that fail a build.</li><li>Agent evaluation. Blind trials that measure whether an agent obeys the system, scored against a sequestered answer key.</li></ul></div></section>
+<section class="rs-sec" aria-labelledby="rs-exp"><h2 id="rs-exp">Experience</h2><div class="rs-body">
+<article class="rs-role"><div class="rs-role__h"><h3>Lead UX/UI Designer</h3><p class="rs-org">Radiant Digital / DoJo Design | Remote, USA</p><p class="rs-date">September 2022 – October 2026</p></div>
+<p class="rs-intro">Lead or sole UX designer on every engagement: federal, telecom, healthcare, and consumer. The contract scope was design and theming. Engineering owned component implementation and the USWDS base, and I owned the tokens, contracts, rules, and documentation they built against.</p>
+<h4>A federal department – Design System Lead <span class="rs-date">October 2025 – September 2026</span></h4>
+<ul><li>Rebuilt the federal design system as a contract an AI build agent reads, with three tiers of tokens, components, patterns, and page templates published as typed data instead of prose. The agent gets the component, the variant, and the properties to set. Nothing is left to infer.</li><li>Independently rebuilt the federal design system in about two weeks as an AI-optimized version that went further than the original, which took two quarters with an engineer coding my designs.</li><li>Designed the component library in Figma and established the shared rules that unite it.</li><li>Wrote the system&#x27;s rules as automated checks that run at build time and on every finished page, so a broken rule fails the build instead of surviving review.</li><li>Strengthened guardrails with gates that stop a release when a rule is broken.</li><li>Developed sealed build-agent sessions as a gate for version publishing.</li><li>Designed the blind trial method that measures whether agents obey the system: seeded content packs, a sequestered answer key, and fresh agent sessions. In three head-to-head comparisons, the contract-first system won on both criteria.</li><li>Delivered the prototype to engineering, whose independent evaluation recommended adopting its tokens, contracts, rules, and documentation approach and retargeting its components.</li><li>Specified the conversational component family for AI chat and agent experiences, benchmarked against other design systems, with a visual rule to alert users that they are dealing with AI.</li><li>Wrote the rules for how an AI agent conducts itself in the interface: it takes turns, is proactive in service of being productive, shows its work, and asks before it acts.</li><li>Moved the system&#x27;s source of truth from Figma to machine-readable contracts, keeping Figma as a sketchpad with a layer generated from the source code, so edits start from fact.</li></ul>
+<h4>Universal Destinations and Experiences – Design Systems</h4>
+<ul><li>Added a theme layer of color tokens, logo containers, imagery, and decorative rules driven by destination, park, land, attraction, event, or season, so one layout serves every property. Variants come from hiding optional modules and flexing repeatable groups, never from new templates.</li><li>Built the Universal Email Design System: eight base templates assembled from elements, layout modules, and content blocks, with a content category locked to each slot so every email of a type does the same job. It replaced a library of rigid one-offs the team called a “sea of blue.”</li></ul>
+<h4>Selected Client Engagements</h4>
+<ul><li>While extending Verizon&#x27;s design system, adapted existing Verizon icons into a stateful topology icon set and interface icons that let every hardware and software status read on one map.</li><li>Designed the heat map for a federal data portal so its legend reads under all seven color-vision deficiencies, with pattern fills that carry the data without relying on hue.</li></ul>
+</article>
+<article class="rs-role"><div class="rs-role__h"><h3>Designer</h3><p class="rs-org">Independent Projects | qr.puddnsnacks.com and fonts.puddnsnacks.com</p><p class="rs-date">2026 – Present</p></div>
+<ul><li>Turned a silent Tokens Studio Pro import failure in Figma (7 of 80 tokens dropped and 2 corrupted without warning) into a naming rule the federal system later enforced.</li></ul>
+</article>
+<article class="rs-role"><div class="rs-role__h"><h3>Product Designer (Visual Designer III), Video Communications (Meet and Duo)</h3><p class="rs-org">Google via ProUnlimited | Remote, USA</p><p class="rs-date">March 2021 – August 2022</p></div>
+<ul><li>Created and maintained the Google Meet and Duo design system library, built to Material Design standards: every visual element and user flow pattern across web, iOS, Android, TV, and dedicated conference-call hardware.</li></ul>
+</article>
+<article class="rs-role"><div class="rs-role__h"><h3>Senior UX/UI Designer</h3><p class="rs-org">MMI Agency | Houston, TX</p><p class="rs-date">May 2019 – November 2020</p></div>
+<ul><li>Led the Gillette.com relaunch that moved content management to modular blocks for the Procter &amp; Gamble grooming team, replacing a static page system so pages could be assembled from reusable parts instead of rebuilt one at a time.</li></ul>
+</article>
+<article class="rs-role"><div class="rs-role__h"><h3>Senior UI/UX Designer</h3><p class="rs-org">Six Foot, LLC | Houston, TX</p><p class="rs-date">January 2017 – May 2019</p></div>
+<ul><li>Designed more than 100 icons for the menu and HUD, each drawn three times and optimized for the size at which it was displayed.</li></ul>
+</article>
+<article class="rs-role"><div class="rs-role__h"><h3>Senior Visual Designer</h3><p class="rs-org">Motiga, Inc. | Seattle, WA</p><p class="rs-date">May 2014 – January 2017</p></div>
+<ul><li>Co-wrote the marketing style guide, whose rules kept the marketing recognizable: one orange call to action per screen, uppercase headlines, and sections cut by a diagonal slash. Colors, type, icons, components, and splash art lived in one in-app library.</li></ul>
+</article>
+<article class="rs-role"><div class="rs-role__h"><h3>Lead Designer, Senior Creative</h3><p class="rs-org">BlueWater Technologies | Southfield, MI</p><p class="rs-date">September 2011 – April 2014</p></div>
+<ul><li>Designed the UX, UI, and look and feel of web, Android, and iOS software behind experiential campaigns for Ford, General Motors, Chrysler, Mazda USA, Coca-Cola, Samsung, and AT&amp;T.</li></ul>
+</article>
+<article class="rs-role"><div class="rs-role__h"><h3>Senior UX/UI Designer</h3><p class="rs-org">Reliance Network | Seattle, WA</p><p class="rs-date">January 2004 – January 2011</p></div>
+<ul><li>Sole designer for real estate web platforms serving more than 50,000 agents at RE/MAX, Prudential, Coldwell Banker, and Keller Williams, with traffic measured in the millions.</li></ul>
+</article>
+</div></section>
+<section class="rs-sec" aria-labelledby="rs-sk"><h2 id="rs-sk">Skills</h2><div class="rs-body"><dl class="rs-skills">
+<div><dt>Design Systems</dt><dd>Component libraries, design tokens, three-tier token architecture, typography, spacing and color systems, visual design, interaction patterns, component contracts, documentation standards, contribution models, governance frameworks, design-to-code fidelity, single source of truth, theming, and multi-brand design systems.</dd></div>
+<div><dt>Figma</dt><dd>Variants, auto layout, variables and modes, design tokens, publishing and managing shared libraries, and Sketch-to-Figma migration.</dd></div>
+<div><dt>Accessibility</dt><dd>Inclusive design, Section 508, WCAG 2.1 AA, WCAG 2.2 accessibility lints in design systems, screen reader order, keyboard interaction, color contrast, and color-vision-safe data visualization.</dd></div>
+<div><dt>AI</dt><dd>AI tools throughout the design and build process, AI-consumable design systems, conversational and agentic UI patterns, machine-readable specifications in JSON and CSS custom properties, AI build-agent evaluation (evals), automated gates and lint rules, and prototyping with AI coding agents, including Claude Code.</dd></div>
+<div><dt>Platforms and Tools</dt><dd>Figma, USWDS, front-end code built with AI coding agents and edited by hand when needed (HTML, CSS, JavaScript, Lit web components), Adobe Creative Suite, Jira, Agile, and Scrum.</dd></div>
+<div><dt>Research and Interaction</dt><dd>Human-centered design, human-computer interaction (HCI), user research, personas, journey mapping, information architecture, usability testing, A/B testing, interaction design, stakeholder interviews, and prototyping.</dd></div>
+</dl></div></section>
+<section class="rs-sec" aria-labelledby="rs-ed"><h2 id="rs-ed">Education</h2><div class="rs-body"><p><b>Full Sail University | Winter Park, FL</b><br>Associate&#x27;s degree in Digital Arts and Design, December 2001.</p><p class="rs-ref">References available on request.</p></div></section>
+<p class="rs-dl"><a class="btn" href="pp/Michael-Lombardi-resume.pdf" download>Download the PDF</a></p>
+</div></main>
+<footer class="gf gf--std">
+  <div class="gf__wrap">
+    <div class="gf__map">
+      <div class="gf__me" id="contact" tabindex="-1"><p class="gf__nm">Michael Lombardi</p><p><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p></div>
+      <nav class="gf__cols" aria-label="Site map">
+        <div class="gf__solo"><p class="gf__h"><a href="index.html">Story</a></p></div>
+        <div><p class="gf__h">Featured</p><p class="gf__sub">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div>
+        <div><p class="gf__h">Case Studies</p><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div>
+        <div><p class="gf__h">Snacks</p><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div>
+        <div class="gf__solo"><p class="gf__h"><a href="resume.html" aria-current="page">Résumé</a></p></div>
+      </nav>
+    </div>
+    <div class="gf__base"><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+<script src="pp/system.js"></script>
+<script src="pp/chrome.js"></script>
+</body></html>

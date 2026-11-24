@@ -1,0 +1,75 @@
+/* AODS reference feature: real captures of the reference in two themes, four views, one switch each. Shell tokens only. */
+.x-aods-reference { display: grid; gap: 16px; container-type: inline-size; container-name: xref; }
+
+/* controls: Theme, View, then the actions on one row when there is room */
+.x-aods-reference__controls { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: end; }
+.x-aods-reference__group { display: grid; gap: 8px; min-width: 0; }
+.x-aods-reference__label { margin: 0; font: 600 13px/1.2 var(--sx-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--grp-ink); }
+.x-aods-reference__flag { font: 400 13px/1 var(--sx-code); letter-spacing: 0; }
+.x-aods-reference__links { list-style: none; margin: 0 0 0 auto; padding: 0 0 4px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+.x-aods-reference__links .s-cta--quiet { min-height: 44px; }
+
+.x-aods-reference__now { margin: 0; max-width: var(--sx-measure); font: 400 16px/1.5 var(--sx-body); color: var(--sx-ink-2); min-height: 1.5em; }
+.x-aods-reference__now-name { font-family: var(--sx-ui); font-weight: 600; color: var(--sx-ink); }
+
+/* the stage: the capture is a link to the live reference at the current theme and view */
+.x-aods-reference__stage { display: grid; gap: 24px; align-items: start; }
+.x-aods-reference__pane { display: grid; gap: 10px; min-width: 0; }
+.x-aods-reference__shot { display: block; color: inherit; text-decoration: none; }
+.x-aods-reference__shot > .x-aods-reference__desk { display: block; }
+.x-aods-reference__shot .s-frame__bar { display: flex; }
+.x-aods-reference__shot .s-frame__screen { display: block; }
+.x-aods-reference__shot:hover .x-aods-reference__desk { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--grp-mark); }
+.x-aods-reference__desk { transition: transform .12s, box-shadow .12s; }
+.x-aods-reference__img { display: block; width: 100%; height: auto; background: var(--sx-sunken); }
+.x-aods-reference__shot > .x-aods-reference__phone { display: none; width: 100%; box-sizing: border-box; }
+.x-aods-reference__phone .x-aods-reference__img { --iw: 100%; }
+
+/* Contract view only: the two pane heads and the spec as JSON */
+.x-aods-reference__panehead { display: none; margin: 0; font: 600 13px/1.2 var(--sx-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--grp-ink); }
+.x-aods-reference__contract { display: none; min-width: 0; gap: 10px; align-content: start; }
+.x-aods-reference__panenote { margin: 0; font: 400 15px/1.45 var(--sx-body); color: var(--sx-ink-2); max-width: 34em; }
+.x-aods-reference__json { margin: 0; padding: 16px 18px 20px; max-height: 30rem; overflow: auto; overscroll-behavior: contain; box-sizing: border-box;
+  background: var(--g-color-brand-gray-90); color: var(--g-color-brand-accent-5); border: 2px solid var(--sx-ink); box-shadow: var(--sx-shadow);
+  font: 400 14px/1.6 var(--sx-code); white-space: pre-wrap; overflow-wrap: anywhere; tab-size: 2; }
+.x-aods-reference__ln { display: block; padding-left: 2ch; text-indent: -2ch; }
+.x-aods-reference__ln[data-d="1"] { padding-left: 3ch; }
+.x-aods-reference__ln[data-d="2"] { padding-left: 4ch; }
+.x-aods-reference__ln[data-d="3"] { padding-left: 5ch; }
+.x-aods-reference__k { color: var(--g-color-brand-accent-20); }
+.x-aods-reference__s { color: var(--g-color-brand-gray-10); }
+.x-aods-reference[data-view="contract"] .x-aods-reference__panehead { display: block; }
+.x-aods-reference[data-view="contract"] .x-aods-reference__contract { display: grid; }
+@container xref (min-width: 1000px) {
+  .x-aods-reference[data-view="contract"] .x-aods-reference__stage { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+  .x-aods-reference[data-view="contract"] .x-aods-reference__json { max-height: 27rem; font-size: 13px; }
+}
+@container xref (max-width: 999.98px) {
+  .x-aods-reference[data-view="contract"] .x-aods-reference__json { max-height: 22rem; }
+}
+
+@media (max-width: 767.98px) {
+  .x-aods-reference__shot > .x-aods-reference__desk { display: none; }
+  .x-aods-reference__shot > .x-aods-reference__phone { display: block; }
+  .x-aods-reference__shot { max-width: 280px; margin-inline: auto; width: 100%; }
+  .x-aods-reference__now { order: 3; }
+  .x-aods-reference__stage { order: 2; }
+  .x-aods-reference__controls { gap: 12px; }
+  .x-aods-reference__links { margin-left: 0; padding: 4px 0 0; }
+  .x-aods-reference__json { font-size: 13px; max-height: 24rem !important; }
+}
+@media (max-width: 599.98px) {
+  /* label beside its switch, the four views two by two */
+  .x-aods-reference__controls { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .x-aods-reference__group { grid-template-columns: 3.4rem minmax(0, 1fr); align-items: center; gap: 10px; }
+  .x-aods-reference__group .s-seg { justify-self: start; }
+  .x-aods-reference__group--view .s-seg { justify-self: stretch; }
+  .x-aods-reference .x-aods-reference__group--view .s-seg .s-seg__btn { flex: 1 1 40%; }
+  .x-aods-reference__links { gap: 8px 12px; }
+  .x-aods-reference__links .s-cta:not(.s-cta--quiet) { padding: 0 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .x-aods-reference__desk { transition: none; }
+  .x-aods-reference__shot:hover .x-aods-reference__desk { transform: none; }
+}
+@media print { .x-aods-reference { display: none; } }

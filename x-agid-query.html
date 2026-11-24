@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" data-theme="pds">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script><meta charset="utf-8"><base target="_blank"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Build a query one question at a time</title>
+<link rel="stylesheet" href="assets/type/pds-fonts.css">
+<link rel="stylesheet" href="assets/type/pds-faces.css">
+<link rel="stylesheet" href="assets/type/pds-type.css">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/aods/dist/tokens.css">
+<link rel="stylesheet" href="assets/pds/theme.css">
+<link rel="stylesheet" href="assets/aods/dist/aods.css">
+<link rel="stylesheet" href="assets/pds/layer-tokens.css">
+<link rel="stylesheet" href="assets/pds/layer.css">
+<link rel="stylesheet" href="assets/suite.css">
+<link rel="stylesheet" href="custom/agid-personas.css">
+<link rel="stylesheet" href="custom/agid-query.css">
+<link rel="stylesheet" href="custom/agid-vision.css">
+<style>html,body{margin:0;background:#fff8eb}html{overflow-x:hidden}body{padding:24px;min-height:0;display:block}body>*{max-width:100%;min-width:0;box-sizing:border-box}@media (max-width:520px){body{padding:12px}}</style></head>
+<body class="s-page">
+<div class="x-agid-query" data-x-agid-query>
+  <p class="x-agid-query__hint" id="x-agid-query-hint"><span class="x-agid-query__hint-hover">Step through the query (arrow keys work too).</span><span class="x-agid-query__hint-touch">Tap a step.</span></p>
+  <div class="x-agid-query__steps s-seg s-seg--num s-seg--scroll" role="tablist" aria-labelledby="x-agid-query-hint">
+    <button type="button" class="s-seg__btn" role="tab" id="x-agid-query-t0" aria-controls="x-agid-query-panel" aria-selected="true" data-i="0"><span class="s-seg__n">0</span>Start</button>
+    <button type="button" class="s-seg__btn" role="tab" id="x-agid-query-t1" aria-controls="x-agid-query-panel" aria-selected="false" data-i="1"><span class="s-seg__n">1</span>Data set</button>
+    <button type="button" class="s-seg__btn" role="tab" id="x-agid-query-t2" aria-controls="x-agid-query-panel" aria-selected="false" data-i="2"><span class="s-seg__n">2</span>Years</button>
+    <button type="button" class="s-seg__btn" role="tab" id="x-agid-query-t3" aria-controls="x-agid-query-panel" aria-selected="false" data-i="3"><span class="s-seg__n">3</span>Geography</button>
+    <button type="button" class="s-seg__btn" role="tab" id="x-agid-query-t4" aria-controls="x-agid-query-panel" aria-selected="false" data-i="4"><span class="s-seg__n">4</span>States</button>
+    <button type="button" class="s-seg__btn" role="tab" id="x-agid-query-t5" aria-controls="x-agid-query-panel" aria-selected="false" data-i="5"><span class="s-seg__n">5</span>Elements</button>
+    <button type="button" class="s-seg__btn" role="tab" id="x-agid-query-t6" aria-controls="x-agid-query-panel" aria-selected="false" data-i="6"><span class="s-seg__n">6</span>Results</button>
+  </div>
+  <p class="s-scrolls-cue">Scroll sideways for more</p>
+  <div class="x-agid-query__panel" id="x-agid-query-panel" role="tabpanel" aria-labelledby="x-agid-query-t0" tabindex="0">
+    <p class="x-agid-query__say" aria-live="polite"><strong>Start.</strong> Three filters wait on the rail: data set, years and geography type. Run Query stays gray until there is something to run.</p>
+    <figure class="x-agid-query__fig">
+    <a class="x-agid-query__frame" href="img/agid/mock-start.jpg" data-viewer data-full="img/agid/mock-start.jpg">
+      <picture>
+        <source media="(max-width: 767px)" srcset="img/agid/mock-start-phone.jpg">
+        <img src="img/agid/mock-start.jpg" width="1600" height="682" alt="Data Explorer mock, empty: a gray left rail titled Data Explorer with Data Set(s), Year(s) and Geography Type buttons and a grayed-out Run Query, beside a large intro panel.">
+      </picture>
+      <span class="x-agid-query__full">View full size</span>
+    </a>
+    <figcaption class="visually-hidden">Start. The empty rail: data set, years and geography type, with Run Query gray. Design mock.</figcaption>
+    </figure>
+  </div>
+</div>
+<script src="assets/aods/dist/aods.js"></script>
+<script src="custom/agid-query.js"></script>
+<script>(function(){function h(){parent.postMessage({xframe:location.pathname.split('/').pop(),h:document.documentElement.scrollHeight},'*')}
+new ResizeObserver(h).observe(document.body);addEventListener('load',h);h()})();</script>
+</body></html>

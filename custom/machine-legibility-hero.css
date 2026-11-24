@@ -1,0 +1,23 @@
+/* How a machine reads · hero: one record line, before and after, as real text */
+.x-machine-legibility-hero *{font-variant-ligatures:none}
+.x-machine-legibility-hero{margin:0; display:grid; gap:0; border:2px solid var(--sx-ink); box-shadow:var(--sx-shadow); background:var(--sx-paper)}
+.x-machine-legibility-hero__row{padding:clamp(18px,3vw,36px) clamp(16px,3.4vw,44px); min-width:0}
+.x-machine-legibility-hero__row--before{background:var(--sx-paper)}
+.x-machine-legibility-hero__row--after{background:var(--g-color-brand-primary-90); color:var(--g-color-brand-accent-10); border-top:2px solid var(--sx-ink)}
+.x-machine-legibility-hero__label{margin:0 0 12px; font-family:var(--sx-ui); font-size:15px; line-height:1.2; letter-spacing:.02em; color:var(--sx-ink-2)}
+.x-machine-legibility-hero__row--after .x-machine-legibility-hero__label{color:var(--g-color-brand-accent-20)}
+.x-machine-legibility-hero__label span{display:inline-block; margin-right:10px; padding:3px 8px; font-family:var(--sx-code); font-size:12px; letter-spacing:.08em; text-transform:uppercase; border:1.5px solid currentColor}
+.x-machine-legibility-hero__line{margin:0; font-family:var(--sx-code); font-size:clamp(17px,2.35vw,31px); line-height:1.5; color:var(--sx-ink); overflow-wrap:anywhere}
+.x-machine-legibility-hero__line > span{display:inline-block}
+.x-machine-legibility-hero__row--after .x-machine-legibility-hero__line{color:var(--g-color-brand-gray-0)}
+.x-machine-legibility-hero__line mark{background:var(--g-color-brand-accent-15); color:var(--g-color-brand-primary-70); padding:0 .08em; box-shadow:inset 0 -3px 0 var(--g-color-brand-primary-50)}
+.x-machine-legibility-hero__count{margin:14px 0 0; font-family:var(--sx-ui); font-size:17px; color:var(--sx-ink-2)}
+.x-machine-legibility-hero__count b{font-family:var(--sx-display); font-size:30px; line-height:1; margin-right:6px; color:var(--sx-ink)}
+.x-machine-legibility-hero__row--after .x-machine-legibility-hero__count{color:var(--g-color-brand-accent-20)}
+.x-machine-legibility-hero__row--after .x-machine-legibility-hero__count b{color:var(--g-color-brand-accent-40)}
+.x-machine-legibility-sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+@media (max-width:479px){
+  .x-machine-legibility-hero__row--after .x-machine-legibility-hero__line{font-size:clamp(13px,4.1vw,18px)}
+  .x-machine-legibility-hero__row--after .x-ml-key{white-space:nowrap}
+  .x-machine-legibility-hero__row--before .x-machine-legibility-hero__line{font-size:clamp(14px,4.3vw,19px); overflow-wrap:normal}
+}

@@ -1,0 +1,77 @@
+/* Levels: the shell's numbered segmented control for five levels, one panel per level with its real screen, and a Next level button.
+   Levels above the chosen one read as the trail (ink, underlined); the chosen one is bold with a bar; levels below are quiet. */
+.x-verizon-levels {
+  container-type: inline-size;
+  display: grid; gap: var(--s-space-md);
+  padding-bottom: var(--s-space-lg);
+  color: var(--sx-ink);
+  font-family: var(--sx-body);
+}
+.x-verizon-levels__label {
+  margin: 0; font-family: var(--sx-ui); font-size: var(--s-type-ui-sm-size);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--grp-ink, var(--sx-ink-2));
+}
+.x-verizon-levels__how { margin: 0; font-family: var(--sx-ui); font-size: var(--s-type-ui-md-size); color: var(--sx-ink-2); }
+
+/* ---- the level control: the shell's numbered segmented control (.s-seg--num); only placement here ---- */
+.x-verizon-levels__bar { padding: var(--s-space-2xs) 0; }
+
+/* ---- the panels ---- */
+.x-verizon-levels__panel { display: grid; gap: var(--s-space-lg); grid-template-columns: minmax(0, 1fr); align-items: start; padding-top: var(--s-space-sm); }
+.x-verizon-levels__panel[hidden] { display: none; }
+.x-verizon-levels__panel:focus-visible { outline: var(--c-page-focus-width, 3px) solid var(--c-page-focus-ring, var(--sx-focus)); outline-offset: 4px; }
+@container (min-width: 640px) {
+  .x-verizon-levels__panel { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .x-verizon-levels__nav { grid-column: 1 / -1; }
+}
+.x-verizon-levels__step {
+  margin: 0 0 var(--s-space-2xs);
+  font-family: var(--sx-ui); font-size: var(--s-type-ui-sm-size); letter-spacing: 0.06em; text-transform: uppercase; color: var(--sx-ink-3);
+}
+.x-verizon-levels__title { margin: 0 0 var(--s-space-sm); font-family: var(--sx-display); font-size: var(--s-type-heading-sm-size); line-height: 1.15; }
+.x-verizon-levels__facts { margin: 0; display: grid; gap: var(--s-space-2xs); }
+.x-verizon-levels__facts dt {
+  font-family: var(--sx-ui); font-size: var(--s-type-ui-sm-size); letter-spacing: 0.04em; text-transform: uppercase; color: var(--sx-ink-2);
+  margin-top: var(--s-space-xs);
+}
+.x-verizon-levels__facts dd { margin: 0; font-size: var(--s-type-body-md-size); line-height: 1.5; }
+.x-verizon-levels__pic { display: grid; gap: var(--s-space-xs); margin: 0; }
+.x-verizon-levels__pic a { display: block; cursor: zoom-in; }
+.x-verizon-levels__pic a:focus-visible { outline: var(--c-page-focus-width, 3px) solid var(--c-page-focus-ring, var(--sx-focus)); outline-offset: 3px; }
+.x-verizon-levels__nav { margin: 0; }
+.x-verizon-levels__next {
+  display: inline-flex; align-items: center; gap: 0.4em; min-height: 44px; padding: 0 var(--s-space-md);
+  border: 2px solid var(--sx-ink); border-radius: 0; background: var(--sx-paper); color: var(--sx-ink); cursor: pointer;
+  font-family: var(--sx-ui); font-size: var(--s-type-ui-md-size); font-weight: 700; box-shadow: var(--sx-shadow);
+}
+.x-verizon-levels__next:hover { background: var(--sx-ink); color: var(--sx-paper); }
+.x-verizon-levels__next:focus-visible { outline: var(--c-page-focus-width, 3px) solid var(--c-page-focus-ring, var(--sx-focus)); outline-offset: 3px; }
+.x-verizon-levels:not([data-ready]) .x-verizon-levels__nav { display: none; }
+.x-verizon-levels__pic img { display: block; width: 100%; height: auto; border: 2px solid var(--sx-ink); box-shadow: var(--sx-shadow); }
+.x-verizon-levels__pic img + img { margin-top: var(--s-space-xs); }
+.x-verizon-levels__src { margin: var(--s-space-xs) 0 0; font-family: var(--sx-caption); font-size: var(--s-type-ui-sm-size); color: var(--sx-ink-2); }
+.x-verizon-levels__needs {
+  display: grid; align-content: center; gap: var(--s-space-2xs); aspect-ratio: 16 / 10;
+  padding: var(--s-space-md); border: 2px dashed var(--sx-line-strong); background: var(--sx-paper);
+  font-family: var(--sx-ui); font-size: var(--s-type-ui-md-size); color: var(--sx-ink-2);
+}
+.x-verizon-levels__needs span { font-size: var(--s-type-ui-xs-size); letter-spacing: 0.08em; text-transform: uppercase; color: var(--grp-ink, var(--sx-ink)); }
+
+/* phones */
+@container (max-width: 520px) {
+  .x-verizon-levels__needs { aspect-ratio: auto; min-height: 120px; }
+}
+
+/* no script: every panel shows, the instruction hides */
+.x-verizon-levels:not([data-ready]) .x-verizon-levels__how { display: none; }
+@media print {
+  .x-verizon-levels__how, .x-verizon-levels__bar, .x-verizon-levels__nav { display: none; }
+  .x-verizon-levels__panel[hidden] { display: grid; }
+}
+
+.x-verizon-levels__pic picture { display: block; }
+
+/* phones: the level control stays under the site header while the block is in view */
+@media (max-width: 767px) {
+  .x-verizon-levels__bar { position: sticky; top: 53px; z-index: 5; background: var(--sx-ground, var(--sx-paper)); }
+}

@@ -1,0 +1,996 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Universal Email Design System · Michael Lombardi</title>
+<meta name="description" content="An email design system for Universal Orlando Resort. Every block starts blank, and the slot it sits in gives it one of eight jobs. Lead designer: Michael Lombardi.">
+<script>document.documentElement.className='js'</script>
+<style>
+/* Universal Email design system · round two · shared by index.html and RATIONALE.html */
+@font-face{font-family:"Afacad Flux";src:url("universal-email/assets/fonts/afacad-flux-variable.woff2") format("woff2");font-weight:100 1000;font-display:swap}
+@font-face{font-family:"Fraunces";src:url("universal-email/assets/fonts/fraunces-italic-variable.woff2") format("woff2");font-style:italic;font-weight:100 900;font-display:swap}
+@font-face{font-family:"Sarabun";src:url("universal-email/assets/fonts/sarabun-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Sarabun";src:url("universal-email/assets/fonts/sarabun-600.woff2") format("woff2");font-weight:600;font-display:swap}
+
+:root{
+  --page:#F3F5F8; --sheet:#fff; --ink:#131722; --ink2:#454E5E; --rule:#D5DAE3;
+  --navy:#16226B; --blue:#0A5FD6; --blue-soft:#E6F0FE; --night:#0E1230;
+  --c-blue:#8DB4F2; --f-blue:#D3E3FB;
+  --c-mint:#6FD3A4; --f-mint:#CFF5E2;
+  --c-pink:#F2A3AE; --f-pink:#FBDDE1;
+  --c-yellow:#DDBF45; --f-yellow:#FBF0C0;
+  --c-lilac:#B79BEF; --f-lilac:#E7DCFB;
+  --c-peach:#EEA772; --f-peach:#FDE3CE;
+  --c-cyan:#6CC8E2; --f-cyan:#CBEFF8;
+  --head:"Afacad Flux","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Sarabun","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --quote:"Fraunces",Georgia,serif;
+  --wrap:1200px; --gut:24px; --bar:48px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(var(--bar) + 20px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font:400 18px/1.6 var(--body);overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3,h4,p,figure,blockquote,ul,ol,dl,dd{margin:0;padding:0}
+ul,ol{list-style:none}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
+.on-dark :focus-visible,.band-blue :focus-visible,.site-foot :focus-visible{outline-color:#fff}
+.wrap{max-width:calc(var(--wrap) + 2*var(--gut));margin:0 auto;padding:0 var(--gut)}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;z-index:50;font:600 16px var(--head)}
+.skip:focus{top:8px}
+[hidden]{display:none!important}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* site header */
+.site-head{background:var(--sheet);border-bottom:1px solid var(--rule)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:52px;flex-wrap:wrap}
+.who{font:700 18px/1.2 var(--head);color:var(--ink);text-decoration:none;padding:12px 0;display:inline-flex;gap:10px;align-items:baseline}
+.who span{font-weight:400;color:var(--ink2);font-size:16px}
+.site-nav ul{display:flex;gap:4px;flex-wrap:wrap}
+.site-nav a{display:block;padding:12px 10px;font:500 17px/1.2 var(--head);color:var(--ink);text-decoration:none;border-radius:6px}
+.site-nav a:hover{background:var(--blue-soft)}
+.site-nav a[aria-current]{font-weight:800;box-shadow:inset 0 -3px 0 var(--blue)}
+
+/* the stack: in-page wayfinding in his block-stack manner */
+.stack{position:sticky;top:0;z-index:30;background:rgba(243,245,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.stack .wrap{display:flex;align-items:center;gap:10px;height:var(--bar)}
+.stack__home{flex:none;font:700 15px/1 var(--head);color:var(--ink);text-decoration:none;padding:9px 12px 9px 8px;border-radius:8px;white-space:nowrap;border-right:1px solid var(--rule);border-radius:0;margin-right:2px}
+.stack__home:hover{color:var(--blue)}
+.stack ol{min-width:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:6px 2px;flex:1;scroll-behavior:smooth}
+.stack ol::-webkit-scrollbar{display:none}
+.stack li{flex:none}
+.stack li a{display:block;padding:6px 12px;min-height:32px;border-radius:9px;border:2px solid var(--c,#8DB4F2);background:var(--f,#D3E3FB);color:var(--ink);font:600 15px/1.15 var(--head);text-decoration:none;white-space:nowrap}
+.stack li a:hover{background:#fff}
+.stack li a[aria-current]{background:#fff;box-shadow:0 0 0 2px var(--c)}
+.k-blue{--c:var(--c-blue);--f:var(--f-blue)}.k-mint{--c:var(--c-mint);--f:var(--f-mint)}.k-pink{--c:var(--c-pink);--f:var(--f-pink)}
+.k-yellow{--c:var(--c-yellow);--f:var(--f-yellow)}.k-lilac{--c:var(--c-lilac);--f:var(--f-lilac)}.k-peach{--c:var(--c-peach);--f:var(--f-peach)}.k-cyan{--c:var(--c-cyan);--f:var(--f-cyan)}
+
+/* type */
+h1,h2,h3{font-family:var(--head);font-weight:800;letter-spacing:-.015em;line-height:1.02}
+h2{font-size:clamp(34px,4.4vw,58px);margin-bottom:22px;text-wrap:balance}
+h3{font-size:clamp(24px,2.4vw,30px);line-height:1.12;margin-bottom:12px}
+.lede{font-size:clamp(19px,1.6vw,22px);line-height:1.5}
+p+p{margin-top:14px}
+.tab{display:inline-block;font:700 14px/1 var(--head);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--navy);padding:8px 12px;border-radius:6px 6px 6px 0;margin-bottom:18px}
+.src{display:block;font:400 14px/1.4 var(--body);color:var(--ink2);margin-top:8px;font-style:normal}
+.q{font:italic 400 clamp(20px,1.9vw,25px)/1.36 var(--quote);color:var(--ink)}
+.q--s{font-size:18px;line-height:1.42}
+section{padding:72px 0}
+.row{display:grid;grid-template-columns:minmax(0,640px) minmax(0,1fr);gap:28px 76px;align-items:start}
+
+/* margin card on a leader line: his blueprint device */
+.card{position:relative;background:var(--sheet);border:2px solid var(--c);border-radius:14px;padding:20px 22px;margin-top:6px}
+.card::before{content:"";position:absolute;left:-78px;top:34px;width:76px;height:2px;background:var(--c)}
+.card::after{content:"";position:absolute;left:-86px;top:27px;width:16px;height:16px;border-radius:50%;background:var(--c)}
+.card h3,.card .card__t{font:700 17px/1.2 var(--head);letter-spacing:0;margin-bottom:10px}
+.card li{position:relative;padding-left:16px;font-size:16px;line-height:1.45;margin-top:6px}
+.card li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--c)}
+
+/* figures: his pages as sheets */
+.sheet{background:var(--sheet);border:1px solid var(--rule);border-radius:16px;padding:22px;margin-top:32px}
+.sheet__bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.sheet__name{font:600 15px/1.3 var(--head);color:var(--ink2)}
+figcaption{font-size:16px;line-height:1.5;color:var(--ink2);margin-top:14px;max-width:70ch}
+figcaption b{color:var(--ink);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:9px 16px;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 16px/1.1 var(--head);text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--ink);color:#fff}
+.btn--pri{background:var(--ink);color:#fff}
+.btn--pri:hover{background:var(--blue);border-color:var(--blue)}
+.btn--s{min-height:44px;font-size:15px;border-width:1.5px}
+.on-dark .btn{border-color:#fff;color:#fff}.on-dark .btn:hover{background:#fff;color:var(--night)}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.only-narrow{display:none}
+/* hero */
+.hero{padding:28px 0 0}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) 644px;gap:40px;align-items:start}
+.hero__txt{padding-top:26px;min-width:0}
+.kick{font:700 15px/1.3 var(--head);letter-spacing:.07em;text-transform:uppercase;color:var(--navy);margin-bottom:14px}
+h1{font-size:clamp(60px,9vw,132px);line-height:.9;margin:0 0 26px -.04em}
+h1 span{display:block}
+.hero .lede{max-width:33em}
+.meta{font:600 16px/1.4 var(--head);color:var(--ink2);margin-top:18px}
+.hero__cap{font-size:15px;line-height:1.5;color:var(--ink2);margin-top:22px;padding-left:14px;border-left:3px solid var(--blue);max-width:34em}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.pair figure{position:relative;padding-top:30px}
+.pair img{width:100%;border-radius:4px;box-shadow:0 1px 0 var(--rule),0 18px 40px -18px rgba(19,23,34,.35)}
+.tag{position:absolute;top:0;left:0;font:700 14px/1 var(--head);padding:6px 10px;border-radius:6px 6px 0 0}
+.tag--blank{border:2px dashed var(--blue);border-bottom:0;color:var(--blue);background:var(--sheet)}
+.tag--job{background:var(--blue);color:#fff;border:2px solid var(--blue);border-bottom:0}
+
+/* problem band */
+.band-blue{background:var(--blue);color:#fff;margin-top:0}
+.band-blue .tab{background:#fff;color:var(--navy)}
+.band-blue h2{font-size:clamp(40px,5.6vw,76px)}
+.band-blue .src,.band-blue figcaption{color:#fff}
+.band-blue .card{background:#fff;color:var(--ink);--c:#fff}
+.band-blue .card .src{color:var(--ink2)}
+.sends{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.sends img{border-radius:10px;width:100%;background:#fff}
+.nine{display:grid;grid-template-columns:auto 1fr;gap:10px 28px;align-items:center;margin-top:40px;padding-top:32px;border-top:2px solid rgba(255,255,255,.5)}
+.nine__n{font:800 clamp(120px,15vw,200px)/.74 var(--head);letter-spacing:-.04em}
+.nine__t{font:800 clamp(26px,3vw,40px)/1.05 var(--head)}
+.nine__t small{display:block;font:400 18px/1.45 var(--body);margin-top:10px;max-width:30em}
+.tiles{display:grid;grid-template-columns:3fr 4fr 3fr;gap:6px;margin-top:22px;grid-column:1/-1}
+.tiles div{background:#fff;color:var(--ink);padding:12px 14px;border-radius:8px;font:400 15px/1.3 var(--body)}
+.tiles b{display:block;font:800 26px/1 var(--head);margin-bottom:4px}
+
+/* idea: picker */
+.pick{display:grid;grid-template-columns:270px minmax(0,1fr) minmax(0,1.15fr);gap:36px;align-items:start;margin-top:36px}
+.mod{border:2px solid var(--blue);border-radius:6px;background:#fff;font:600 14px/1 var(--head);color:var(--blue)}
+.mod__cat{padding:11px 12px;border:2px dashed var(--blue);margin:-2px -2px 0;border-radius:6px 6px 0 0;color:var(--blue);background:#fff;font-weight:700;letter-spacing:.02em;min-height:40px}
+.mod[data-on] .mod__cat{background:var(--blue);color:#fff;border-style:solid}
+.mod__name{padding:12px 12px 4px;color:var(--navy)}
+.mod__els{padding:8px 12px 14px;display:grid;gap:8px}
+.mod__els span{display:block;text-align:center;padding:9px 6px;border:1.5px solid var(--blue);background:var(--blue-soft);border-radius:3px}
+.mod__els .img{background-image:repeating-conic-gradient(#d9e7fd 0 25%,#fff 0 50%);background-size:14px 14px}
+.mod__els .cta{border-radius:999px}
+.mod__note{font:400 14px/1.4 var(--body);color:var(--ink2);margin-top:10px}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cats button{min-height:44px;padding:8px 12px;text-align:left;border:2px solid var(--blue);background:#fff;color:var(--blue);font:700 16px/1.1 var(--head);border-radius:6px;cursor:pointer}
+.cats button:hover{background:var(--blue-soft)}
+.cats button[aria-pressed="true"]{background:var(--blue);color:#fff}
+.pick__say{font:400 15px/1.4 var(--body);color:var(--ink2);margin:0 0 12px}
+.defs>div{display:none}
+.defs>div.on{display:block}
+.no-js .defs>div{display:block;margin-bottom:18px}
+.no-js .cats,.no-js .pick__say{display:none}
+.defs h4{font:800 22px/1.1 var(--head);margin:0 0 8px}
+.defs ul{margin-top:10px}
+.defs li{position:relative;padding-left:16px;font-size:16px;line-height:1.45;margin-top:4px}
+.defs li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.defs__empty{color:var(--ink2);font-size:17px}
+
+/* decisions */
+.dec{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px;counter-reset:d}
+.dec li{background:var(--sheet);border:1px solid var(--rule);border-top:6px solid var(--c);border-radius:4px 4px 14px 14px;padding:18px 20px 16px;display:flex;flex-direction:column}
+.dec h3{font-size:23px;line-height:1.12;margin-bottom:10px}
+.dec .q--s{font-size:17px}
+.dec .src{margin-bottom:12px}
+.dec a{margin-top:auto;font:700 15px/1.2 var(--head);color:var(--ink);padding:10px 0 4px;min-height:36px;align-self:flex-start}
+
+/* three moves */
+.moves{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:56px;align-items:start}
+.tabs{display:grid;gap:8px;margin-top:26px}
+.tabs button{min-height:48px;text-align:left;padding:10px 14px;border:2px solid var(--c-yellow);background:var(--f-yellow);border-radius:10px;font:700 17px/1.15 var(--head);color:var(--ink);cursor:pointer}
+.tabs button:hover{background:#fff}
+.tabs button[aria-selected="true"]{background:#fff;box-shadow:0 0 0 2px var(--c-yellow)}
+.stage{background:var(--sheet);border:1px solid var(--rule);border-radius:16px;padding:22px}
+.stage__h{font:600 15px/1.3 var(--head);color:var(--ink2);margin-bottom:14px}
+.ba{display:grid;grid-template-columns:repeat(2,minmax(0,320px));gap:28px;justify-content:center;align-items:start}
+.ba figure{margin:0}
+.ba__cap{font:400 14.5px/1.4 var(--body);color:var(--ink);min-height:4.2em;margin-bottom:8px}
+.ba__cap b{display:block;font:700 13px/1 var(--head);letter-spacing:.07em;text-transform:uppercase;color:var(--blue);margin-bottom:5px}
+.ba__say{font:400 15px/1.4 var(--body);margin:-4px 0 14px}.ba__cap--s{min-height:0}
+.js .panel[hidden]{display:none}
+.no-js .panel{margin-bottom:30px}
+
+/* theme */
+.theme{display:grid;grid-template-columns:minmax(0,708px) minmax(0,1fr);gap:64px;align-items:start}
+.theme__figs{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.theme img{border-radius:6px;box-shadow:0 18px 40px -20px rgba(19,23,34,.4)}
+.theme__cap{font-size:16px;line-height:1.5;color:var(--ink2);margin-top:14px;grid-column:1/-1}
+.theme .card{margin-top:26px}
+.theme .card::before{left:-66px;width:64px}.theme .card::after{left:-74px}
+/* cart */
+.wires{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:30px}
+.wire{background:var(--sheet);border:1px solid var(--rule);border-radius:16px;padding:18px 18px 0;display:flex;flex-direction:column}
+.wire__n{font:800 44px/1 var(--head)}
+.wire__t{font:800 24px/1.1 var(--head);margin:2px 0 4px}
+.wire__pair{font:600 15px/1.35 var(--head);color:var(--ink2)}
+.wire .q--s{margin:12px 0 0;font-size:17px;min-height:5.7em}
+.wire__img{margin:16px auto 0;width:100%;max-width:360px;position:relative}
+.wire__img img{width:100%;border:1px solid var(--rule);border-bottom:0}
+.wire--more .wire__img::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(rgba(255,255,255,0),#fff)}
+.lens{margin-top:30px;display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:40px;align-items:start}
+.lens dl{display:grid;gap:8px}
+.lens dl div{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:12px;font:600 15px/1.2 var(--head)}
+.lens dd{height:16px;border-radius:4px;background:var(--c-peach);border:1.5px solid #c9793c}
+.lens__t{font:700 15px/1.2 var(--head);margin-bottom:12px;color:var(--ink2)}
+
+/* one line */
+.line{display:grid;grid-template-columns:minmax(0,1fr) 356px;gap:40px;align-items:start;margin-top:30px}
+.line .sheet{margin-top:0}
+.why h3{font-size:clamp(26px,2.5vw,32px)}
+.why>p{font-size:17px;line-height:1.5}
+.reasons{display:grid;gap:14px;margin-top:18px}
+.reasons li{display:grid;grid-template-columns:34px 1fr;gap:0 8px;border-top:2px solid var(--blue);padding-top:10px}
+.reasons b{grid-row:1/3;font:800 34px/1 var(--head);color:var(--blue)}
+.reasons h4{font:700 17px/1.2 var(--head);margin:0 0 5px}
+.reasons p{font-size:16px;line-height:1.4}
+/* the letter */
+.band-night{background:var(--night);color:#fff}
+.band-night .tab{background:#fff;color:var(--night)}
+.band-night .lede{max-width:40em;color:#E4E7F5}
+.loop{display:grid;grid-template-columns:230px 340px 340px minmax(0,1fr);gap:0 28px;margin-top:30px;align-items:start}
+.loop__stack{display:grid;gap:8px;padding-right:22px}
+.loop__stack button{position:relative;width:100%;min-height:48px;padding:10px 12px;border-radius:10px;border:2px solid var(--c);background:var(--f);font:600 15px/1.2 var(--head);color:var(--ink);cursor:pointer;text-align:center}
+.loop__stack button:hover{background:#fff}
+.loop__stack button[aria-pressed="true"]{background:#fff}
+.loop__stack button[aria-pressed="true"]::after{content:"";position:absolute;left:100%;top:50%;width:48px;height:2px;background:var(--c);margin-left:2px}
+.loop__stack button[aria-pressed="true"]::before{content:"";position:absolute;left:100%;top:50%;width:14px;height:14px;margin:-7px 0 0 -6px;border-radius:50%;background:var(--c);z-index:1}
+.loop__col{min-width:0}
+.loop__lab{font:700 14px/1 var(--head);letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;display:flex;gap:8px;align-items:center}
+.loop__lab i{width:14px;height:14px;border-radius:3px;border:2px dashed #fff;display:inline-block}
+.loop__lab i.f{border-style:solid;background:#fff}
+.win{height:800px;overflow-y:auto;border-radius:6px;background:#fff;position:relative}
+.js .win{overflow:hidden}
+.win img{width:100%;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.js .win::after{content:"";position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(rgba(14,18,48,0),rgba(14,18,48,.55));pointer-events:none}
+.loop__side{padding-left:14px;padding-top:24px}
+.loop__side p{font-size:16px;line-height:1.5;color:#E4E7F5;margin-bottom:18px}
+.seg{display:none}
+
+/* documents and close */
+.docs{margin-top:28px;border-top:2px solid var(--ink);display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.docs li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 20px;align-items:center;padding:12px 0;border-bottom:1px solid var(--rule)}
+.docs li span{grid-column:1;grid-row:2}.docs li a{grid-row:1/3;grid-column:2}
+.docs b{font:700 20px/1.2 var(--head)}
+.docs span{font-size:16px;line-height:1.45;color:var(--ink2)}
+.close{margin-top:56px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:56px;align-items:end}
+.refrain{font:800 clamp(44px,6.4vw,92px)/.95 var(--head);letter-spacing:-.02em}
+.close__acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.next{margin-top:18px;font-size:16px;color:var(--ink2);max-width:30em}
+.site-foot{background:var(--ink);color:#fff;padding:36px 0;margin-top:64px}
+.site-foot .wrap{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;align-items:center}
+.site-foot a{color:#fff;display:inline-block;padding:10px 6px;font:500 16px/1.2 var(--head)}
+.site-foot b{font:700 18px var(--head)}
+.site-foot ul{display:flex;flex-wrap:wrap;gap:2px 8px}
+
+/* viewer */
+dialog.view{width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#1B1F2B;color:#fff}
+dialog.view::backdrop{background:#1B1F2B}
+.view__bar{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px 14px;height:60px;background:#0F1220}
+.view__bar h2{font:700 17px/1.2 var(--head);letter-spacing:0;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.view__bar div{display:flex;gap:8px;flex:none}
+.view .btn{border-color:#fff;color:#fff;min-height:44px}
+.view .btn:hover,.view .btn[aria-pressed="true"]{background:#fff;color:#0F1220}
+.view__pan{height:calc(100% - 60px);overflow:auto;cursor:grab;padding:20px;overscroll-behavior:contain}
+.view__pan.drag{cursor:grabbing;user-select:none}
+.view__pan .view__in{display:flex;gap:24px;width:max-content;margin:0 auto}
+.view__pan img{max-width:none;background:#fff;border-radius:4px;-webkit-user-drag:none}
+.view__pan.fit .view__in{width:100%}
+.view__pan.fit img{width:100%;min-width:0;flex:1}
+
+@media (max-width:1290px){
+  .only-wide{display:none}.only-narrow{display:grid;grid-template-columns:repeat(2,minmax(0,400px));gap:14px;justify-content:center}
+  .only-narrow img{margin:0!important}
+}
+@media (max-width:1370px){
+  .line{grid-template-columns:minmax(0,1fr)}.why{max-width:640px}
+  .sheet--pan .scrollx img{width:auto;max-width:none;height:var(--ph,640px)}
+
+  .hero .wrap{grid-template-columns:minmax(0,1fr) 520px}
+  .row{gap:28px 56px}.card::before{left:-58px;width:56px}.card::after{left:-66px}
+  .pick{grid-template-columns:240px minmax(0,1fr)}.defs{grid-column:1/-1}
+  .loop{grid-template-columns:200px 300px 300px}.loop__side{grid-column:1/-1;padding:24px 0 0}
+  .win{height:706px}
+  .theme{grid-template-columns:minmax(0,1fr);gap:30px}.theme__txt{order:-1}.theme__left{max-width:708px}.theme .card{max-width:640px}.theme .card::before,.theme .card::after{display:none}
+}
+@media (max-width:1150px){
+  body{font-size:17px}
+  section{padding:60px 0}
+  .hero .wrap{grid-template-columns:minmax(0,1fr);gap:26px}
+  .hero__txt{padding-top:8px}
+  .pair{max-width:660px}
+  .row{grid-template-columns:minmax(0,1fr);gap:22px}
+  .card{margin:26px 0 0}
+  .card::before{left:30px;top:-28px;width:2px;height:26px}.card::after{left:23px;top:-34px}
+  .dec{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .moves{grid-template-columns:minmax(0,1fr);gap:28px}
+  .line{grid-template-columns:minmax(0,1fr)}.why{max-width:640px}
+  .wires{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-right:calc(-1*var(--gut));padding-right:var(--gut);padding-bottom:10px}
+  .wire{flex:0 0 min(88%,380px);scroll-snap-align:start;padding:14px 10px 0}
+  .lens,.close{grid-template-columns:minmax(0,1fr);gap:26px}
+  .docs{grid-template-columns:minmax(0,1fr)}
+  .loop{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 16px}
+  .loop__stack{grid-column:1/-1;display:flex;overflow-x:auto;padding:4px 2px 14px;margin-right:calc(-1*var(--gut))}
+  .loop__stack button{flex:none;width:auto;white-space:nowrap}
+  .loop__stack button[aria-pressed="true"]::after,.loop__stack button[aria-pressed="true"]::before{display:none}
+  .loop__stack button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--c)}
+  .loop__col{max-width:340px}
+}
+@media (max-width:700px){
+  :root{--gut:20px}
+  .who span{display:none}
+  .site-head .wrap{gap:0}
+  .site-nav{margin:0 -10px 4px;width:calc(100% + 20px)}
+  .site-nav ul{flex-wrap:nowrap;gap:0;justify-content:space-between}
+  .site-nav a{padding:10px 7px;font-size:16px}
+  .who{padding:12px 0 2px}
+  h1{font-size:clamp(54px,17vw,84px);margin-bottom:18px}
+  .hero .wrap{display:flex;flex-direction:column;align-items:stretch;gap:0}.hero__txt{display:contents}
+  .kick{order:1;margin-top:18px}.hero h1{order:2}.pair{order:3;margin-bottom:22px}.hero .lede{order:4}.meta{order:5}.hero__cap{order:6;margin-bottom:36px}
+  .pair{gap:10px}
+  .pair figure{height:0;padding-top:calc(30px + 96%);overflow:hidden}
+  .pair img{position:absolute;top:30px;left:0}
+  .sends{grid-template-columns:minmax(0,1fr);gap:12px;max-width:390px}
+  .nine{grid-template-columns:minmax(0,1fr)}
+  .tiles{grid-template-columns:minmax(0,1fr)}
+  .pick{grid-template-columns:minmax(0,1fr);gap:22px}
+  .mod{max-width:300px}
+  .dec{grid-template-columns:minmax(0,1fr)}
+  .ba{grid-template-columns:minmax(0,320px);gap:22px}
+  .ba__cap{min-height:0}
+  .theme__figs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-right:calc(-1*var(--gut));padding:0 var(--gut) 14px 0}
+  .theme__figs figure{flex:0 0 min(86%,340px);scroll-snap-align:start}
+  .only-narrow{grid-template-columns:minmax(0,1fr)}
+  .sheet{padding:10px;border-radius:12px}.sheet__bar{padding:4px 4px 0}.sheet figcaption,.sheet>figcaption{padding:0 4px 6px}
+  .loop{grid-template-columns:minmax(0,1fr)}
+  .seg{display:inline-flex;border:2px solid #fff;border-radius:999px;padding:3px;margin:0 0 14px;grid-column:1/-1;justify-self:start}
+  .seg button{min-height:44px;padding:8px 20px;border:0;border-radius:999px;background:transparent;color:#fff;font:700 16px var(--head);cursor:pointer}
+  .seg button[aria-pressed="true"]{background:#fff;color:var(--night)}
+  .js .loop[data-show="filled"] .loop__col--blank,.js .loop[data-show="blank"] .loop__col--filled{display:none}
+  .win{height:620px}
+  .lens dl div{grid-template-columns:118px 1fr}
+  .view__bar h2{display:none}
+}
+@media (max-width:360px){.site-nav a{padding:10px 5px;font-size:15px}.stack__home{padding-right:8px}}
+@media (min-width:1151px) and (max-height:800px){h1{font-size:clamp(60px,7.4vw,104px)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{.stack,.site-nav,.seg,.tabs,.cats{display:none}.win{height:auto;overflow:visible}.ba__say{font:400 15px/1.4 var(--body);margin:-4px 0 14px}.ba__cap--s{min-height:0}
+.js .panel[hidden],.defs>div{display:block}section{padding:30px 0;break-inside:avoid}.band-blue,.band-night{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* ===== header bar: same as the AGID page ===== */
+.bar{position:static;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px clamp(16px,3vw,40px);background:#eef1f4;border-bottom:1px solid #dfe1e2}
+.bar ul{display:flex;flex-wrap:wrap;gap:4px 22px;margin:0;padding:0;list-style:none}
+.bar a.nav{display:inline-flex;align-items:center;min-height:44px;color:#1b1b1b;text-decoration:none;font:400 17px/1 var(--head)}
+.bar a.nav[aria-current]{font-weight:700;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.bar a.nav:hover{text-decoration:underline;text-underline-offset:6px}
+.bar a:focus-visible{outline:3px solid #2491ff;outline-offset:2px}
+.me{color:#1b1b1b;text-decoration:none;font:700 19px/1.2 var(--head)}
+.me span{margin-left:10px;font-weight:400;color:#4d5257}
+@media (max-width:640px){.bar ul{gap:0 16px}.me span{display:block;margin:2px 0 0}}
+
+/* ===== the rail: round one's block stack, round two's sections ===== */
+.rail{display:none}
+@media (min-width:1040px){
+  html{scroll-padding-top:96px}
+  .bar{position:sticky;top:0}
+  .stack{display:none}
+  .frame{display:grid;grid-template-columns:150px minmax(0,1fr);gap:0 40px;padding-left:clamp(16px,2.2vw,32px)}
+  .frame > main{min-width:0}
+  .rail{display:flex;flex-direction:column;position:sticky;top:96px;align-self:start;height:calc(100vh - 124px);max-height:600px;margin-top:28px}
+  .rail__home{flex:none;display:inline-block;margin:0 0 10px;padding:6px 0;font:700 15px/1.2 var(--head);color:var(--ink);text-decoration:none}
+  .rail__home:hover{color:var(--blue);text-decoration:underline}
+  .rail ol{flex:1;min-height:0;display:flex;flex-direction:column;gap:7px;margin:0;padding:0;list-style:none}
+  .rail li{flex:var(--w,1) 1 0;min-height:32px;display:flex}
+  .rail li a{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:2px 8px;border-radius:9px;background:var(--rf);border:2px solid color-mix(in srgb,var(--rl) 45%,var(--rf));color:var(--ink);font:500 15px/1.15 var(--head);text-decoration:none;position:relative;transition:background .2s}
+  .rail li a:hover{border-color:var(--rl)}
+  .rail li a[aria-current]{background:#fff;border-color:var(--rl);font-weight:700}
+  .rail li a[aria-current]::after{content:"";position:absolute;right:-9px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--rl)}
+  .rail a:focus-visible{outline:3px solid #2491ff;outline-offset:2px}
+}
+[data-r="blue"]{--rf:#D6E6FB;--rl:#3F7FD9}
+[data-r="cyan"]{--rf:#D2F0FA;--rl:#1594BC}
+[data-r="mint"]{--rf:#CFF4E3;--rl:#149C6B}
+[data-r="pink"]{--rf:#FBDCDD;--rl:#D9606A}
+[data-r="yellow"]{--rf:#FAEFC2;--rl:#B58600}
+[data-r="lilac"]{--rf:#ECD9FA;--rl:#A555CF}
+[data-r="peach"]{--rf:#FCE2CF;--rl:#CF7325}
+@media (prefers-reduced-motion:reduce){.rail li a{transition:none}}
+@media print{.bar,.rail{display:none}.frame{display:block;padding:0}}
+
+/* ===== T129: section fills (half the rail's resting color), run behind the rail ===== */
+#idea,#documents{background:color-mix(in srgb,#CFF4E3 50%,var(--page))}
+#decided{background:color-mix(in srgb,#FBDCDD 50%,var(--page))}
+#moves{background:color-mix(in srgb,#FAEFC2 50%,var(--page))}
+#cart{background:color-mix(in srgb,#FCE2CF 50%,var(--page))}
+#line{background:color-mix(in srgb,#D2F0FA 50%,var(--page))}
+/* Theme stays gray; hovering a mock tints it with 30% of that mock's own green (#A5CD64) or purple (#874FDB) */
+#theme{background:var(--page);transition:background-color .3s}
+#theme:has(.theme__figs figure:nth-child(1):hover){background:color-mix(in srgb,#A5CD64 30%,var(--page))}
+#theme:has(.theme__figs figure:nth-child(2):hover){background:color-mix(in srgb,#874FDB 30%,var(--page))}
+@media (prefers-reduced-motion:reduce){#theme{transition:none}}
+@media (min-width:1040px){
+  .rail{z-index:1}
+  .frame > main > section{position:relative}
+  .frame > main > section::before{content:"";position:absolute;top:0;bottom:0;right:100%;width:100vw;background:inherit;pointer-events:none}
+  #decided::before,#cart::before{top:-1px;bottom:-1px;border-block:1px solid var(--rule)}
+  .rail__toggle{align-self:flex-start;background:none;border:0;cursor:pointer;text-align:left;min-height:32px}
+  .rail ol[hidden]{display:none}
+}
+/* nine seconds: pale to bright yellow */
+.nine__n{color:#FFD43B}
+.nine .tiles div:nth-child(1){background:#FFF7D1}
+.nine .tiles div:nth-child(2){background:#FFE78A}
+.nine .tiles div:nth-child(3){background:#FFD43B}
+
+/* ===== T136 ===== */
+.hero{background:#fff}
+.bar{background:rgba(255,255,255,.6)}
+/* the last section's fill runs to the footer: no page-colored band between them */
+.site-foot{margin-top:0;padding:40px 0 28px}
+.site-foot .wrap{display:block}
+.ftr-map{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,5fr);gap:28px clamp(24px,3vw,48px)}
+.ftr-me p{margin:4px 0;font:400 16px/1.4 var(--head)}
+.ftr-me .nm{font:700 18px/1.3 var(--head)}
+.site-foot .ftr-me a{padding:6px 0}
+.sm-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:28px clamp(20px,2.6vw,40px)}
+.site-foot p.sm-h{margin:0 0 8px;font:600 clamp(20px,1.8vw,24px)/1.15 var(--head);letter-spacing:-.01em;color:#fff}
+.site-foot .sm-h a{padding:0;font:inherit;text-decoration:none}
+.site-foot .sm-h a:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px}
+.site-foot .sm-col ul{display:block;list-style:none;margin:0;padding:0}
+.site-foot .sm-col li a{padding:5px 0;font:400 16px/1.4 var(--body);color:rgba(255,255,255,.82);text-decoration:underline}
+.site-foot .sm-col a[aria-current="page"]{font-weight:600;color:#fff}
+.site-foot .ni{display:inline-grid;gap:2px;border:1.5px dashed rgba(255,255,255,.5);padding:8px 12px;font:400 14px/1.3 var(--head);color:#fff}
+.site-foot .ni b{font:400 12px/1.3 ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+@media (max-width:1100px){.ftr-map{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.sm-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.sm-grid{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="pp/chrome.css">
+<style id="thread">.stack{top:68px}html{scroll-padding-top:140px}@media (max-width:959px){.stack{top:60px}}</style>
+</head>
+<body>
+
+<header class="gh gh--eds" style="--acc:#ff8170;--acc-ink:#22140d;--acc-on-dark:#ff8170">
+  <a class="gh__skip" href="#main">Skip to content</a>
+  <div class="gh__strip" aria-hidden="true"></div>
+  <div class="gh__bar">
+    <div class="gh__who"><a class="gh__home" href="index.html" aria-label="Story" title="Story"><img src="assets/hatlamp-mark@2x.png" srcset="assets/hatlamp-mark@2x.png 2x, assets/hatlamp-mark@3x.png 3x" width="79" height="101" alt=""></a><button class="gh__btn gh__name" type="button" aria-expanded="false" aria-controls="gh-name">Michael Lombardi</button>
+      <div class="gh__panel gh__panel--who" id="gh-name"><ul><li><span class="gh__k">Email</span><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></li><li><span class="gh__k">Résumé</span><a href="resume.html">View the résumé</a></li></ul></div></div>
+    <button class="gh__toggle" type="button" aria-expanded="false" aria-controls="gh-nav">Menu<svg class="gh__io" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/></svg><svg class="gh__ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2"/></svg></button>
+    <nav class="gh__nav" id="gh-nav" aria-label="Site"><ul class="gh__list">
+      <li><a class="gh__link" href="index.html">Story</a></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-featured">Featured</button><span class="gh__glabel">Featured</span><div class="gh__panel" id="gh-featured"><p class="gh__ph">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-cases"><span class="gh__star" aria-hidden="true"><img src="assets/hatlamp-star@2x.png" srcset="assets/hatlamp-star@2x.png 2x, assets/hatlamp-star@3x.png 3x" width="27" height="45" alt=""></span>Case Studies</button><span class="gh__glabel">Case Studies</span><div class="gh__panel" id="gh-cases"><ul><li><a href="universal-email.html" aria-current="page">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-snacks">Snacks</button><span class="gh__glabel">Snacks</span><div class="gh__panel" id="gh-snacks"><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div></li>
+      <li><a class="gh__link" href="resume.html">Résumé</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<nav class="stack" aria-label="On this page">
+  <div class="wrap">
+    <a class="stack__home" href="index.html">&larr; Story</a>
+    <ol id="stack">
+      <li><a class="k-blue" href="#problem">The problem</a></li>
+      <li><a class="k-mint" href="#idea">The idea</a></li>
+      <li><a class="k-pink" href="#decided">What I decided</a></li>
+      <li><a class="k-yellow" href="#moves">Three moves</a></li>
+      <li><a class="k-lilac" href="#theme">Theme</a></li>
+      <li><a class="k-peach" href="#cart">The cart series</a></li>
+      <li><a class="k-cyan" href="#line">One line</a></li>
+      <li><a class="k-blue" href="#letter">The letter</a></li>
+      <li><a class="k-mint" href="#documents">The documents</a></li>
+    </ol>
+  </div>
+</nav>
+
+<div class="frame">
+<nav class="rail" aria-label="On this page">
+  <button type="button" class="rail__home rail__toggle" aria-expanded="true" aria-controls="rail" aria-label="Hide section menu" hidden>Hide</button>
+  <ol id="rail">
+    <li data-r="blue"><a href="#problem">The problem</a></li>
+    <li data-r="mint"><a href="#idea">The idea</a></li>
+    <li data-r="pink"><a href="#decided">What I decided</a></li>
+    <li data-r="yellow"><a href="#moves">Three moves</a></li>
+    <li data-r="lilac"><a href="#theme">Theme</a></li>
+    <li data-r="peach"><a href="#cart">The cart series</a></li>
+    <li data-r="cyan"><a href="#line">One line</a></li>
+    <li data-r="blue"><a href="#letter">The letter</a></li>
+    <li data-r="mint"><a href="#documents">The documents</a></li>
+  </ol>
+</nav>
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top" aria-labelledby="h-top">
+  <div class="wrap">
+    <div class="hero__txt">
+      <p class="kick">Universal Email Design System</p>
+      <h1 id="h-top"><span>Meaning</span><span>&amp; intent</span></h1>
+      <p class="lede">An email design system for Universal Orlando Resort. The team sent one monthly newsletter in 13 audience versions, and at a glance one send looked like the next. I took the meaning out of the parts. Every block starts blank, and the slot it sits in gives it one of eight jobs.</p>
+      <p class="meta">Client work · Lead designer · November 2025 to February 2026</p>
+      <p class="hero__cap">The cover of the Annual Passholder newsletter, as a layout and with example content for Mardi Gras. Placeholder (FPO) copy and pictures.</p>
+    </div>
+    <div class="pair">
+      <figure>
+        <span class="tag tag--blank">Blank</span>
+        <img src="universal-email/assets/cover-blank.webp" width="680" height="1545" alt="Wireframe of the newsletter cover: the In The Loop masthead in gray over a checkerboard image area, then a gray panel that reads {Month 2026} and {1-3 Sentences or 3-5 headlines} followed by placeholder text.">
+      </figure>
+      <figure>
+        <span class="tag tag--job">Given a job</span>
+        <img src="universal-email/assets/cover-filled.webp" width="680" height="1583" alt="The same cover in color: the In The Loop masthead over a Mardi Gras parade photograph, then a magenta panel headed February 2026 with a short summary of the issue.">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section class="band-blue" id="problem" aria-labelledby="h-problem" style="margin-top:0">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <p class="tab">The problem</p>
+        <h2 id="h-problem">&ldquo;Everything is a sea of blue.&rdquo;</h2>
+        <p class="src" style="margin:-10px 0 22px;font-size:16px">Universal&rsquo;s email team, in the stakeholder interviews</p>
+        <p class="lede">The monthly newsletter alone went out in 13 audience versions per release. The team was asked for more emails, for more audiences, in more looks, and the only tool on hand was another template.</p>
+      </div>
+      <aside class="card" aria-label="What the team asked for">
+        <p class="card__t">What the team asked for</p>
+        <p class="q q--s">&ldquo;Need a flexible system, not hundreds of rigid templates, that will support the various stages of the user&rsquo;s journey, theme variations, destinations, and purpose.&rdquo;</p>
+        <span class="src">Stakeholder interviews, research package</span>
+      </aside>
+    </div>
+    <figure style="margin-top:40px">
+      <div class="sends">
+        <img src="universal-email/assets/before-1.webp" width="390" height="344" loading="lazy" alt="Top of an earlier Universal passholder newsletter: a blue header bar with the passholder mark and the word Extras, over a photo of a water park at night.">
+        <img src="universal-email/assets/before-2.webp" width="390" height="344" loading="lazy" alt="Top of an earlier Universal passholder notice: the same blue header bar, labeled Power Pass, over a photo of guests walking past the Universal globe.">
+        <img src="universal-email/assets/before-3.webp" width="390" height="364" loading="lazy" alt="Top of an earlier Universal travel advisor email: the same blue header bar, labeled Travel Advisors, over an event graphic.">
+      </div>
+      <figcaption>Three of Universal&rsquo;s earlier sends, for two passholder audiences and for travel advisors. Their emails, shown as the starting point.</figcaption>
+    </figure>
+    <div class="nine">
+      <div class="nine__n" aria-hidden="true">9</div>
+      <p class="nine__t"><span class="vh">9 </span>seconds<small>The average time spent looking at a single email. A guest gives an email about nine seconds, and nearly a third give it less than two. That is room for one idea.</small></p>
+      <div class="tiles">
+        <div><b>30% glance</b>less than 2 seconds</div>
+        <div><b>40% scan</b>2 to 8 seconds</div>
+        <div><b>30% read</b>over 8 seconds</div>
+      </div>
+      <p class="src" style="grid-column:1/-1">Figures from Litmus, as cited in my research package. The newest year in that source is 2022.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IDEA (the turn) ============ -->
+<section id="idea" class="k-mint" aria-labelledby="h-idea">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <p class="tab">The idea</p>
+        <h2 id="h-idea">The slot gives it one</h2>
+        <p class="lede">I took the meaning out of the parts. A layout module is an arrangement of elements and nothing more, so the same module can sit in any template, for any destination.</p>
+        <p>The job arrives with the slot. Each slot in a template is locked to one of eight content categories, and every category answers the same question.</p>
+      </div>
+      <aside class="card" aria-label="From my overview page">
+        <blockquote class="q">&ldquo;&hellip;those groups form unique layout modules that govern layout behavior and included parts, but have no innate intent. This neutrality allows the same layout modules to be reused across multiple templates and destinations without redefining the module itself.&rdquo;</blockquote>
+        <span class="src">System summary · Design System Overview · How it Works</span>
+      </aside>
+    </div>
+
+    <figure class="sheet">
+      <div class="sheet__bar">
+        <span class="sheet__name">System summary · Design System Overview · Structure</span>
+        <a class="btn btn--s" href="universal-email/assets/full-overview.webp" data-view data-title="Design System Overview" data-w="2400">Open the whole page</a>
+      </div>
+      <img class="only-wide" src="universal-email/assets/doc-structure.webp" width="2000" height="1117" alt="The Structure panel of my overview page. Three columns. Elements: chips labeled TEXT: Headline, IMAGE: X:X, CTA: Primary, Logo and Icon. Layout Module: a box labeled MODULE: Image Article holding five element chips. Content Category: the same Image Article module under a blue bar that reads CONTENT CATEGORY: Entertain.">
+      <div class="only-narrow">
+        <img src="universal-email/assets/doc-structure-module.webp" width="700" height="1066" loading="lazy" alt="Layout Module, from my overview page: a box labeled MODULE: Image Article holding five element chips.">
+        <img src="universal-email/assets/doc-structure-category.webp" width="700" height="1066" loading="lazy" alt="Content Category, from my overview page: the same Image Article module under a blue bar that reads CONTENT CATEGORY: Entertain." style="margin-top:14px">
+      </div>
+      <figcaption><b>From my overview page.</b> The Image Article module has five elements and no purpose. Under a blue bar, the same five elements have one.</figcaption>
+    </figure>
+
+    <div class="pick" id="pick">
+      <div>
+        <div class="mod" id="mod">
+          <div class="mod__cat" id="modcat" aria-live="polite">CONTENT CATEGORY: {none yet}</div>
+          <div class="mod__name">MODULE: &nbsp; Image Article</div>
+          <div class="mod__els"><span class="img">IMAGE: X:X</span><span>TEXT: Image Caption</span><span>TEXT: Headline</span><span>TEXT: Body</span><span class="cta">CTA: Secondary</span></div>
+        </div>
+        <p class="mod__note">Image Article, after the diagram above.</p>
+      </div>
+      <div>
+        <h3>&ldquo;What is this content trying to accomplish?&rdquo;</h3>
+        <p class="pick__say">Pick a category. (The module stays the same.)</p>
+        <div class="cats" id="cats" role="group" aria-label="Content categories">
+          <button type="button" aria-pressed="false" data-c="Transaction">Transaction</button>
+          <button type="button" aria-pressed="false" data-c="Entertain">Entertain</button>
+          <button type="button" aria-pressed="false" data-c="Inform">Inform</button>
+          <button type="button" aria-pressed="false" data-c="Promote">Promote</button>
+          <button type="button" aria-pressed="false" data-c="Convert">Convert</button>
+          <button type="button" aria-pressed="false" data-c="Retain">Retain</button>
+          <button type="button" aria-pressed="false" data-c="Utility">Utility</button>
+          <button type="button" aria-pressed="false" data-c="Compliance">Compliance</button>
+        </div>
+      </div>
+      <div class="defs" id="defs" aria-live="polite">
+        <p class="defs__empty on" id="defs-empty">A reviewer can ask what a section is trying to do and check the answer against a written definition. The conversation moves from taste to fact, and the module never has to be redrawn to settle it.</p>
+        <div data-c="Transaction"><h4>Transaction</h4><p class="q q--s">&ldquo;Content whose primary purpose is to confirm, validate, or document a completed guest action. Transactional content is factual, required, and trust-building, and should never feel promotional.&rdquo;</p><ul><li>Triggered by a guest action (booking, purchase, registration)</li><li>Required for clarity and reassurance</li><li>Focused on accuracy, not persuasion</li></ul></div>
+        <div data-c="Entertain"><h4>Entertain</h4><p class="q q--s">&ldquo;Content designed to delight, excite, inspire, or emotionally engage the guest without requiring an immediate action or conveying critical information.&rdquo;</p><ul><li>Experience-led, not task-driven</li><li>Optional and additive, never required for completion or compliance</li><li>Focused on storytelling, mood, or fun rather than instruction or conversion</li></ul></div>
+        <div data-c="Inform"><h4>Inform</h4><p class="q q--s">&ldquo;Clearly worded content that educates, offers guidance, or prepares the guest for an upcoming experience.&rdquo;</p><ul><li>Not sales-driven</li><li>Contextual to timing or trip stage</li><li>Often answers &ldquo;what should I know?&rdquo;</li></ul></div>
+        <div data-c="Promote"><h4>Promote</h4><p class="q q--s">&ldquo;Content designed to highlight experiences, events, or offerings to generate interest and awareness (discovery, not immediate action).&rdquo;</p><ul><li>Experience-led</li><li>Awareness-focused</li><li>May be contextual or seasonal</li></ul></div>
+        <div data-c="Convert"><h4>Convert</h4><p class="q q--s">&ldquo;Content whose primary goal is to prompt a specific next action. Action-oriented and outcome-driven.&rdquo;</p><ul><li>Includes a clear CTA</li><li>Often time-bound or contextual</li><li>Supports revenue or engagement goals</li></ul></div>
+        <div data-c="Retain"><h4>Retain</h4><p class="q q--s">&ldquo;Content focused on maintaining long-term engagement and loyalty, reinforcing value and belonging.&rdquo;</p><ul><li>Relationship-driven</li><li>Value-reinforcing</li><li>Often recurring or lifecycle-based</li></ul></div>
+        <div data-c="Utility"><h4>Utility</h4><p class="q q--s">&ldquo;Content that provides functional tools or secondary actions supporting the guest experience (not the primary purpose).&rdquo;</p><ul><li>Task-oriented</li><li>Low emotional weight</li><li>Convenience and usability focused</li></ul></div>
+        <div data-c="Compliance"><h4>Compliance</h4><p class="q q--s">&ldquo;Content required for legal, regulatory, and operational obligations. Mandatory and standardized.&rdquo;</p><ul><li>Required by policy or law</li><li>Non-negotiable</li><li>Consistent across sends</li></ul></div>
+        <span class="src">System summary · Design System Overview · Types of Content Categories</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT I DECIDED ============ -->
+<section id="decided" aria-labelledby="h-decided" style="border-block:1px solid var(--rule)">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <p class="tab">My part</p>
+        <h2 id="h-decided">What I decided, and why</h2>
+      </div>
+      <p style="padding-top:44px">I was lead designer from November 2025 to February 2026. The work started with research: interviews with Universal&rsquo;s email team, a consultation with the founder of a customer engagement platform, competitive analysis and an audit of email design systems. Six calls shaped the system, and I wrote the reason for each into the documentation.</p>
+    </div>
+    <ol class="dec">
+      <li class="k-mint"><h3>Modules carry no meaning. Categories do.</h3><p class="q q--s">&ldquo;This neutrality allows the same layout modules to be reused across multiple templates and destinations without redefining the module itself.&rdquo;</p><span class="src">Design System Overview</span><a href="#idea">The idea &uarr;</a></li>
+      <li class="k-yellow"><h3>A template changes in three ways and no others.</h3><p class="q q--s">&ldquo;A variant keeps the same approved template and module structures, but allows controlled changes through a small set of configurable rules.&rdquo;</p><span class="src">Template Variants</span><a href="#moves">Three moves &darr;</a></li>
+      <li class="k-lilac"><h3>The look sits on top of the structure.</h3><p class="q q--s">&ldquo;A theme is a controlled set of visual and asset rules applied on top of the design system&rsquo;s structural framework.&rdquo;</p><span class="src">Theme</span><a href="#theme">Theme &darr;</a></li>
+      <li class="k-peach"><h3>The first cart email does not sell.</h3><p class="q q--s">&ldquo;Stay neutral: Avoid urgency, offers, or persuasion.&rdquo;</p><span class="src">Abandoned cart · Narrative Strategy &amp; Purpose</span><a href="#cart">The cart series &darr;</a></li>
+      <li class="k-cyan"><h3>The saved cart gets a label and no heading.</h3><p class="q q--s">&ldquo;The inventory label is not a content block, it&rsquo;s a confirmation cue.&rdquo;</p><span class="src">Cart blueprint · Cart Summary and CTA</span><a href="#why">Four reasons &darr;</a></li>
+      <li class="k-cyan"><h3>When the data is in doubt, the line comes out.</h3><p class="q q--s">&ldquo;Omit optional lines rather than guessing specifics&rdquo;</p><span class="src">Annual Passholder newsletter blueprint · Cross-Block Defaults</span><a href="#line">One line &darr;</a></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ THREE MOVES ============ -->
+<section id="moves" class="k-yellow" aria-labelledby="h-moves">
+  <div class="wrap">
+    <div class="moves">
+      <div>
+        <p class="tab">How it flexes</p>
+        <h2 id="h-moves">Three moves, and no fourth</h2>
+        <p>A template changes in three ways: hide an optional element, hide an optional module, or repeat a group. Dashed borders mark what is optional, so the choice is visible before anyone makes it.</p>
+        <div class="tabs" role="tablist" aria-label="The three moves" id="tabs">
+          <button type="button" role="tab" id="t-a" aria-controls="p-a" aria-selected="true">1 · Hide an optional element</button>
+          <button type="button" role="tab" id="t-b" aria-controls="p-b" aria-selected="false" tabindex="-1">2 · Hide an optional module</button>
+          <button type="button" role="tab" id="t-c" aria-controls="p-c" aria-selected="false" tabindex="-1">3 · Repeat a group</button>
+        </div>
+        <p class="q q--s" style="margin-top:26px">&ldquo;Variants are the system&rsquo;s way to adapt a base layout to different scenarios without creating a new layout.&rdquo;</p>
+        <span class="src">System summary · Template Variants</span>
+        <p style="margin-top:18px"><a class="btn btn--s" href="universal-email/assets/full-variants.webp" data-view data-title="Template Variants" data-w="2400">Open the whole page</a></p>
+      </div>
+      <div class="stage">
+        <div class="panel" role="tabpanel" id="p-a" aria-labelledby="t-a" tabindex="0">
+          <p class="stage__h">Template Variants · Hiding Optional Elements within Modules or Content Blocks</p>
+          <div class="ba">
+            <figure><p class="ba__cap"><b>Before</b>&ldquo;The dashed borders denote Optional Elements.&rdquo;</p><img src="universal-email/assets/var-a1.webp" width="600" height="1035" loading="lazy" alt="A Welcome to Destination block, category Inform, module Image Article. The image caption and the secondary CTA have dashed borders."></figure>
+            <figure><p class="ba__cap"><b>After</b>&ldquo;The Image Caption and CTA are now hidden.&rdquo;</p><img src="universal-email/assets/var-a2.webp" width="600" height="837" loading="lazy" alt="The same block with the image caption and CTA gone. Image, headline and body remain."></figure>
+          </div>
+        </div>
+        <div class="panel" role="tabpanel" id="p-b" aria-labelledby="t-b" tabindex="0" hidden>
+          <p class="stage__h">Template Variants · Hiding Optional Content Blocks within Email Templates</p>
+          <div class="ba">
+            <figure><p class="ba__cap"><b>Before</b>&ldquo;The (optional) label and dashed border denote the Optional Module in this layout example.&rdquo;</p><img src="universal-email/assets/var-b1.webp" width="600" height="1247" loading="lazy" alt="A header module followed by a module in a dashed border labeled Optional, holding a subhead, a disclaimer and a secondary CTA."></figure>
+            <figure><p class="ba__cap"><b>After</b>&ldquo;Hiding the Module only affects this instance of the layout, and can be easily turned back on.&rdquo;</p><img src="universal-email/assets/var-b2.webp" width="600" height="1600" loading="lazy" alt="The same header module. The optional module is gone and the next block, Welcome to Destination, sits directly under the header."></figure>
+          </div>
+        </div>
+        <div class="panel" role="tabpanel" id="p-c" aria-labelledby="t-c" tabindex="0" hidden>
+          <p class="stage__h">Template Variants · Change the Quantity of Repeatable Element Groups</p>
+          <p class="ba__say">&ldquo;The quantity of the &ldquo;List Group&rdquo; items in this instance is increasing from 1 to 5.&rdquo;</p>
+          <div class="ba">
+            <figure><p class="ba__cap ba__cap--s"><b>Before</b>Qty: {X}</p><img src="universal-email/assets/var-c1.webp" width="600" height="1212" loading="lazy" alt="A Booking Details block, category Transaction, module List Group. One group of a label and a list, marked Qty: {X}."></figure>
+            <figure><p class="ba__cap ba__cap--s"><b>After</b>Qty: 5</p><img src="universal-email/assets/var-c2.webp" width="600" height="1798" loading="lazy" alt="The same Booking Details block with the label and list group repeated five times, marked Qty: 5."></figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THEME ============ -->
+<section id="theme" class="k-lilac" aria-labelledby="h-theme">
+  <div class="wrap">
+    <div class="theme">
+      <div class="theme__left">
+      <div class="theme__figs">
+        <figure><img src="universal-email/assets/theme-green.webp" width="720" height="1298" loading="lazy" alt="A Mardi Gras Float Riding Confirmation email in green, with a Seasonal Pass card over the header photo, then Reservation Details and a confirmation number."></figure>
+        <figure><img src="universal-email/assets/theme-purple.webp" width="720" height="1298" loading="lazy" alt="The same confirmation email in purple, with a Power Pass card. Every part is in the same place."></figure>
+      </div>
+        <p class="theme__cap">One float-riding confirmation as a Seasonal Pass and as a Power Pass. Example content, with a sample date and confirmation number.</p>
+      </div>
+      <div class="theme__txt">
+        <p class="tab">Theme</p>
+        <h2 id="h-theme">Same letter, new colors</h2>
+        <p class="lede">Theme changes the logo, the color and the pictures. The layout under it stays where it is, so a send can look like its park, its event or its season without becoming a new template.</p>
+        <aside class="card" aria-label="From my theme page">
+          <p class="card__t">Theme may influence:</p>
+          <ul>
+            <li>Destination logo instance within a fixed logo container</li>
+            <li>Color tokens (backgrounds, accents, dividers, CTA styles where permitted)</li>
+            <li>Imagery and graphic assets (hero/background images, icons, overlays/pop-flats)</li>
+            <li>Approved decorative treatments (only when defined as part of theme rules)</li>
+          </ul>
+          <p class="card__t" style="margin-top:14px">Theme can be derived from:</p>
+          <p style="font-size:16px">Destination, Park, Land, Attraction, Event, Season</p>
+          <span class="src">System summary · Theme</span>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CART ============ -->
+<section id="cart" class="k-peach" aria-labelledby="h-cart" style="border-block:1px solid var(--rule)">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <p class="tab">The system at work</p>
+        <h2 id="h-cart">Remember, reconsider, decide</h2>
+        <p class="lede">A guest who leaves a trip in the cart gets three emails, and each one is allowed to say one more thing than the last. The first carries one button and no offer. Urgency waits for the third, and it has to be true.</p>
+      </div>
+      <aside class="card" aria-label="From the cart narrative">
+        <blockquote class="q">&ldquo;The guest is guided, not rushed, through a decision they were already considering.&rdquo;</blockquote>
+        <span class="src">Abandoned cart · Narrative Strategy &amp; Purpose</span>
+        <p style="margin-top:14px"><a class="btn btn--s" href="universal-email/assets/full-narrative.webp" data-view data-title="Abandoned cart · Narrative Strategy &amp; Purpose" data-w="2400">Open the whole page</a></p>
+      </aside>
+    </div>
+    <div class="wires" tabindex="0" role="group" aria-label="The three cart emails">
+      <article class="wire" style="background:var(--page)">
+        <p class="wire__n">1</p><h3 class="wire__t">Cart Reminder</h3>
+        <p class="wire__pair">Email provides recognition : Guest remembers</p>
+        <p class="q q--s">&ldquo;Stay neutral: Avoid urgency, offers, or persuasion.&rdquo;</p>
+        <div class="wire__img"><img src="universal-email/assets/cart-1.webp" width="720" height="1069" loading="lazy" alt="Wireframe of the Cart Reminder email, whole above its footer: gray masthead with a placeholder headline, a greeting, a short message, the label Your Adventure Plans and one button, Return to Cart."></div>
+      </article>
+      <article class="wire wire--more" style="background:var(--page)">
+        <p class="wire__n">2</p><h3 class="wire__t">Why Convert</h3>
+        <p class="wire__pair">Email provides reassurance : Guest reconsiders</p>
+        <p class="q q--s">&ldquo;Advance intent without urgency: Encourage completion without pressure, discounts, or time constraints.&rdquo;</p>
+        <div class="wire__img"><img src="universal-email/assets/cart-2.webp" width="720" height="1069" loading="lazy" alt="Top of the Why Convert wireframe: masthead, greeting, a longer message and a Return to Cart button. The email continues below with a destination picture."></div>
+      </article>
+      <article class="wire wire--more" style="background:var(--page)">
+        <p class="wire__n">3</p><h3 class="wire__t">Don&rsquo;t Miss Out</h3>
+        <p class="wire__pair">Email provides urgency : Guest decides</p>
+        <p class="q q--s">&ldquo;Create credible urgency: Communicate real time or availability constraints that justify acting now.&rdquo;</p>
+        <div class="wire__img"><img src="universal-email/assets/cart-3.webp" width="720" height="1069" loading="lazy" alt="Top of the Don't Miss Out wireframe: masthead, greeting, message, a Return to Cart button and the start of a special price block. The email continues below."></div>
+      </article>
+    </div>
+    <div class="lens">
+      <div>
+        <p class="lens__t">Whole length of each email, footer included, at one scale</p>
+        <dl>
+          <div><dt>1 · Cart Reminder</dt><dd style="width:29.9%"></dd></div>
+          <div><dt>2 · Why Convert</dt><dd style="width:100%"></dd></div>
+          <div><dt>3 · Don&rsquo;t Miss Out</dt><dd style="width:92.1%"></dd></div>
+        </dl>
+      </div>
+      <p style="font-size:16px;line-height:1.5;color:var(--ink2)">The first email is shown whole above its footer. It ends where the other two are getting started, because most early carts were interrupted and an interrupted guest only needs the way back. Wireframes with placeholder (FPO) copy. The strategy lines are from my narrative page.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ONE LINE ============ -->
+<section id="line" class="k-cyan" aria-labelledby="h-line">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <p class="tab">The blueprint</p>
+        <h2 id="h-line">The page for one line</h2>
+        <p class="lede">Each block in a blueprint has a page. It says why the block exists, what is required, what is locked, how long the copy may run and what to do when the data is missing.</p>
+      </div>
+      <aside class="card" aria-label="Rules for when the data is missing">
+        <p class="card__t">When the data is missing</p>
+        <p class="q q--s">&ldquo;Use only one dynamic variable at a time&rdquo;</p>
+        <p class="q q--s" style="margin-top:8px">&ldquo;If confidence in the data is &lt;100%, fall back to the static headline&rdquo;</p>
+        <span class="src">Cart blueprint · Masthead &amp; Headline</span>
+        <p class="q q--s" style="margin-top:14px">&ldquo;Omit optional lines rather than guessing specifics&rdquo;</p>
+        <span class="src">Annual Passholder newsletter blueprint · Cross-Block Defaults</span>
+      </aside>
+    </div>
+
+    <div class="line">
+      <figure class="sheet sheet--pan" style="--ph:640px">
+        <div class="sheet__bar">
+          <span class="sheet__name">Cart blueprint · Touchpoint 1 · Cart Summary and CTA</span>
+          <a class="btn btn--s" href="universal-email/assets/full-summary.webp" data-view data-title="Cart blueprint · Cart Summary and CTA" data-w="1980">Open the whole page</a>
+        </div>
+        <div class="scrollx" role="group" aria-label="Cart Summary and CTA page, block stack and rule card"><img src="universal-email/assets/doc-summary-stack.webp" width="1600" height="1239" loading="lazy" alt="From the Cart Summary and CTA page. On the left the cart reminder email as a stack of colored blocks: Preheader, Masthead and Headline, Cart Reminder Message, Cart Summary and CTA, Footer. The Cart Summary block is white, and a pink leader line runs from it to a card outlined in pink. The card reads: Inventory, suggested structure, inventory label 2 to 6 words, avoid multi-line lists or itemization. Label examples: Your vacation plans, Your adventure, Your event plans, Your upcoming experience. Primary CTA, suggested copy Return to Cart. Only one primary CTA should be present in Touchpoint 1."></div>
+        <figcaption>The saved cart gets two things on its page: a label of two to six words and one button. The rest of the card is what to leave out.</figcaption>
+      </figure>
+      <div class="why" id="why">
+        <h3>Four reasons to leave out one heading</h3>
+        <p>The cart reminder shows what the guest saved under a short label and nothing else. I gave a column of that page to explaining why the label gets no heading above it.</p>
+        <ol class="reasons">
+          <li><b>1</b><h4>&ldquo;A heading adds friction at the wrong moment&rdquo;</h4><p class="q q--s">&ldquo;At Touchpoint 1, the goal is recognition and reassurance, not explanation.&rdquo;</p></li>
+          <li><b>2</b><h4>&ldquo;The message already sets the context&rdquo;</h4><p class="q q--s">&ldquo;Adding a heading would repeat context that&rsquo;s already been established and risk making the email feel system-generated.&rdquo;</p></li>
+          <li><b>3</b><h4>&ldquo;Inventory labels work best as inline reinforcement&rdquo;</h4><p class="q q--s">&ldquo;The inventory label is not a content block, it&rsquo;s a confirmation cue.&rdquo;</p></li>
+          <li><b>4</b><h4>&ldquo;Headings push the email toward &lsquo;transactional&rsquo;&rdquo;</h4><p class="q q--s">&ldquo;They signal structure and finality. A cart reminder should feel open-ended and flexible, not procedural.&rdquo;</p></li>
+        </ol>
+        <span class="src">Cart blueprint · Cart Summary and CTA · Why You Should Not Add a Heading for the Inventory Section</span>
+        <p style="margin-top:18px"><a class="btn btn--s" href="universal-email/assets/full-masthead.webp" data-view data-title="Cart blueprint · Masthead &amp; Headline" data-w="1980">Open the headline&rsquo;s page</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE LETTER ============ -->
+<section id="letter" class="band-night on-dark" aria-labelledby="h-letter">
+  <div class="wrap">
+    <p class="tab">The letter</p>
+    <h2 id="h-letter">Block by block</h2>
+    <p class="lede">The Annual Passholder newsletter from its cover to its tips: the layout with the rule written inside each placeholder, and the same blocks carrying example content for Mardi Gras.</p>
+    <div class="loop" id="loop" data-show="filled">
+      <div class="loop__stack" role="group" aria-label="Blocks of the newsletter" id="loopstack">
+        <button type="button" class="k-blue" aria-pressed="true" data-b="0" data-f="0">Preheader/Masthead, Newsletter Cover Story List</button>
+        <button type="button" class="k-pink" aria-pressed="false" data-b=".1787" data-f=".1715">Behind-the-Scenes Spotlight</button>
+        <button type="button" class="k-mint" aria-pressed="false" data-b=".3307" data-f=".3361">AP Tips: How to Use Your Benefits</button>
+        <button type="button" class="k-yellow" aria-pressed="false" data-b=".4726" data-f=".4772">AP Exclusive Offer</button>
+        <button type="button" class="k-lilac" aria-pressed="false" data-b=".6354" data-f=".6276">Optional AP Exclusive Offer Details</button>
+      </div>
+      <div class="seg" role="group" aria-label="Version">
+        <button type="button" aria-pressed="false" data-show="blank">Blank</button><button type="button" aria-pressed="true" data-show="filled">Given a job</button>
+      </div>
+      <div class="loop__col loop__col--blank">
+        <p class="loop__lab"><i></i>Blank</p>
+        <div class="win" tabindex="0" role="group" aria-label="The newsletter as a wireframe"><img src="universal-email/assets/letter-blank.webp" width="720" height="9518" loading="lazy" alt="The Annual Passholder newsletter as a wireframe, cover to tips. Each block holds placeholders with its rule written inside, for example {Cover Story Headline}, {60 to 100 word Summary}, {Fact List Headline} and {Tip Headline 1-2 lines}."></div>
+      </div>
+      <div class="loop__col loop__col--filled">
+        <p class="loop__lab"><i class="f"></i>Given a job</p>
+        <div class="win" tabindex="0" role="group" aria-label="The newsletter with example content"><img src="universal-email/assets/letter-filled.webp" width="720" height="9915" loading="lazy" alt="The same newsletter with example content for Mardi Gras: the cover, a behind-the-scenes story with five fun facts, a passholder food offer, a float sign-up and three tips for riding a float."></div>
+      </div>
+      <div class="loop__side">
+        <p>The block names are the ones on my block map for this newsletter. A content example with placeholder (FPO) copy and pictures, as labeled in the blueprint.</p>
+        <a class="btn btn--s" href="universal-email/assets/letter-filled.webp" data-view="universal-email/assets/letter-blank.webp,universal-email/assets/letter-filled.webp" data-title="Annual Passholder newsletter · cover to tips" data-w="380">Open both at full length</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOCUMENTS + CLOSE ============ -->
+<section id="documents" aria-labelledby="h-docs" style="padding-bottom:64px">
+  <div class="wrap">
+    <p class="tab">The documents</p>
+    <h2 id="h-docs">Read the originals</h2>
+    <p style="max-width:640px">I delivered a system summary, a research package, journey-stage sheets and four blueprint packages: the abandoned cart series, the welcome emails and both newsletters. Seven of those pages, at reading size.</p>
+    <ul class="docs">
+      <li><b>Design System Overview</b><span>What it is, why it is used, how it works, and the eight content categories.</span><a class="btn btn--s" href="universal-email/assets/full-overview.webp" data-view data-title="Design System Overview" data-w="2400">Open<span class="vh"> Design System Overview</span></a></li>
+      <li><b>Template Variants</b><span>The three moves, drawn before and after.</span><a class="btn btn--s" href="universal-email/assets/full-variants.webp" data-view data-title="Template Variants" data-w="2400">Open<span class="vh"> Template Variants</span></a></li>
+      <li><b>Narrative Strategy &amp; Purpose</b><span>The cart series as a story in three parts, from the guest&rsquo;s side and from Universal&rsquo;s.</span><a class="btn btn--s" href="universal-email/assets/full-narrative.webp" data-view data-title="Abandoned cart · Narrative Strategy &amp; Purpose" data-w="2400">Open<span class="vh"> Narrative Strategy and Purpose</span></a></li>
+      <li><b>Cart Summary and CTA</b><span>One block&rsquo;s page, with the four reasons in its left column.</span><a class="btn btn--s" href="universal-email/assets/full-summary.webp" data-view data-title="Cart blueprint · Cart Summary and CTA" data-w="1980">Open<span class="vh"> Cart Summary and CTA</span></a></li>
+      <li><b>Masthead &amp; Headline</b><span>Four kinds of dynamic headline, each with &ldquo;Use when&rdquo; and &ldquo;Don&rsquo;t use if&rdquo;, and a static default.</span><a class="btn btn--s" href="universal-email/assets/full-masthead.webp" data-view data-title="Cart blueprint · Masthead &amp; Headline" data-w="1980">Open<span class="vh"> Masthead and Headline</span></a></li>
+      <li><b>Content Strategy Models</b><span>Three ways to split the passholder and subscriber newsletters, with pros, cons and a recommendation.</span><a class="btn btn--s" href="universal-email/assets/full-models.webp" data-view data-title="Annual Passholder newsletter · Content Strategy Models" data-w="1560">Open<span class="vh"> Content Strategy Models</span></a></li>
+      <li><b>Research as the Foundation of the Design Process</b><span>The stages of research behind the system, from the research package.</span><a class="btn btn--s" href="universal-email/assets/full-research.webp" data-view data-title="Research package · Research as the Foundation of the Design Process" data-w="1600">Open<span class="vh"> Research as the Foundation of the Design Process</span></a></li>
+    </ul>
+
+    <div class="close">
+      <div>
+        <p class="refrain">A part with one&nbsp;job.</p>
+        <p style="margin-top:22px;max-width:34em">I&rsquo;m Michael Lombardi, a senior product designer with 20 years in human-computer interaction (HCI). I design systems other people have to build from, so I write the rules down.</p>
+      </div>
+      <div>
+        <div class="close__acts">
+          <a class="btn btn--pri" href="mailto:mccabelombardi@gmail.com">Write to me</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+</div>
+
+<footer class="gf gf--eds" style="--acc:#ff8170;--acc-ink:#22140d;--acc-on-dark:#ff8170">
+  <div class="gf__wrap">
+    <div class="gf__map">
+      <div class="gf__me" id="contact" tabindex="-1"><p class="gf__nm">Michael Lombardi</p><p><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p></div>
+      <nav class="gf__cols" aria-label="Site map">
+        <div class="gf__solo"><p class="gf__h"><a href="index.html">Story</a></p></div>
+        <div><p class="gf__h">Featured</p><p class="gf__sub">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div>
+        <div><p class="gf__h">Case Studies</p><ul><li><a href="universal-email.html" aria-current="page">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div>
+        <div><p class="gf__h">Snacks</p><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div>
+        <div class="gf__solo"><p class="gf__h"><a href="resume.html">Résumé</a></p></div>
+      </nav>
+    </div>
+    <div class="gf__base"><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+
+<dialog class="view" id="view" aria-labelledby="view-t">
+  <div class="view__bar">
+    <h2 id="view-t">Document</h2>
+    <div>
+      <button type="button" class="btn btn--s" id="view-fit" aria-pressed="false">Whole page</button>
+      <button type="button" class="btn btn--s" id="view-x">Close</button>
+    </div>
+  </div>
+  <div class="view__pan" id="view-pan" tabindex="0" aria-label="Document, scrolls in both directions"><div class="view__in" id="view-in"></div></div>
+</dialog>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+  var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* wayfinding: the rail (wide) and the strip (narrow) light the same block */
+  var links=$$('#stack a'), rlinks=$$('#rail a'), list=$('#stack'), secs=links.map(function(a){return $(a.getAttribute('href'))});
+  function mark(){
+    var y=scrollY+innerHeight*0.35, cur=-1;
+    secs.forEach(function(s,i){ if(s && s.offsetTop<=y) cur=i; });
+    links.forEach(function(a,i){
+      var r=rlinks[i];
+      if(i===cur){ if(r) r.setAttribute('aria-current','true');
+        if(!a.hasAttribute('aria-current')){ a.setAttribute('aria-current','true');
+        if(list.offsetParent) list.scrollTo({left:a.offsetLeft-list.offsetLeft-40,behavior:still?'auto':'smooth'}); } }
+      else { a.removeAttribute('aria-current'); if(r) r.removeAttribute('aria-current'); }
+    });
+  }
+  /* each block in the rail is as tall as its part of the page, as in the letter's block map */
+  function size(){ secs.forEach(function(s,i){ if(s && rlinks[i]) rlinks[i].parentNode.style.setProperty('--w',(s.offsetHeight/1000).toFixed(2)); }); }
+  addEventListener('scroll',mark,{passive:true}); addEventListener('resize',function(){size();mark()}); addEventListener('load',size); size(); mark();
+  /* the rail's toggle (T129): Hide and Show the section menu, remembered per browser */
+  var tg=$('.rail__toggle'), rl=$('#rail');
+  if(tg && rl){
+    var setRail=function(open){ rl.hidden=!open; tg.setAttribute('aria-expanded',open?'true':'false'); tg.textContent=open?'Hide':'Show'; tg.setAttribute('aria-label',(open?'Hide':'Show')+' section menu'); if(open) size(); };
+    var saved=null; try{ saved=localStorage.getItem('ue-rail'); }catch(e){}
+    setRail(saved!=='closed'); tg.hidden=false;
+    tg.addEventListener('click',function(){ var open=rl.hidden; setRail(open); try{ localStorage.setItem('ue-rail',open?'open':'closed'); }catch(e){} });
+  }
+
+  /* picker: the bar is the only thing that changes */
+  var mod=$('#mod'), cat=$('#modcat');
+  $$('#cats button').forEach(function(b){ b.addEventListener('click',function(){
+    var c=b.dataset.c, on=b.getAttribute('aria-pressed')==='true';
+    $$('#cats button').forEach(function(x){x.setAttribute('aria-pressed','false')});
+    $$('#defs > div, #defs-empty').forEach(function(d){d.classList.remove('on')});
+    if(on){ mod.removeAttribute('data-on'); cat.textContent='CONTENT CATEGORY: {none yet}'; $('#defs-empty').classList.add('on'); }
+    else { b.setAttribute('aria-pressed','true'); mod.setAttribute('data-on',''); cat.textContent='CONTENT CATEGORY: '+c; $('#defs > div[data-c="'+c+'"]').classList.add('on'); }
+  });});
+
+  /* three moves: tabs */
+  var tabs=$$('#tabs [role=tab]');
+  function sel(t,focus){ tabs.forEach(function(x){ var on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1; $('#'+x.getAttribute('aria-controls')).hidden=!on; }); if(focus) t.focus(); }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){sel(t)});
+    t.addEventListener('keydown',function(e){ var d=(e.key==='ArrowDown'||e.key==='ArrowRight')?1:(e.key==='ArrowUp'||e.key==='ArrowLeft')?-1:0; if(d){e.preventDefault(); sel(tabs[(i+d+tabs.length)%tabs.length],true);} });
+  });
+
+  /* the letter: block stack moves both columns to the same block */
+  var loop=$('#loop'), bimg=$('.loop__col--blank img'), fimg=$('.loop__col--filled img');
+  $$('#loopstack button').forEach(function(b){ b.addEventListener('click',function(){
+    $$('#loopstack button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+    bimg.style.transform='translateY(-'+(b.dataset.b*100)+'%)'; fimg.style.transform='translateY(-'+(b.dataset.f*100)+'%)';
+  });});
+  $$('.seg button').forEach(function(b){ b.addEventListener('click',function(){
+    $$('.seg button').forEach(function(x){x.setAttribute('aria-pressed',x===b)}); loop.dataset.show=b.dataset.show; });});
+
+  /* viewer */
+  var dlg=$('#view'), pan=$('#view-pan'), inn=$('#view-in'), fit=$('#view-fit'), opener=null;
+  if(dlg.showModal){
+    $$('a[data-view]').forEach(function(a){ a.addEventListener('click',function(e){
+      e.preventDefault(); opener=a; inn.innerHTML='';
+      var srcs=(a.getAttribute('data-view')||a.getAttribute('href')).split(',');
+      srcs.forEach(function(s){ var im=new Image(); im.src=s; im.alt=a.dataset.title+(srcs.length>1?(s.indexOf('blank')>-1?', wireframe':', example content'):''); im.style.width=a.dataset.w+'px'; inn.appendChild(im); });
+      $('#view-t').textContent=a.dataset.title; pan.classList.remove('fit'); fit.setAttribute('aria-pressed','false');
+      fit.hidden=srcs.length>1;
+      dlg.showModal(); pan.scrollTop=0; pan.scrollLeft=0; $('#view-x').focus();
+    });});
+    $('#view-x').addEventListener('click',function(){dlg.close()});
+    dlg.addEventListener('close',function(){ if(opener) opener.focus(); });
+    fit.addEventListener('click',function(){ var on=pan.classList.toggle('fit'); fit.setAttribute('aria-pressed',on); });
+    var d=null;
+    pan.addEventListener('pointerdown',function(e){ if(e.pointerType!=='mouse'||e.button!==0) return; d={x:e.clientX,y:e.clientY,l:pan.scrollLeft,t:pan.scrollTop}; pan.classList.add('drag'); pan.setPointerCapture(e.pointerId); });
+    pan.addEventListener('pointermove',function(e){ if(!d) return; pan.scrollLeft=d.l-(e.clientX-d.x); pan.scrollTop=d.t-(e.clientY-d.y); });
+    ['pointerup','pointercancel'].forEach(function(n){ pan.addEventListener(n,function(){ d=null; pan.classList.remove('drag'); }); });
+  }
+
+  /* focusable scrollers only when they scroll */
+  function scrollers(){ $$('.scrollx,.wires,.theme__figs').forEach(function(el){ if(el.scrollWidth>el.clientWidth+2) el.tabIndex=0; else el.removeAttribute('tabindex'); }); $$('.win').forEach(function(el){el.removeAttribute('tabindex')}); }
+  addEventListener('resize',scrollers); addEventListener('load',scrollers); scrollers();
+})();
+</script>
+<script src="pp/chrome.js"></script>
+</body>
+</html>

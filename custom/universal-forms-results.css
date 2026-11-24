@@ -1,0 +1,41 @@
+.x-universal-forms-results { margin: 0; }
+.x-universal-forms-results__table {
+  width: 100%; border-collapse: collapse; table-layout: fixed;
+  border: var(--c-page-border-width) solid var(--c-page-ink);
+  background-color: var(--c-page-surface);
+}
+.x-universal-forms-results__cap {
+  caption-side: top; text-align: left; font-weight: 700; padding-bottom: 0.5rem;
+}
+.x-universal-forms-results__table th,
+.x-universal-forms-results__table td {
+  border: var(--c-page-border-width) solid var(--c-page-border-raised);
+  padding: 0.875rem; vertical-align: top; text-align: left;
+}
+.x-universal-forms-results__table thead th { font-weight: 700; }
+.x-universal-forms-results__table tbody th { width: 7rem; font-weight: 700; }
+.x-universal-forms-results__table thead td:first-child { width: 7rem; }
+.x-universal-forms-results__table td { display: table-cell; }
+.x-universal-forms-results__table td > * { display: block; }
+.x-universal-forms-results__table td span { color: var(--c-field-help-ink); font-size: 0.9375rem; }
+.x-universal-forms-results__table td[data-pick="yes"] {
+  background-color: var(--c-page-ink); color: var(--c-page-surface);
+}
+.x-universal-forms-results__table td[data-pick="yes"] span { color: var(--c-page-surface); }
+.x-universal-forms-results__low {
+  margin-top: 0.5rem; padding-top: 0.5rem;
+  border-top: 3px solid var(--c-page-focus-ring);
+}
+.x-universal-forms-results__note { margin-top: 0.75rem; font-size: 0.9375rem; }
+/* layout glyphs: tiny wireframes of each layout */
+.x-universal-forms-results__glyph { display: flex; flex-direction: column; gap: 3px; width: 2.25rem; height: 2.5rem; margin-bottom: 0.5rem; }
+.x-universal-forms-results__glyph i, .x-universal-forms-results__glyph u, .x-universal-forms-results__glyph b {
+  display: block; height: 4px; background-color: var(--c-page-ink);
+}
+.x-universal-forms-results__glyph[data-kind="accordion"] u { height: 6px; background-color: var(--c-page-border-raised); }
+.x-universal-forms-results__glyph[data-kind="multi"] b { height: 4px; width: 40%; margin-top: 4px; background-color: var(--c-page-focus-ring); }
+@media (max-width: 560px) {
+  .x-universal-forms-results__table th, .x-universal-forms-results__table td { padding: 0.5rem; font-size: 0.875rem; }
+  .x-universal-forms-results__table tbody th, .x-universal-forms-results__table thead td:first-child { width: 4.25rem; }
+  .x-universal-forms-results__table td span { font-size: 0.8125rem; }
+}

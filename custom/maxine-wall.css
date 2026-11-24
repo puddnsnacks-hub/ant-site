@@ -1,0 +1,13 @@
+/* Tile wall: one character, many states. Shell tokens only. */
+.x-maxine-wall { display: grid; gap: 36px; }
+.x-maxine-wall__title { margin: 0 0 12px; font: 600 15px/1.3 var(--sx-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--grp-ink); }
+.x-maxine-wall__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.x-maxine-wall__tile { margin: 0; display: grid; gap: 6px; }
+.x-maxine-wall__tile img { display: block; width: 100%; height: auto; max-width: 448px; border: 1px solid var(--sx-line); }
+.x-maxine-wall__label { font: 500 15px/1.3 var(--sx-caption); color: var(--sx-ink-2); }
+@media (max-width: 767px) {
+  .x-maxine-wall { gap: 28px; }
+  .x-maxine-wall__grid { grid-template-columns: none; grid-template-rows: repeat(2, auto); grid-auto-flow: column; grid-auto-columns: 42%; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * var(--sx-pad, 16px)); padding: 2px var(--sx-pad, 16px) 10px; scroll-padding-inline: var(--sx-pad, 16px); }
+  .x-maxine-wall__tile { scroll-snap-align: start; }
+  .x-maxine-wall__label { font-size: 14px; }
+}

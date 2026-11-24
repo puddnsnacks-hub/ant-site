@@ -1,0 +1,74 @@
+/* RiffBox live piece: the twelve interval notes under simulated color vision.
+   Shell tokens first, PDS globals as fallback. The only literal colors are the
+   product's own note fills, which live in the SVG as content. */
+.x-riffbox{
+  --x-riffbox-ink: var(--sx-ink);
+  --x-riffbox-ink-2: var(--sx-ink-2);
+  --x-riffbox-line: var(--sx-line-strong);
+  --x-riffbox-ground: var(--sx-paper);
+  --x-riffbox-board: var(--g-color-brand-gray-0);
+  --x-riffbox-on-ink: var(--sx-paper);
+  --x-riffbox-focus: var(--sx-focus);
+  font-family: var(--sx-ui);
+  color: var(--x-riffbox-ink);
+  display: grid;
+  gap: 12px;
+}
+.x-riffbox-defs{ position:absolute; width:0; height:0; overflow:hidden; }
+.x-riffbox-vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.x-riffbox-howto{ margin:0; font-size:16px; line-height:24px; color:var(--x-riffbox-ink-2); }
+.x-riffbox-controls{ display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; }
+/* Segments use the shell's .s-seg (selected = .is-on, set by the script).
+   Only the native radio hiding and the focus ring live here: the radio sits
+   invisible over its label, so the ring is drawn on the label from the
+   radio's :focus-visible with the shell focus tokens. */
+.x-riffbox-views{ border:0; min-width:0; }
+.x-riffbox-seg input{ position:absolute; inset:0; width:100%; height:100%; opacity:0; margin:0; cursor:pointer; z-index:3; }
+html .x-riffbox-seg input:focus-visible{ outline:none !important; box-shadow:none !important; }
+.x-riffbox-seg:has(input:focus-visible){
+  z-index:2;
+  outline:var(--c-page-focus-width, 3px) solid var(--c-page-focus-ring, var(--sx-focus));
+  outline-offset:var(--c-page-focus-gap, 2px);
+}
+html[data-focus-style="mint"] .x-riffbox-seg:has(input:focus-visible),
+html[data-focus-style="periwinkle"] .x-riffbox-seg:has(input:focus-visible){ box-shadow:0 0 0 2px var(--g-color-brand-gray-90); }
+html[data-focus-style="highvis"] .x-riffbox-seg:has(input:focus-visible){ box-shadow:0 0 0 2px var(--g-color-warning-30); }
+.x-riffbox-toggle{
+  display:inline-flex; align-items:center; gap:10px; min-height:44px; padding:0 14px;
+  font:500 16px/1.2 var(--sx-ui); color:var(--x-riffbox-ink); background:var(--x-riffbox-ground);
+  border:2px solid var(--x-riffbox-ink); cursor:pointer; border-radius:0;
+}
+.x-riffbox-box{ width:18px; height:18px; border:2px solid var(--x-riffbox-ink); display:inline-block; position:relative; }
+.x-riffbox-toggle[aria-pressed="true"] .x-riffbox-box{ background:var(--x-riffbox-ink); }
+.x-riffbox-toggle[aria-pressed="true"] .x-riffbox-box::after{
+  content:""; position:absolute; left:4px; top:0; width:5px; height:10px;
+  border:solid var(--x-riffbox-on-ink); border-width:0 2px 2px 0; transform:rotate(45deg);
+}
+.x-riffbox-toggle:focus-visible{ outline:var(--c-page-focus-width, 3px) solid var(--c-page-focus-ring, var(--sx-focus)); outline-offset:var(--c-page-focus-gap, 2px); }
+.x-riffbox-stage{
+  position:relative; background:var(--x-riffbox-board);
+  border:var(--g-theme-border-hairline, 1px) solid var(--x-riffbox-line);
+  padding:40px 16px 16px;
+}
+.x-riffbox-badge{
+  position:absolute; top:0; left:0; margin:0; padding:4px 10px;
+  font-size:12px; line-height:16px; letter-spacing:var(--g-theme-label-tracking, .6px); text-transform:uppercase;
+  background:var(--x-riffbox-ink); color:var(--x-riffbox-on-ink);
+}
+.x-riffbox-row{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); gap:4px;
+}
+.x-riffbox-cell{ display:flex; flex-direction:column; align-items:center; gap:2px; }
+.x-riffbox-svg{ width:100%; max-width:88px; height:auto; display:block; }
+.x-riffbox[data-color-only="true"] .x-riffbox-iv,
+.x-riffbox[data-color-only="true"] .x-riffbox-key{ visibility:hidden; }
+.x-riffbox-iv{ font-family:var(--sx-code); font-size:14px; line-height:16px; color:var(--x-riffbox-ink); }
+.x-riffbox-key{ margin:20px 0 0; font-size:13px; line-height:18px; color:var(--x-riffbox-ink-2); }
+.x-riffbox-status{ margin:0; font-size:17px; line-height:26px; min-height:52px; max-width:62ch; }
+.x-riffbox-cite{ margin:0; font-size:13px; line-height:20px; color:var(--x-riffbox-ink-2); max-width:70ch; }
+@media (max-width: 720px){
+  .x-riffbox-row{ grid-template-columns:repeat(6, minmax(0,1fr)); row-gap:12px; }
+  .x-riffbox-views{ width:100%; }
+}
+@media print{ .x-riffbox-controls, .x-riffbox-howto{ display:none; } }

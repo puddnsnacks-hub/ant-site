@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dreadnought · Michael Lombardi</title>
+<meta name="description" content="Dreadnought looked and felt like two different games on PlayStation and PC. One menu architecture, where every direction has one job, made it one game for every hand.">
+<link rel="stylesheet" href="pp/system.css">
+<style>
+  /* Per-project hooks. */
+  :root{ --accent:#3cc3d6; --accent-text:#00677a; }
+  /* Page-specific */
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .hero__grid{grid-template-columns:minmax(0,1fr)}
+  .hero__text{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:0 var(--s8);align-items:end}
+  .hero__text>*+*{margin-top:0}
+  .hero .eyebrow,.hero__title{grid-column:1}
+  .hero__title{margin-top:var(--s2)}
+  .hero__lede,.hero .actions,.hero__note{grid-column:2}
+  .hero__lede{grid-row:2;align-self:end}
+  .hero .actions{margin-top:var(--s4)}
+  .hero__note{margin-top:var(--s2)}
+  .hero__fig{margin-top:var(--s8)}
+  .hero__fig figcaption{padding-inline:0}
+  .quote--solo{max-width:36rem}
+  .duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s5) var(--s4);align-items:start;margin-left:calc((var(--rail) + var(--s5)) * -1)}
+  .duo--rule{margin-left:0;grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
+  .duo--icons{margin-left:0;grid-template-columns:minmax(0,4fr) minmax(0,7fr);align-items:center}
+  .duo__h{font:600 var(--t-h3)/var(--lh-h3) var(--f-ui);max-width:var(--measure);padding-top:var(--s2);border-top:2px solid var(--rule)}
+  .sec__body>.duo__h+.duo{margin-top:var(--s3)}
+  .cmd{width:100%;border-collapse:collapse;font:400 1rem/1.5rem var(--f-ui)}
+  .cmd caption{text-align:left;font:600 var(--t-eyebrow)/1.5rem var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding-bottom:var(--s1)}
+  .cmd th,.cmd td{text-align:left;padding:12px var(--s2) 12px 0;border-bottom:1px solid rgba(255,248,235,.3);vertical-align:top}
+  .cmd thead th{font-weight:600;border-bottom:2px solid var(--paper)}
+  .cmd tbody th{font-weight:600;color:var(--gold)}
+  @media (max-width:899px){
+    .hero__text{display:contents}
+    .hero__title{margin-top:0}
+    .hero .eyebrow,.hero__title,.hero__lede,.hero .actions,.hero__note{grid-column:auto;grid-row:auto}
+    .hero .actions,.hero__note,.hero__fig{margin-top:0}
+    .hero__fig figcaption{padding-inline:var(--gutter)}
+    .duo,.duo--rule,.duo--icons{grid-template-columns:minmax(0,1fr);margin-left:0}
+    .fig--map img{max-width:420px;margin-inline:auto}
+  }
+</style>
+<style id="xframe">.xframe{margin-top:var(--s6,48px)}.xframe iframe{display:block;width:100%;height:560px;border:0;background:#fff8eb}</style>
+<link rel="stylesheet" href="pp/chrome.css">
+<style id="thread">html:root{--accent:#4db5ff;--accent-text:#0a5a99;--gold:#4db5ff;--teal:#452f23;--teal-deep:#22140d;--ph-fill:#5c4a3d}</style>
+</head>
+<body id="top">
+<header class="gh gh--std" style="--acc:#4db5ff;--acc-ink:#22140d;--acc-on-dark:#4db5ff">
+  <a class="gh__skip" href="#main">Skip to content</a>
+  <div class="gh__strip" aria-hidden="true"></div>
+  <div class="gh__bar">
+    <div class="gh__who"><a class="gh__home" href="index.html" aria-label="Story" title="Story"><img src="assets/hatlamp-mark@2x.png" srcset="assets/hatlamp-mark@2x.png 2x, assets/hatlamp-mark@3x.png 3x" width="79" height="101" alt=""></a><button class="gh__btn gh__name" type="button" aria-expanded="false" aria-controls="gh-name">Michael Lombardi</button>
+      <div class="gh__panel gh__panel--who" id="gh-name"><ul><li><span class="gh__k">Email</span><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></li><li><span class="gh__k">Résumé</span><a href="resume.html">View the résumé</a></li></ul></div></div>
+    <button class="gh__toggle" type="button" aria-expanded="false" aria-controls="gh-nav">Menu<svg class="gh__io" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/></svg><svg class="gh__ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2"/></svg></button>
+    <nav class="gh__nav" id="gh-nav" aria-label="Site"><ul class="gh__list">
+      <li><a class="gh__link" href="index.html">Story</a></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-featured">Featured</button><span class="gh__glabel">Featured</span><div class="gh__panel" id="gh-featured"><p class="gh__ph">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-cases"><span class="gh__star" aria-hidden="true"><img src="assets/hatlamp-star@2x.png" srcset="assets/hatlamp-star@2x.png 2x, assets/hatlamp-star@3x.png 3x" width="27" height="45" alt=""></span>Case Studies</button><span class="gh__glabel">Case Studies</span><div class="gh__panel" id="gh-cases"><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html" aria-current="page">Dreadnought</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-snacks">Snacks</button><span class="gh__glabel">Snacks</span><div class="gh__panel" id="gh-snacks"><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div></li>
+      <li><a class="gh__link" href="resume.html">Résumé</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">Case study · Six Foot · PC and PlayStation</p>
+        <h1 class="hero__title" id="hero-title">One menu <span class="turn">for any input.</span></h1>
+        <p class="lede hero__lede">Dreadnought, a AAA game from Six Foot, looked and felt like two different games on PlayStation and PC. I designed every screen of the game, and one menu architecture for both.</p>
+        <div class="actions">
+          <a class="btn" href="#problem">See the idea
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+          <a class="btn btn--quiet" href="https://www.behance.net/gallery/76474081/Dreadnought-Menu-Flow-Chart" target="_blank" rel="noopener">The full menu map<span class="vh"> on Behance (opens a new tab)</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>
+        </div>
+        <p class="hero__note">Shipped on PC and PlayStation, after internal QA and a worldwide beta.</p>
+      </div>
+      <figure class="hero__fig fig">
+        <picture>
+          <source media="(max-width:899px)" srcset="pp/img/dreadnought/ship-hero-phone.jpg">
+          <img src="pp/img/dreadnought/ship-hero.jpg" width="1600" height="671" alt="Dreadnought’s ship customization screen. A battleship fills the upper frame. Below it, Loadouts, Appearance and Details tabs sit over three groups of slots: Vanity, Ship Components with Hull selected, and Captain Customization.">
+        </picture>
+        <figcaption><b>Ship customization.</b> The menu sits below the ship, and every choice is one direction away.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec" id="problem" aria-labelledby="s1">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The problem</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s1">One game, <span class="turn">played as two.</span></h2>
+        <div class="prose">
+          <p>The PlayStation release was optimized for a controller and the PC release for a keyboard and mouse, so one game looked and felt like two.</p>
+        </div>
+        <blockquote class="quote quote--solo">
+          <p>PS4 and PC ship customization is too divergent in both styles and interactions.</p>
+          <footer>Michael Lombardi</footer>
+        </blockquote>
+        <ul class="features">
+          <li class="feature"><h3>A controller</h3><p>Players on PS4.</p></li>
+          <li class="feature"><h3>A mouse and keyboard</h3><p>Players on a PC.</p></li>
+          <li class="feature"><h3>Both</h3><p>Players on a PC who switch hands in the middle of a session, so neither device could be the afterthought.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--dark sec--tilt" aria-labelledby="s2">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The rule</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s2">Every direction <span class="turn">has one job.</span></h2>
+        <div class="prose">
+          <p>The goal was a single design that works well for both input devices, with one look and feel. The controller has the fewest inputs, so the strategy started there and the keyboard followed the controller’s map. The pointer can still select anything on the screen.</p>
+        </div>
+        <ul class="features">
+          <li class="feature"><h3>Left and right pick a section</h3><p>One axis moves between the parts of the ship.</p></li>
+          <li class="feature"><h3>Up and down pick its option</h3><p>The options for that part rise in a row above its slot.</p></li>
+          <li class="feature"><h3>Action and Back do the rest</h3><p>Primary controller actions stop at the D-pad, an action button and a back button.</p></li>
+        </ul>
+        <div class="duo duo--rule">
+          <table class="cmd">
+            <caption>One command, two inputs</caption>
+            <thead><tr><th scope="col">Command</th><th scope="col">Controller</th><th scope="col">Keyboard and mouse</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Section</th><td>D-pad left, right</td><td>← → keys, or click</td></tr>
+              <tr><th scope="row">Option</th><td>D-pad up, down</td><td>↑ ↓ keys, or click</td></tr>
+              <tr><th scope="row">Action</th><td>Action button</td><td>Left click, Enter</td></tr>
+              <tr><th scope="row">Back</th><td>Back button</td><td>Esc</td></tr>
+              <tr><th scope="row">Menu</th><td>L1, R1 bumpers</td><td>Click a tab</td></tr>
+            </tbody>
+          </table>
+          <figure class="fig">
+            <picture>
+              <source media="(max-width:899px)" srcset="pp/img/dreadnought/select-manufacturer-phone.jpg">
+              <img src="pp/img/dreadnought/select-manufacturer.jpg" width="1600" height="900" alt="Dreadnought’s Select Manufacturer screen on PlayStation: three manufacturer crests in a row, an Owned Ships button in focus below them, and a prompt bar along the bottom reading Select, Back and Home.">
+            </picture>
+            <figcaption><b>The same few commands on every screen.</b> The prompt bar names them: select, back, home.</figcaption>
+          </figure>
+        </div>
+        <figure class="fig fig--bleed">
+          <picture>
+            <source media="(max-width:899px)" srcset="pp/img/dreadnought/ship-appearance-phone.jpg">
+            <img src="pp/img/dreadnought/ship-appearance.jpg" width="1600" height="900" alt="Dreadnought’s revised ship appearance screen: the ship above, slots along the bottom, and a row of pattern options rising above the selected Pattern slot, with a details panel open over it.">
+          </picture>
+          <figcaption><b>The rule on screen.</b> Slots along the bottom, options in a row above them, and the menu below the ship so the ship stays in view. The details panel text is a placeholder.</figcaption>
+        </figure>
+      </div>
+    </div>
+  <div class="wrap xframe"><iframe data-x="x-dreadnought.html" src="x-dreadnought.html" title="Try the rule: dress the ship with a controller or a keyboard"></iframe></div>
+</section>
+
+  <section class="sec" aria-labelledby="s3">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">Two builds</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s3">Same screen, <span class="turn">different hands.</span></h2>
+        <h3 class="duo__h">Where the hardware is the same, the screen is the same.</h3>
+        <div class="duo">
+          <figure class="fig">
+            <picture>
+              <source media="(max-width:899px)" srcset="pp/img/dreadnought/audio-ps4-phone.jpg">
+              <img src="pp/img/dreadnought/audio-ps4.jpg" width="1600" height="849" alt="PlayStation Audio tab: L1 and R1 prompts beside the tabs, rows for master, music, effect and dialog volume, voice chat and the controller speaker, and Apply and Cancel on the face buttons.">
+            </picture>
+            <figcaption><b>PlayStation.</b> Shoulder buttons turn the tabs, and face buttons apply or cancel.</figcaption>
+          </figure>
+          <figure class="fig">
+            <picture>
+              <source media="(max-width:899px)" srcset="pp/img/dreadnought/audio-pc-phone.jpg">
+              <img src="pp/img/dreadnought/audio-pc.jpg" width="1600" height="849" alt="PC Audio tab: the same four tabs without prompts, rows for speaker setup and the volume levels, and Reset Hotkeys, Cancel and Apply buttons.">
+            </picture>
+            <figcaption><b>PC.</b> The pointer clicks the same tabs, and buttons replace the prompts.</figcaption>
+          </figure>
+        </div>
+        <h3 class="duo__h">Where the hardware differs, the content differs and the frame stays.</h3>
+        <div class="duo">
+          <figure class="fig">
+            <picture>
+              <source media="(max-width:899px)" srcset="pp/img/dreadnought/controls-ps4-phone.jpg">
+              <img src="pp/img/dreadnought/controls-ps4.jpg" width="1600" height="745" alt="PlayStation Controls tab: a controller diagram labeled Layout 1, with zoom, descend, fire, ascend, weapon and module commands drawn on its buttons, beside settings for controller layout, camera and movement inversion, light bar and vibration.">
+            </picture>
+            <figcaption><b>PlayStation.</b> Two layouts, drawn on the controller itself.</figcaption>
+          </figure>
+          <figure class="fig">
+            <picture>
+              <source media="(max-width:899px)" srcset="pp/img/dreadnought/controls-pc-phone.jpg">
+              <img src="pp/img/dreadnought/controls-pc.jpg" width="1600" height="745" alt="PC Controls tab: general settings for camera sensitivity and inversion, then a list of hotkeys for moving forward, backward, turning and rising.">
+            </picture>
+            <figcaption><b>PC.</b> General settings and a list of hotkeys, in the same tabs and frame.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--dark sec--tilt" aria-labelledby="s4">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The way back</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s4">One map, <span class="turn">one way back.</span></h2>
+        <div class="prose">
+          <p>The menu is one tree, from Home to Play, Fleet, Manufacturer and Captain Progression. Shared screens such as Ship Details and Edit Loadout appear under each path that reaches them, so Back always returns a player the way they came.</p>
+        </div>
+        <figure class="fig fig--bleed fig--map">
+          <picture>
+            <source media="(max-width:899px)" srcset="pp/img/dreadnought/flow-chart-phone.jpg">
+            <img src="pp/img/dreadnought/flow-chart.jpg" width="2000" height="1096" alt="Flow chart of Dreadnought’s menus. Home sits at the top and branches into Play, Play-Manage Fleet, Fleet, Manufacturer and Captain Progression, each fanning out into ship details, ability tree, edit loadout, ship appearance, vanity, components and module details screens.">
+          </picture>
+          <figcaption><b>The whole menu as one map.</b> Each path keeps its own branch, so Back always knows where to go.</figcaption>
+        </figure>
+        <div class="prose">
+          <p>The header carries the path as a breadcrumb beside the Esc prompt, so the way back is always on screen. Its alerts and invites bring their own actions.</p>
+        </div>
+        <figure class="fig fig--bleed">
+          <picture>
+            <source media="(max-width:899px)" srcset="pp/img/dreadnought/header-states-phone.jpg">
+            <img src="pp/img/dreadnought/header-states.jpg" width="1600" height="752" alt="Three header states: Fleet, Recruit with a squad invite and its Reject, Details and Accept buttons; Home, Recruit, Edit Loadout as a breadcrumb; and Market. Each has an Esc prompt on the left and the captain panel on the right. Below, the header buttons in idle and focused states.">
+          </picture>
+          <figcaption><b>The header.</b> The path, the way back, an invite with its own buttons, and one idle and one focused state for each button.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s5">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The parts</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s5">One tile, <span class="turn">every state.</span></h2>
+        <div class="prose">
+          <p>Every ship is one tile that takes its tier’s color and marks each state, from unowned to fully researched.</p>
+        </div>
+        <figure class="fig fig--wide">
+          <picture>
+            <source media="(max-width:899px)" srcset="pp/img/dreadnought/tile-states-phone.jpg">
+            <img src="pp/img/dreadnought/tile-states.jpg" width="2000" height="787" alt="The states sheet for the ship tile: columns for unowned, unowned hover, claimable, claimable hover, owned, owned hover, equipped, equipped hover and fully researched, with a row for each tier color.">
+          </picture>
+          <figcaption><b>One tile master</b> carries its tier color through every state.</figcaption>
+        </figure>
+        <div class="duo duo--icons">
+          <div class="prose">
+            <p>Module icons were displayed from 32 × 32 px to 256 × 256 px. Each one is a white silhouette on the same teal tile, drawn to read at the smallest size.</p>
+          </div>
+          <figure class="fig">
+            <picture>
+              <source media="(max-width:899px)" srcset="pp/img/dreadnought/module-icons-phone.jpg">
+              <img src="pp/img/dreadnought/module-icons.jpg" width="1600" height="500" alt="Rows of square module icons, each a white silhouette on a teal tile: armor, shields, missiles, lightning bolts, repair crosses, skulls and bursts.">
+            </picture>
+            <figcaption><b>If it reads at 32 pixels,</b> it reads at 256.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="close-title">
+    <div class="wrap">
+      <h2 class="close__title" id="close-title">One menu. Every hand.</h2>
+      <div class="actions">
+        <a class="btn" href="mailto:mccabelombardi@gmail.com">Email Michael</a>
+        <a class="btn btn--quiet" href="https://www.behance.net/gallery/76474081/Dreadnought-Menu-Flow-Chart" target="_blank" rel="noopener">The full menu map<span class="vh"> on Behance (opens a new tab)</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<footer class="gf gf--std" style="--acc:#4db5ff;--acc-ink:#22140d;--acc-on-dark:#4db5ff">
+  <div class="gf__wrap">
+    <div class="gf__map">
+      <div class="gf__me" id="contact" tabindex="-1"><p class="gf__nm">Michael Lombardi</p><p><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p></div>
+      <nav class="gf__cols" aria-label="Site map">
+        <div class="gf__solo"><p class="gf__h"><a href="index.html">Story</a></p></div>
+        <div><p class="gf__h">Featured</p><p class="gf__sub">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div>
+        <div><p class="gf__h">Case Studies</p><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html" aria-current="page">Dreadnought</a></li></ul></div>
+        <div><p class="gf__h">Snacks</p><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div>
+        <div class="gf__solo"><p class="gf__h"><a href="resume.html">Résumé</a></p></div>
+      </nav>
+    </div>
+    <div class="gf__base"><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+<script src="pp/system.js"></script>
+<script>addEventListener('message',function(e){var d=e.data;if(!d||!d.xframe)return;var f=document.querySelector('iframe[data-x="'+d.xframe+'"]');if(f)f.style.height=Math.ceil(d.h)+'px'});</script>
+<script src="pp/chrome.js"></script>
+</body>
+</html>

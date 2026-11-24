@@ -1,0 +1,166 @@
+/* New Car Who Dis: accent re-skin demo. Colors are the product's own. */
+
+.x-new-car-who-dis-reskin { display: grid; gap: var(--s-space-md); }
+
+/* ---------- chrome ---------- */
+.x-new-car-who-dis-controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--s-space-md) var(--s-space-lg); }
+.x-new-car-who-dis-control { display: grid; gap: var(--s-space-2xs); min-width: 0; max-width: 100%; }
+.x-new-car-who-dis-k {
+  font-family: var(--s-font-family-ui); font-weight: var(--s-font-weight-semibold);
+  font-size: 13px; color: var(--s-color-text-secondary);
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.x-new-car-who-dis-dot {
+  display: inline-block; width: .75rem; height: .75rem; flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--sx-paper);
+}
+.x-new-car-who-dis-readout { margin: 0; align-self: center; padding-top: var(--s-space-md); font-family: var(--s-font-family-ui); color: var(--s-color-text-secondary); font-size: var(--s-type-body-sm-size); }
+.x-new-car-who-dis-readout code { font-family: var(--s-font-family-code); font-size: 14px; color: var(--s-color-text-primary); }
+.x-new-car-who-dis-hint { margin: 0; font-family: var(--s-font-family-ui); color: var(--s-color-text-secondary); font-size: var(--s-type-body-sm-size); }
+
+/* ---------- the stage: the product's tokens ---------- */
+.x-new-car-who-dis-stage {
+  --bg: #F4F4F1; --surface: #FFFFFF; --surface2: #F1F1ED; --surface3: #E9E9E3;
+  --border: #E3E3DC; --border-strong: #CFCFC6;
+  --text: #1A1A17; --text-muted: #6C6C64; --text-dim: #A0A097;
+  --ink: #1A1A17;
+  --accent: #9A7327;
+  --accent-soft: color-mix(in oklab, var(--accent) 9%, transparent);
+  --accent-line: color-mix(in oklab, var(--accent) 35%, transparent);
+  --status-scheduled: #A87C2B;
+  --fuel-electric: #3C8268;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --radius: 4px; --radius-sm: 3px;
+  --shadow-card: 0 1px 2px rgba(26,26,23,.04);
+
+  position: relative;
+  background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: 14px; line-height: 1.4;
+  border: var(--s-border-width-hairline) solid var(--s-color-border-strong);
+  padding: 40px 28px 28px;
+  transition: background .25s;
+}
+/* surface moods, from the stylesheet's TWEAK: SURFACE MOOD block */
+.x-new-car-who-dis-reskin[data-mood="cool"] .x-new-car-who-dis-stage {
+  --bg: #EEF1F4; --surface: #FFFFFF; --surface2: #E9EDF1; --surface3: #DFE4EA;
+  --border: #DCE1E7; --border-strong: #C5CCD4; --text: #181B1F; --text-muted: #5E656F; --text-dim: #979EA8; --ink: #181B1F;
+}
+.x-new-car-who-dis-reskin[data-mood="contrast"] .x-new-car-who-dis-stage {
+  --bg: #FCFCFB; --surface: #FFFFFF; --surface2: #F0F0EE; --surface3: #E5E5E0;
+  --border: #E0E0DA; --border-strong: #B4B4AC; --text: #0A0A09; --text-muted: #5C5C55; --text-dim: #94948B; --ink: #0A0A09;
+}
+.x-new-car-who-dis-reskin[data-accent="cobalt"] .x-new-car-who-dis-stage { --accent: #3A5FCC; }
+.x-new-car-who-dis-reskin[data-accent="forest"] .x-new-car-who-dis-stage { --accent: #3C8268; }
+.x-new-car-who-dis-reskin[data-accent="bronze"] .x-new-car-who-dis-stage { --accent: #9A7327; }
+.x-new-car-who-dis-reskin[data-accent="ink"]    .x-new-car-who-dis-stage { --accent: #2A2A26; }
+
+.x-new-car-who-dis-sample {
+  position: absolute; top: 12px; left: 28px; margin: 0;
+  font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted);
+}
+.x-new-car-who-dis-grid { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 28px; align-items: start; }
+
+/* car card (.car-card and children) */
+.x-new-car-who-dis-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-card); transition: background .25s, border-color .25s; }
+.x-new-car-who-dis-photo {
+  height: 150px; background: var(--surface2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--text-dim);
+  transition: background .25s;
+}
+.x-new-car-who-dis-photo svg { opacity: .45; }
+.x-new-car-who-dis-photo span { font-size: 12px; font-family: var(--mono); letter-spacing: .04em; color: var(--text-muted); }
+.x-new-car-who-dis-card-body { padding: 20px; }
+.x-new-car-who-dis-badges { display: flex; gap: 6px; margin-bottom: 14px; }
+.x-new-car-who-dis-badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; font-family: var(--mono); }
+.x-new-car-who-dis-badge-ev { background: rgba(60,130,104,.10); color: var(--text); }
+.x-new-car-who-dis-badge-ev::before { content: ''; width: 8px; height: 8px; background: var(--fuel-electric); }
+.x-new-car-who-dis-name { font-size: 19px; font-weight: 400; letter-spacing: -.01em; color: var(--text); margin: 0 0 3px; line-height: 1.25; }
+.x-new-car-who-dis-trim { font-size: 14px; color: var(--text-muted); margin: 0 0 18px; }
+.x-new-car-who-dis-stats { display: flex; gap: 28px; margin-bottom: 4px; }
+.x-new-car-who-dis-stat { display: flex; flex-direction: column; gap: 4px; }
+.x-new-car-who-dis-stat-label { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--text-muted); font-family: var(--mono); }
+.x-new-car-who-dis-stat-value { font-size: 16px; font-weight: 500; color: var(--text); font-variant-numeric: tabular-nums; }
+.x-new-car-who-dis-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+.x-new-car-who-dis-dealer { font-size: 14px; color: var(--text-muted); }
+/* .card-status-select, status color passed inline in the app */
+.x-new-car-who-dis-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; font-family: var(--mono);
+  border-radius: var(--radius-sm); border: 1px solid var(--status-scheduled); color: var(--text);
+  padding: 4px 8px; background: var(--surface);
+}
+.x-new-car-who-dis-status::before { content: ''; width: 8px; height: 8px; background: var(--status-scheduled);
+}
+
+/* where the accent is earned (the style guide's "Accent in context") */
+.x-new-car-who-dis-earned { display: grid; gap: 16px; min-width: 0; }
+.x-new-car-who-dis-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.x-new-car-who-dis-row-3 { grid-template-columns: repeat(3, auto); justify-content: start; gap: 16px 28px; align-items: start; }
+.x-new-car-who-dis-item { display: grid; gap: 7px; align-content: start; min-width: 0; }
+.x-new-car-who-dis-label { font-size: 12px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: .14em; font-family: var(--mono); }
+
+.x-new-car-who-dis-q {
+  display: flex; flex-direction: column; gap: 9px; padding: 12px 14px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  transition: border-color .25s, background .25s;
+}
+.x-new-car-who-dis-q-answered { border-color: var(--accent-line); background: var(--accent-soft); }
+.x-new-car-who-dis-q-head { display: flex; align-items: flex-start; gap: 9px; }
+.x-new-car-who-dis-q-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--surface3); flex-shrink: 0; margin-top: 5px; transition: background .25s; }
+.x-new-car-who-dis-q-dot-on { background: var(--accent); }
+.x-new-car-who-dis-q-text { flex: 1; font-size: 14px; color: var(--text); line-height: 1.45; }
+.x-new-car-who-dis-q-answer { display: flex; gap: 8px; padding-left: 16px; }
+.x-new-car-who-dis-radio { font-size: 14px; font-weight: 500; padding: 5px 12px; border-radius: var(--radius); border: 1px solid var(--border); color: var(--text-muted); background: var(--surface); }
+.x-new-car-who-dis-radio-yes { border-color: var(--fuel-electric); color: var(--text); background: rgba(60,130,104,.10); box-shadow: inset 0 0 0 1px var(--fuel-electric); }
+
+.x-new-car-who-dis-filter { display: grid; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.x-new-car-who-dis-filter-item {
+  position: relative; height: 44px; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; font-family: var(--mono);
+  color: var(--text-muted); border-bottom: 1px solid var(--border);
+}
+.x-new-car-who-dis-filter-item:last-child { border-bottom: 0; }
+.x-new-car-who-dis-filter-on { color: var(--text); }
+.x-new-car-who-dis-filter-on::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); transition: background .25s; }
+
+.x-new-car-who-dis-sort {
+  height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  position: relative; overflow: hidden;
+  font-family: var(--mono); font-size: 14px; font-weight: 500; letter-spacing: .04em; color: var(--text);
+}
+.x-new-car-who-dis-sort::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); transition: background .25s; }
+.x-new-car-who-dis-sort span:last-child { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted); white-space: nowrap; }
+
+.x-new-car-who-dis-link { font-size: 15px; color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 4px; transition: text-decoration-color .25s; white-space: nowrap; }
+.x-new-car-who-dis-key svg { display: block; }
+.x-new-car-who-dis-key {
+  display: inline-flex; align-items: center; justify-content: center; width: 88px; height: 42px; border-radius: 6px;
+  background: var(--accent); color: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.28); transition: background .25s;
+}
+.x-new-car-who-dis-primary {
+  display: inline-flex; align-items: center; padding: 8px 18px; border-radius: var(--radius);
+  background: var(--ink); color: #fff; font-weight: 500; font-size: 14px; border: 1px solid var(--ink); white-space: nowrap;
+}
+
+/* on each change, ring every accent-bearing element briefly */
+.x-new-car-who-dis-reskin.is-flash [data-accent-on] { outline: 2px solid var(--sx-focus); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .x-new-car-who-dis-stage, .x-new-car-who-dis-stage * { transition: none !important; }
+}
+
+@media (max-width: 1023.98px) {
+  .x-new-car-who-dis-grid { grid-template-columns: 1fr; gap: 20px; }
+  .x-new-car-who-dis-earned { order: -1; }
+  .x-new-car-who-dis-card { max-width: 360px; }
+}
+@media (max-width: 767.98px) {
+  .x-new-car-who-dis-controls { display: grid; }
+  .x-new-car-who-dis-readout { padding-top: 0; }
+  .x-new-car-who-dis-stage { padding: 36px 14px 16px; }
+  .x-new-car-who-dis-sample { left: 14px; }
+  .x-new-car-who-dis-row { grid-template-columns: 1fr; }
+  .x-new-car-who-dis-row-3 { grid-template-columns: auto auto; }
+}

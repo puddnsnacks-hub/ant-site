@@ -1,0 +1,49 @@
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(0bd8210de901.woff2) format('woff2');
+  unicode-range: U+41, U+67;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(ffd2cbc6cb1c.woff2) format('woff2');
+  unicode-range: U+41, U+67;
+}
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(47964bfa1929.woff2) format('woff2');
+  unicode-range: U+41, U+67;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(c81730926c36.woff2) format('woff2');
+  unicode-range: U+41, U+67;
+}
+@font-face {
+  font-family: 'Spectral';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(d58f5d2d12dd.woff2) format('woff2');
+  unicode-range: U+41, U+67;
+}
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(6ad3f318efaa.woff2) format('woff2');
+  unicode-range: U+41, U+67;
+}

@@ -1,0 +1,22 @@
+/* Two strangers, one page. Shell tokens only, square corners. */
+.x-agent-trials-strangers { margin: 0; display: grid; gap: 0; border: 2px solid var(--sx-ink); background: var(--sx-paper); }
+.x-agent-trials-strangers__kicker { margin: 0; padding: 14px 20px; font: 600 13px/1.3 var(--sx-ui); letter-spacing: .1em; text-transform: uppercase; color: var(--grp-ink, var(--sx-brown)); border-bottom: 2px solid var(--sx-ink); }
+.x-agent-trials-strangers__pair { display: grid; grid-template-columns: 1fr 1fr; }
+.x-agent-trials-strangers__col { padding: 20px; min-width: 0; }
+.x-agent-trials-strangers__col + .x-agent-trials-strangers__col { border-left: 2px solid var(--sx-ink); }
+.x-agent-trials-strangers__who { margin: 0 0 14px; font: 600 26px/1.15 var(--sx-display); color: var(--sx-ink); }
+.x-agent-trials-strangers__list { margin: 0; display: grid; gap: 12px; }
+.x-agent-trials-strangers__list div { display: grid; gap: 2px; padding-top: 10px; border-top: 1px solid var(--sx-line); }
+.x-agent-trials-strangers__list dt { font: 600 13px/1.3 var(--sx-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--sx-ink-2, var(--sx-ink)); }
+.x-agent-trials-strangers__list dd { margin: 0; font: 400 18px/1.4 var(--sx-body); color: var(--sx-ink); }
+.x-agent-trials-strangers__both { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; padding: 16px 20px; background: var(--g-color-brand-accent-10, var(--sx-cream)); border-top: 2px solid var(--sx-ink); }
+.x-agent-trials-strangers__bothlabel { margin: 0; padding: 4px 8px; background: var(--sx-ink); color: var(--sx-paper); font: 600 13px/1.2 var(--sx-ui); letter-spacing: .1em; text-transform: uppercase; }
+.x-agent-trials-strangers__both ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; font: 500 17px/1.4 var(--sx-ui); color: var(--sx-ink); }
+.x-agent-trials-strangers__cap { padding: 12px 20px; font: 400 15px/1.4 var(--sx-caption); color: var(--sx-ink-2, var(--sx-ink)); border-top: 1px solid var(--sx-line); }
+@media (max-width: 599.98px) {
+  .x-agent-trials-strangers__pair { grid-template-columns: 1fr; }
+  .x-agent-trials-strangers__col + .x-agent-trials-strangers__col { border-left: 0; border-top: 2px solid var(--sx-ink); }
+  .x-agent-trials-strangers__both { grid-template-columns: 1fr; gap: 8px; }
+  .x-agent-trials-strangers__both .x-agent-trials-strangers__bothlabel { justify-self: start; }
+  .x-agent-trials-strangers__col, .x-agent-trials-strangers__kicker, .x-agent-trials-strangers__both, .x-agent-trials-strangers__cap { padding-left: 16px; padding-right: 16px; }
+}

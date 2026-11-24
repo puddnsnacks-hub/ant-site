@@ -1,0 +1,26 @@
+/* PDS: self-hosted faces. Fraunces and Afacad Flux come from the original files (github.com/google/fonts, SIL Open Font License,
+   licenses in fonts/), because the files Google serves leave out the stylistic sets and the slashed zero the type system uses.
+   Load this file before pds-type.css. The remaining families (Sarabun, Fira Sans, Fira Code, IBM Plex Sans) use no such
+   features and stay on Google Fonts through the import in pds-type.css. */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("fonts/fraunces-variable.woff2") format("woff2-variations"), url("fonts/fraunces-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("fonts/fraunces-italic-variable.woff2") format("woff2-variations"), url("fonts/fraunces-italic-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Afacad Flux";
+  src: url("fonts/afacad-flux-variable.woff2") format("woff2-variations"), url("fonts/afacad-flux-variable.woff2") format("woff2");
+  font-weight: 100 1000;
+  font-style: oblique -14deg 14deg;
+  font-display: swap;
+}

@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Universal Design System · Michael Lombardi</title>
+<meta name="description" content="Input forms, charts and the hero carousel for Universal Orlando’s design system, each tested with users and shaped by the screen it lands on.">
+<link rel="stylesheet" href="pp/system.css">
+<style>
+  :root{ --accent:#7db4ff; --accent-text:#1f52b0; }
+
+  /* Hero: three phones, one per component, on an accent block */
+  .uds-phones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);padding:var(--s5) var(--s4) var(--s10);background:var(--accent)}
+  .uds-phones img{width:100%;aspect-ratio:9/16;object-fit:cover;object-position:top center;border:6px solid var(--ink);background:#fff}
+  .uds-phones li:nth-child(2){transform:translateY(var(--s5))}
+  .uds-phones ul{display:contents}
+  .uds-phones li{list-style:none}
+  .uds-crop{aspect-ratio:1440/862;object-fit:cover;object-position:top center}
+  .hero__fig figcaption{margin-top:var(--s2);padding-right:var(--gutter);font:400 var(--t-caption)/var(--lh-caption) var(--f-small);color:var(--ink-2);max-width:var(--measure)}
+
+  /* Two pictures side by side, aligned on their bottoms */
+  .hero__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .uds-duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s5);align-items:end;max-width:52rem}
+  .uds-duo--even{grid-template-columns:repeat(2,minmax(0,1fr));max-width:40rem}
+  .uds-duo img{border:2px solid var(--ink)}
+  .uds-duo--even img{aspect-ratio:9/16;object-fit:cover;object-position:top center}
+
+  /* Address pattern: the audited form beside the live one */
+  .uds-zip{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--s6);align-items:start}
+  .uds-zip .fig img{border:2px solid var(--ink)}
+  .uds-form{background:#fff;color:var(--ink);border:2px solid var(--ink);box-shadow:var(--s2) var(--s2) 0 var(--accent);padding:var(--s4)}
+  .uds-form__ask{font:600 var(--t-ui)/1.5rem var(--f-ui);margin-bottom:var(--s3)}
+  .uds-form form{display:flex;flex-direction:column;gap:var(--s3)}
+  .uds-field{display:flex;flex-direction:column;gap:6px}
+  .uds-field label,.uds-form legend{font:600 1rem/1.5rem var(--f-ui)}
+  .uds-field input[type=text]{min-height:48px;padding:0 var(--s2);border:2px solid var(--ink-2);border-radius:4px;background:#fff;color:var(--ink);font:400 1.0625rem/1 var(--f-body)}
+  .uds-field input::placeholder{color:#6b5a4d}
+  .uds-help{font:400 var(--t-caption)/var(--lh-caption) var(--f-small);color:var(--ink-2)}
+  .uds-link{align-self:flex-start;min-height:44px;padding:0;background:none;border:0;color:var(--accent-text);font:600 1rem/1 var(--f-ui);text-decoration:underline;text-underline-offset:.2em;cursor:pointer}
+  .uds-check{display:flex;align-items:center;gap:var(--s2);min-height:44px;font:400 1rem/1.5rem var(--f-body);cursor:pointer}
+  .uds-check input{width:24px;height:24px;margin:0;accent-color:var(--accent-text);flex:none}
+  .uds-count{font:500 var(--t-caption)/var(--lh-caption) var(--f-small);color:var(--ink);border-top:1px solid var(--rule);padding-top:var(--s2)}
+  .uds-count b{font:700 1.5rem/1 var(--f-display);margin-right:4px}
+  .uds-form fieldset{border:0;margin:0;padding:0 0 0 var(--s2);border-left:4px solid var(--accent);display:flex;flex-direction:column;gap:var(--s3);min-width:0}
+  .uds-new{border-left:4px solid var(--accent);padding-left:var(--s2)}
+  .uds-form [hidden]{display:none}
+
+  @media (max-width:899px){
+    .hero__grid{grid-template-columns:minmax(0,1fr)}
+    .uds-zip{grid-template-columns:minmax(0,1fr)}
+    .uds-phones{gap:var(--s2);padding:var(--s4) var(--gutter) var(--s8)}
+    .uds-phones img{border-width:4px}
+    .uds-phones li:nth-child(2){transform:translateY(var(--s3))}
+    .hero__fig figcaption{padding-inline:var(--gutter)}
+    .uds-duo{gap:var(--s3)}
+    .uds-form{margin-right:var(--s2);padding:var(--s3)}
+  }
+  @media (max-width:599px){
+    .uds-duo{grid-template-columns:minmax(0,1fr)}
+    .uds-duo--even{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .uds-duo .fig:first-child img{max-width:16rem}
+  }
+</style>
+<link rel="stylesheet" href="pp/chrome.css">
+<style id="thread">html:root{--accent:#a99bff;--accent-text:#4b3bb5;--gold:#a99bff;--teal:#452f23;--teal-deep:#22140d;--ph-fill:#5c4a3d}</style>
+</head>
+<body id="top">
+<header class="gh gh--std" style="--acc:#a99bff;--acc-ink:#22140d;--acc-on-dark:#a99bff">
+  <a class="gh__skip" href="#main">Skip to content</a>
+  <div class="gh__strip" aria-hidden="true"></div>
+  <div class="gh__bar">
+    <div class="gh__who"><a class="gh__home" href="index.html" aria-label="Story" title="Story"><img src="assets/hatlamp-mark@2x.png" srcset="assets/hatlamp-mark@2x.png 2x, assets/hatlamp-mark@3x.png 3x" width="79" height="101" alt=""></a><button class="gh__btn gh__name" type="button" aria-expanded="false" aria-controls="gh-name">Michael Lombardi</button>
+      <div class="gh__panel gh__panel--who" id="gh-name"><ul><li><span class="gh__k">Email</span><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></li><li><span class="gh__k">Résumé</span><a href="resume.html">View the résumé</a></li></ul></div></div>
+    <button class="gh__toggle" type="button" aria-expanded="false" aria-controls="gh-nav">Menu<svg class="gh__io" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/></svg><svg class="gh__ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2"/></svg></button>
+    <nav class="gh__nav" id="gh-nav" aria-label="Site"><ul class="gh__list">
+      <li><a class="gh__link" href="index.html">Story</a></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-featured">Featured</button><span class="gh__glabel">Featured</span><div class="gh__panel" id="gh-featured"><p class="gh__ph">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-cases"><span class="gh__star" aria-hidden="true"><img src="assets/hatlamp-star@2x.png" srcset="assets/hatlamp-star@2x.png 2x, assets/hatlamp-star@3x.png 3x" width="27" height="45" alt=""></span>Case Studies</button><span class="gh__glabel">Case Studies</span><div class="gh__panel" id="gh-cases"><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html" aria-current="page">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-snacks">Snacks</button><span class="gh__glabel">Snacks</span><div class="gh__panel" id="gh-snacks"><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div></li>
+      <li><a class="gh__link" href="resume.html">Résumé</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">Case study · Universal Orlando</p>
+        <h1 class="hero__title" id="hero-title">Let the device <span class="turn">decide.</span></h1>
+        <p class="lede hero__lede">Input forms, charts and the homepage hero carousel for Universal Orlando’s design system. I was the only designer on all three. Each one went to users before it went to developers, and each one takes the shape its screen calls for. All three are live.</p>
+        <div class="actions">
+          <a class="btn btn--quiet" href="#forms">Forms</a>
+          <a class="btn btn--quiet" href="#charts">Charts</a>
+          <a class="btn btn--quiet" href="#carousel">Carousel</a>
+        </div>
+      </div>
+      <figure class="hero__fig">
+        <div class="uds-phones">
+          <ul role="list">
+            <li><img src="pp/img/universal-design-system/forms-phone-single-page.jpg" width="520" height="1228" alt="The annual pass sign-up form on a phone as one page: progress steps, the title Set Up Your Annual Pass, and the Personal Information fields."></li>
+            <li><img src="pp/img/universal-design-system/charts-phone.jpg" width="720" height="1560" alt="Safety and accessibility guidelines on a phone: a dropdown reading Height, Dogs, then stacked ride cards showing only height and assistance dog rules."></li>
+            <li><img src="pp/img/universal-design-system/carousel-hero-360.jpg" width="359" height="640" alt="The hero carousel on a phone: a photo of a guest beside a raptor with a pause button, and a dark blue panel below holding the headline, two buttons and slide dots."></li>
+          </ul>
+        </div>
+        <figcaption>On a phone, the form becomes one scroll, each ride becomes a card, and the carousel’s words get a panel of their own.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- FORMS -->
+  <section class="sec" id="forms" aria-labelledby="s1">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">Input forms</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s1">Fewer inputs, <span class="turn">fewer errors.</span></h2>
+        <div class="prose">
+          <p>Universal Orlando’s guests use forms to sign up for the newsletter, apply to youth programs, order group tickets and enroll their children. Seven live forms shared no rules, with multi-column layouts, contrast failures and zip fields that accepted letters.</p>
+          <p>It is possible to validate an address with only the street address and zip code. This reduces the number of inputs on a form and protects against user errors when entering city and state information.</p>
+        </div>
+        <div class="uds-zip">
+          <figure class="fig">
+            <picture>
+              <source media="(max-width:599px)" srcset="pp/img/universal-design-system/forms-before-address-phone.jpg" width="760" height="455">
+              <img src="pp/img/universal-design-system/forms-before-address.jpg" width="1232" height="455" alt="A school information section on a blue background: School Name and School Phone, then School Address 1, Address Line 2, City, a State dropdown and Zip Code spread across three columns.">
+            </picture>
+            <figcaption><b>Before.</b> One audited form spread an address over five inputs in three columns.</figcaption>
+          </figure>
+          <div class="uds-form" id="uds-address">
+            <p class="uds-form__ask">Type a zip code (try 77006).</p>
+            <form novalidate onsubmit="return false" aria-label="Mailing address pattern">
+              <div class="uds-field">
+                <label for="uds-street">Street Address</label>
+                <input type="text" id="uds-street" autocomplete="off" value="12345 Street Name">
+              </div>
+              <button type="button" class="uds-link" id="uds-apt-toggle" aria-expanded="false" aria-controls="uds-apt-field">Apartment/Suite #</button>
+              <div class="uds-field" id="uds-apt-field" hidden>
+                <label for="uds-apt">Apartment/Suite #</label>
+                <input type="text" id="uds-apt" autocomplete="off">
+              </div>
+              <div class="uds-field">
+                <label for="uds-zip">Zip Code</label>
+                <input type="text" id="uds-zip" inputmode="numeric" maxlength="5" autocomplete="off" placeholder="Enter your zip code" aria-describedby="uds-zip-help">
+                <p class="uds-help" id="uds-zip-help">Numbers only.</p>
+              </div>
+              <div class="uds-field uds-new" id="uds-city-field" hidden>
+                <label for="uds-city">City, State</label>
+                <input type="text" id="uds-city" autocomplete="off" aria-describedby="uds-city-help">
+                <p class="uds-help" id="uds-city-help" role="status"></p>
+              </div>
+              <label class="uds-check"><input type="checkbox" id="uds-same" checked aria-controls="uds-billing"> Billing address is the same as mailing address</label>
+              <fieldset id="uds-billing" hidden>
+                <legend>Billing Address</legend>
+                <div class="uds-field"><label for="uds-b-name">Cardholder’s Name</label><input type="text" id="uds-b-name" autocomplete="off"></div>
+                <div class="uds-field"><label for="uds-b-street">Street Address</label><input type="text" id="uds-b-street" autocomplete="off"></div>
+                <div class="uds-field"><label for="uds-b-zip">Zip Code</label><input type="text" id="uds-b-zip" inputmode="numeric" maxlength="5" autocomplete="off"></div>
+              </fieldset>
+              <p class="uds-count" aria-live="polite"><b id="uds-count">2</b> <span id="uds-count-label">inputs on screen</span> · the audited form showed 5</p>
+            </form>
+          </div>
+        </div>
+        <div class="prose">
+          <p>One annual pass form went to a usability test three ways: single page, multi-page and accordion. On phones, 4 of 7 users ranked the accordion lowest, so phones get a single page and desktops get the accordion. Neither device picked multi-page, and the library does not include it.</p>
+        </div>
+        <div class="uds-duo">
+          <figure class="fig">
+            <img src="pp/img/universal-design-system/forms-phone-single-page.jpg" width="520" height="1228" alt="The annual pass form on a phone as a single page: progress steps, title, introduction and the Personal Information fields, all on one scroll.">
+            <figcaption><b>Phone.</b> Single page, one scroll.</figcaption>
+          </figure>
+          <figure class="fig">
+            <img src="pp/img/universal-design-system/forms-hero-desktop-accordion.jpg" width="940" height="1310" alt="The same form on desktop as an accordion: Personal Information open under a dark blue header with a Mailing Address button, and Mailing Address and Payment Information collapsed below.">
+            <figcaption><b>Desktop.</b> Accordion, one section open at a time: the layout most phone users ranked lowest.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARTS -->
+  <section class="sec sec--dark sec--tilt" id="charts" aria-labelledby="s2">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">Charts</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s2">Each row becomes <span class="turn">a card.</span></h2>
+        <div class="prose">
+          <p>A guest, such as an expectant mother, wants to see quickly which rides she cannot ride safely. Universal’s ride-rules table cannot fit a phone without scrolling both ways, and sideways scrolling fights the phone’s own gestures.</p>
+          <p>So each row becomes a card. Every column becomes one short line with an icon for its category, the cards stack so the chart reads with vertical scrolling only, and a dropdown filters every card to the categories a guest picks.</p>
+        </div>
+        <figure class="fig fig--bleed">
+          <picture>
+            <source media="(max-width:899px)" srcset="pp/img/universal-design-system/charts-row-to-card-phone.jpg" width="1000" height="1032">
+            <img src="pp/img/universal-design-system/charts-row-to-card.jpg" width="2000" height="829" alt="A wireframe slide: one table row for Harry Potter and the Forbidden Journey with its columns lettered A to F, notes on what changes, and the matching card with its lines lettered A to F.">
+          </picture>
+          <figcaption><b>Row to card.</b> Columns A to F each land on a line of the card, so the phone loses nothing.</figcaption>
+        </figure>
+        <div class="prose">
+          <p>In an unmoderated test, all 8 testers completed all 7 tasks. How they did it changed the design: half reset the list by ticking each unchecked box, and nobody had a Select All to reach for.</p>
+        </div>
+        <div class="pair">
+          <blockquote class="quote">
+            <p>“There should have been an all button to select.”</p>
+            <footer>A tester, unmoderated remote study</footer>
+          </blockquote>
+          <figure class="fig">
+            <img src="pp/img/universal-design-system/charts-hifi-mobile-3.jpg" width="720" height="1560" style="max-width:20rem;border:2px solid var(--paper)" alt="The high-fidelity phone dropdown: Select All at the top, then five categories each with a checkbox, two checked, and Reset and Apply buttons.">
+            <figcaption><b>After the test.</b> Empty checkboxes on every row show that more than one category can be on, and Select All sits on top.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAROUSEL -->
+  <section class="sec" id="carousel" aria-labelledby="s3">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">Hero carousel</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s3">Slow enough <span class="turn">to read.</span></h2>
+        <div class="prose">
+          <p>The hero carousel sits directly below the header and carries the promotions marketing picks: free ticket days, vacation packages, Mardi Gras. Each Universal property ran its own version, with no rules for autoplay or auto-advance. Two rounds of testing set them.</p>
+        </div>
+        <figure class="fig fig--wide">
+          <img class="uds-crop" src="pp/img/universal-design-system/carousel-hero-1440.jpg" width="1440" height="899" alt="Universal Orlando homepage at desktop width: a full-width photo of a guest screaming beside a raptor, with a pause button top right, previous and next arrows, a headline and two buttons at lower left, and five labeled slide tabs along the bottom.">
+          <figcaption><b>Desktop.</b> Pause top right, and labeled tabs so a guest can jump to any promotion in one step.</figcaption>
+        </figure>
+        <ul class="features">
+          <li class="feature"><h3>Pause and play</h3><p>Testers needed the reduce-motion button to be more recognizable. It became a play and pause control, separate from any video player’s controls.</p></li>
+          <li class="feature"><h3>Eight seconds a slide</h3><p>Desktop testers found the rotation too fast. The timing was adjusted, and the blueprint sets 8 seconds.</p></li>
+          <li class="feature"><h3>The 30-second rule</h3><p>A loop of 30 seconds or less may autoplay. A longer video lands as a still image with a play button.</p></li>
+        </ul>
+        <div class="prose">
+          <p>On a phone the text covered the picture, and testers struggled to read some slides. The phone got its own shape: a fixed height, with the text on a solid Cosmos-blue panel so copy never fights the picture.</p>
+        </div>
+        <div class="uds-duo uds-duo--even">
+          <figure class="fig">
+            <img src="pp/img/universal-design-system/carousel-v1-mobile.jpg" width="720" height="1190" alt="The first phone design: white arrow buttons and a headline and button set over the raptor photo, with dots below.">
+            <figcaption><b>Before.</b> Words set straight on the photo.</figcaption>
+          </figure>
+          <figure class="fig">
+            <img src="pp/img/universal-design-system/carousel-hero-360.jpg" width="359" height="640" alt="The 2.0 phone carousel: the photo above a solid dark blue panel holding the eyebrow, headline, body copy, two buttons and five slide dots.">
+            <figcaption><b>2.0.</b> The words on a panel of their own.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UP CLOSE -->
+  <section class="sec" aria-labelledby="s4">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">Up close</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s4">Every stop, <span class="turn">in order.</span></h2>
+        <div class="code-pair">
+          <div class="prose">
+            <p>Every element shipped to developers with the same parts: a rule in plain words, a mock-up, an anatomy with spacer tokens, a user flow, every breakpoint, a screen-reader order and a check at 200% text.</p>
+            <p>The charts and the carousel carry the same pages. On a phone card, each icon’s ARIA label reads the category before its rule.</p>
+          </div>
+          <figure class="fig">
+            <picture>
+              <source media="(max-width:899px)" srcset="pp/img/universal-design-system/forms-doc-screen-reader-phone.jpg" width="900" height="1284">
+              <img src="pp/img/universal-design-system/forms-doc-screen-reader.jpg" width="1600" height="1144" alt="A screen reader order page: a numbered list from Heading Text to Body Text on the left, and on the right a newsletter sign-up form with red numbered markers joined by a line in reading order.">
+            </picture>
+            <figcaption><b>Reading order.</b> Every form carries a numbered screen-reader path, so the order is designed, not left to chance.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="close-title">
+    <div class="wrap">
+      <h2 class="close__title" id="close-title">Tested on the screen it lands on.</h2>
+      <div class="actions">
+        <a class="btn btn--quiet" href="mailto:mccabelombardi@gmail.com">Email Michael</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="gf gf--std" style="--acc:#a99bff;--acc-ink:#22140d;--acc-on-dark:#a99bff">
+  <div class="gf__wrap">
+    <div class="gf__map">
+      <div class="gf__me" id="contact" tabindex="-1"><p class="gf__nm">Michael Lombardi</p><p><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p></div>
+      <nav class="gf__cols" aria-label="Site map">
+        <div class="gf__solo"><p class="gf__h"><a href="index.html">Story</a></p></div>
+        <div><p class="gf__h">Featured</p><p class="gf__sub">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div>
+        <div><p class="gf__h">Case Studies</p><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html" aria-current="page">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div>
+        <div><p class="gf__h">Snacks</p><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div>
+        <div class="gf__solo"><p class="gf__h"><a href="resume.html">Résumé</a></p></div>
+      </nav>
+    </div>
+    <div class="gf__base"><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+<script src="pp/system.js"></script>
+<script>
+/* Address pattern: city and state arrive once street and zip are in. Demo lookup only. */
+(function () {
+  var ZIPS = {'77006':'Houston, Texas','32819':'Orlando, Florida','32801':'Orlando, Florida','34747':'Kissimmee, Florida','33602':'Tampa, Florida'};
+  var $ = function (id) { return document.getElementById(id); };
+  var root = $('uds-address'); if (!root) return;
+  var street = $('uds-street'), zip = $('uds-zip'), cityField = $('uds-city-field'), city = $('uds-city'), help = $('uds-city-help');
+  var aptT = $('uds-apt-toggle'), aptF = $('uds-apt-field'), same = $('uds-same'), billing = $('uds-billing'), bZip = $('uds-b-zip');
+  var count = $('uds-count'), label = $('uds-count-label'), last = '';
+  function digits(el) { var v = el.value.replace(/\D/g, '').slice(0, 5); if (v !== el.value) el.value = v; }
+  function update() {
+    var ready = street.value.trim().length > 0 && zip.value.length === 5;
+    cityField.hidden = !ready;
+    if (ready && zip.value !== last) {
+      var hit = ZIPS[zip.value]; city.value = hit || '';
+      help.textContent = hit ? 'City and state filled from the zip code: ' + hit + '.' : 'This demo knows only a few zip codes. Type the city and state.';
+    }
+    last = ready ? zip.value : '';
+    billing.hidden = same.checked;
+    var n = 0; root.querySelectorAll('input[type=text]').forEach(function (el) { if (!el.closest('[hidden]')) n++; });
+    count.textContent = n; label.textContent = n === 1 ? 'input on screen' : 'inputs on screen';
+  }
+  zip.addEventListener('input', function () { digits(zip); update(); });
+  bZip.addEventListener('input', function () { digits(bZip); });
+  street.addEventListener('input', update);
+  same.addEventListener('change', update);
+  aptT.addEventListener('click', function () { aptF.hidden = false; aptT.hidden = true; aptT.setAttribute('aria-expanded', 'true'); $('uds-apt').focus(); update(); });
+  update();
+})();
+</script>
+<script src="pp/chrome.js"></script>
+</body>
+</html>

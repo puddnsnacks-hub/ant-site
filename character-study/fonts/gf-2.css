@@ -1,0 +1,193 @@
+@font-face {
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(178879d4a68c.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Archivo Black';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(440d607a8f5f.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(a90e63e8a5e8.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Bungee';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(0fdc886b9409.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(efbb98248617.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(15862408457e.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'DM Serif Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(cc2cd63c8a23.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(8a5e31507f74.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Gloock';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(020f34c8b051.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(b5702e025c28.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Italiana';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(f974d8545e43.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(8bb047d202c7.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Libre Bodoni';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(8aacfd988c38.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(80d1cf05dd68.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Macondo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(7ccfcdb655ef.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Major Mono Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(ea702bffed29.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(43dcf841d96c.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(94c891b2206a.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Rye';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fd6a07f73667.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(64f0155f2854.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(3c6906a26745.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Unbounded';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(dcb1a6a688f0.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'UnifrakturMaguntia';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(7e4f8567418f.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}
+@font-face {
+  font-family: 'Young Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(89d87cb5273e.woff2) format('woff2');
+  unicode-range: U+26, U+30-31, U+51-52, U+61, U+67, U+6c, U+78-79;
+}

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Max Well Maxine · Michael Lombardi</title>
+<meta name="description" content="Max Well Maxine is a dragon I painted by hand, kept on model in every pose, expression and scene.">
+<link rel="stylesheet" href="pp/system.css">
+<style>
+  :root{ --accent:#e85fa8; --accent-text:#b0237a; }
+  /* Page-specific: tags on images, tile walls, the lock grid, two-up figures. */
+  .tag{display:inline-block;margin-bottom:var(--s1);padding:0 var(--s1);font:600 var(--t-eyebrow)/1.5rem var(--f-ui);letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--paper)}
+  .tag--ok{background:var(--accent);color:var(--ink)}
+  .stack{display:grid;gap:var(--s3)}
+  .hero__fig img{width:100%}
+  .wall__h{font:600 var(--t-h3)/var(--lh-h3) var(--f-ui);margin-bottom:var(--s2)}
+  .wall{list-style:none;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--s3) var(--s2)}
+  .wall img{width:100%;max-width:448px}
+  .wall figcaption{margin-top:var(--s1);font:400 var(--t-caption)/var(--lh-caption) var(--f-small)}
+  .lock{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s5) var(--s3)}
+  .lock img{width:100%;max-width:400px}
+  .lock h3{margin-top:var(--s2);font:600 1.125rem/1.5rem var(--f-ui)}
+  .lock p{margin-top:var(--s1);font:400 var(--t-caption)/var(--lh-caption) var(--f-small);color:var(--ink-2)}
+  .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s5) var(--s3)}
+  .two figcaption{max-width:none}
+  .close__lede{margin-top:var(--s4)}
+  @media (max-width:899px){
+    .wall{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .lock{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .two{grid-template-columns:minmax(0,1fr)}
+  }
+</style>
+<style id="xframe">.xframe{margin-top:var(--s6,48px)}.xframe iframe{display:block;width:100%;height:560px;border:0;background:#fff8eb}</style>
+<link rel="stylesheet" href="pp/chrome.css">
+<style id="thread">html:root{--accent:#f07ab8;--accent-text:#b0237a;--gold:#f07ab8;--teal:#452f23;--teal-deep:#22140d;--ph-fill:#5c4a3d}</style>
+</head>
+<body id="top">
+<header class="gh gh--std" style="--acc:#f07ab8;--acc-ink:#22140d;--acc-on-dark:#f07ab8">
+  <a class="gh__skip" href="#main">Skip to content</a>
+  <div class="gh__strip" aria-hidden="true"></div>
+  <div class="gh__bar">
+    <div class="gh__who"><a class="gh__home" href="index.html" aria-label="Story" title="Story"><img src="assets/hatlamp-mark@2x.png" srcset="assets/hatlamp-mark@2x.png 2x, assets/hatlamp-mark@3x.png 3x" width="79" height="101" alt=""></a><button class="gh__btn gh__name" type="button" aria-expanded="false" aria-controls="gh-name">Michael Lombardi</button>
+      <div class="gh__panel gh__panel--who" id="gh-name"><ul><li><span class="gh__k">Email</span><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></li><li><span class="gh__k">Résumé</span><a href="resume.html">View the résumé</a></li></ul></div></div>
+    <button class="gh__toggle" type="button" aria-expanded="false" aria-controls="gh-nav">Menu<svg class="gh__io" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/></svg><svg class="gh__ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2"/></svg></button>
+    <nav class="gh__nav" id="gh-nav" aria-label="Site"><ul class="gh__list">
+      <li><a class="gh__link" href="index.html">Story</a></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-featured">Featured</button><span class="gh__glabel">Featured</span><div class="gh__panel" id="gh-featured"><p class="gh__ph">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-cases">Case Studies</button><span class="gh__glabel">Case Studies</span><div class="gh__panel" id="gh-cases"><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-snacks"><span class="gh__star" aria-hidden="true"><img src="assets/hatlamp-star@2x.png" srcset="assets/hatlamp-star@2x.png 2x, assets/hatlamp-star@3x.png 3x" width="27" height="45" alt=""></span>Snacks</button><span class="gh__glabel">Snacks</span><div class="gh__panel" id="gh-snacks"><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html" aria-current="page">Max Well Maxine</a></li></ul></div></li>
+      <li><a class="gh__link" href="resume.html">Résumé</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">Snack · Hand-painted character</p>
+        <h1 class="hero__title" id="hero-title">Max…well, <span class="turn">Maxine.</span></h1>
+        <p class="lede hero__lede">A Chinese Water Dragon I painted by hand, in a dark pink dress with large purple polka dots, carrying a basket overfilled with large crickets. I art-directed AI image tools until she stayed herself in every pose, expression and scene.</p>
+        <p class="hero__note">“This is Max Well Maxine. At least it’s a painting of her I made.”</p>
+      </div>
+      <figure class="hero__fig">
+        <img src="pp/img/maxine/painting.jpg" width="1206" height="1608" alt="The original painting: a green Chinese Water Dragon standing upright in profile against a blue sky and an ochre field, with an orange eye, a crest of dark spikes, a white stippled throat with cream spade-shaped scales, a hot pink dress with large purple polka dots, a white apron tied with a bow, and a rust-brown basket of large green crickets.">
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s1">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The turn</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s1">How a lizard <span class="turn">holds its head.</span></h2>
+        <div class="prose">
+          <p>The goal was to “create a 3d model of her that we can use in future projects.” A model needs references from many angles, and a painting has exactly one.</p>
+          <p>Image tools do not remember a character, and they default to a stiff front, side and three-quarter turnaround that no lizard stands in.</p>
+        </div>
+        <div class="pair">
+          <blockquote class="quote">
+            <p>Even on a front view, it should be a little bit from above looking down, and the lizard isn’t looking straight directly ahead.</p>
+            <footer>Michael Lombardi, reviewing the first sheets</footer>
+          </blockquote>
+          <figure class="fig">
+            <div class="stack">
+              <div><span class="tag">Rejected</span>
+                <img src="pp/img/maxine/round1-c.jpg" width="1376" height="768" alt="Rejected sheet: Maxine in a straight-on front view, a three-quarter view and a flat side view, all standing upright and staring straight ahead."></div>
+              <div><span class="tag tag--ok">Approved</span>
+                <img src="pp/img/maxine/round2-a.jpg" width="1376" height="768" alt="Approved sheet: three views of Maxine seen from slightly above, head lowered and turned, each angle showing the shape of her head, throat and crest."></div>
+            </div>
+            <figcaption><b>The camera rises, the head drops and turns.</b> The silhouette reads as a dragon from every angle, “so you’re seeing more of a shape than this weird side view.”</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--dark sec--tilt" aria-labelledby="s2">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">On model</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s2">One character, <span class="turn">many states.</span></h2>
+        <div class="prose">
+          <p>I briefed poses the way I would brief an illustrator, in plain words about what she is doing: “Raising up her arm with her elbow bent like she’s ready to grab a cricket from the ground.” Each kept panel became its own reference.</p>
+        </div>
+        <div>
+          <h3 class="wall__h">Expressions</h3>
+          <ul class="wall">
+            <li><figure><img src="pp/img/maxine/tile-eb-tl.jpg" width="448" height="560" alt="Maxine in three-quarter view, calm, mouth closed."><figcaption>Calm</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-eb-tr.jpg" width="448" height="560" alt="Maxine with her mouth just parted, about to speak."><figcaption>About to speak</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-ea-tr.jpg" width="448" height="560" alt="Maxine with heavy lids and a flat mouth, unimpressed."><figcaption>Unimpressed</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-ea-br.jpg" width="448" height="560" alt="Maxine with one narrowed eye, skeptical."><figcaption>Skeptical</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-ea-tl.jpg" width="448" height="560" alt="Maxine with her mouth open mid-sentence."><figcaption>Mid-sentence</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-eb-bl.jpg" width="448" height="560" alt="Maxine giggling, eyes squeezed."><figcaption>Giggling</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-eb-br.jpg" width="448" height="560" alt="Maxine laughing with her mouth wide open."><figcaption>Laughing</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-ea-bl.jpg" width="448" height="560" alt="Maxine looking curious, eye wide."><figcaption>Curious</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-ec-tl.jpg" width="448" height="560" alt="Maxine startled, mouth open, head pulled back."><figcaption>Startled</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-ec-tr.jpg" width="448" height="560" alt="Maxine aghast, eye bulging."><figcaption>Aghast</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-ec-bl.jpg" width="448" height="560" alt="Maxine looking worried."><figcaption>Worried</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-ec-br.jpg" width="448" height="560" alt="Maxine with a sly half-smile and a sideways look."><figcaption>Sly</figcaption></figure></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="wall__h">Poses</h3>
+          <ul class="wall">
+            <li><figure><img src="pp/img/maxine/tile-pa-tl.jpg" width="448" height="560" alt="Maxine low on all fours, stalking a cricket, basket in hand."><figcaption>Stalking</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-pa-tr.jpg" width="448" height="560" alt="Maxine mid-leap, pouncing toward a cricket, her basket on the ground behind her."><figcaption>Pouncing</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-pa-br.jpg" width="448" height="560" alt="Maxine standing tall, holding up a caught cricket."><figcaption>Triumph</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-pb-bl.jpg" width="448" height="560" alt="Maxine striding forward with her basket, tail swinging."><figcaption>Striding</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-pc-tl.jpg" width="448" height="560" alt="Maxine sitting on the ground with her basket in her lap."><figcaption>Basket in lap</figcaption></figure></li>
+            <li><figure><img src="pp/img/maxine/tile-pd-tr.jpg" width="448" height="560" alt="Maxine standing with a hand on her hip, basket at her feet."><figcaption>Hand on hip</figcaption></figure></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s3">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The lock</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s3">Scales, <span class="turn">not teeth.</span></h2>
+        <div class="prose">
+          <p>Every defect I caught in review went into one paragraph, the character lock, that travels with every prompt. A new image starts from the same definition of her as the last one did.</p>
+          <p>The lock narrows the drift without ending it, and a few kept panels still show an extra finger.</p>
+        </div>
+        <ul class="lock">
+          <li><img src="pp/img/maxine/caught-teeth.jpg" width="400" height="400" alt="Close crop of a rejected head: cream spade scales jutting from the neck like a ring of teeth.">
+            <h3>Caught: teeth</h3><p>Lock: white stippled throat with flat cream spade-shaped scales under the jaw (scales, not teeth).</p></li>
+          <li><img src="pp/img/maxine/caught-face.jpg" width="400" height="400" alt="Close crop of a rejected front view: a flat, human-looking face with full lips.">
+            <h3>Caught: a human face</h3><p>Lock: wedge-shaped head, orange-gold eye, thin pink lip line.</p></li>
+          <li><img src="pp/img/maxine/caught-fingers.jpg" width="400" height="400" alt="Close crop of a cut sheet: a hand with too many fingers wrapped around the basket.">
+            <h3>Caught: extra fingers</h3><p>Lock: thin green arms with small three-fingered hands, small three-toed feet.</p></li>
+          <li><img src="pp/img/maxine/caught-basket.jpg" width="400" height="400" alt="Close crop of a rejected sheet: a woven wicker basket of crickets.">
+            <h3>Caught: a woven basket</h3><p>Lock: smooth rust-brown basket with a thin arched handle.</p></li>
+        </ul>
+      </div>
+    </div>
+  <div class="wrap xframe"><iframe data-x="x-maxine-spot.html" src="x-maxine-spot.html" title="The cut panel beside the painting"></iframe></div>
+</section>
+
+  <section class="sec" aria-labelledby="s4">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">Her world</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s4">Her world, <span class="turn">carved in ink.</span></h2>
+        <div class="prose">
+          <p>I set her in four places she lives: a night field, a moonlit river, a village lane and a lamplit kitchen. The first pass painted them in an acrylic look.</p>
+          <p>Then I shared a hand-colored linocut print I own and said, “This style environment.” The scenes were redone with the style described in words, without the print’s subjects, so the scenes are new work.</p>
+        </div>
+        <div class="two fig--wide">
+          <figure class="fig"><span class="tag">First pass</span>
+            <img src="pp/img/maxine/acrylic-kitchen.jpg" width="1264" height="848" alt="Kitchen scene in a painted-acrylic look: Maxine sitting on a braided rug with her basket, a jar of crickets on the table, a kettle on the stove and a lamp glowing.">
+            <figcaption><b>Painted acrylic.</b> The first pass at her four places.</figcaption></figure>
+          <figure class="fig"><span class="tag tag--ok">Saved style</span>
+            <img src="pp/img/maxine/linocut-kitchen.jpg" width="1264" height="848" alt="The same kitchen as a hand-colored linocut: carved wood grain in amber and brown, an oil lamp, a jar of crickets, and Maxine with her basket in carved line work.">
+            <figcaption><b>Hand-colored linocut.</b> Same kitchen, same pose, same character lock, in the new style.</figcaption></figure>
+        </div>
+        <div class="pair pair--flip">
+          <blockquote class="quote">
+            <p>Those are great. Save that as the style.</p>
+            <footer>Michael Lombardi</footer>
+          </blockquote>
+          <figure class="fig">
+            <img src="pp/img/maxine/linocut-field.jpg" width="1264" height="848" alt="Linocut night field: Maxine stalks low through carved grass toward two crickets, under a wavy indigo sky with a crescent moon and leaf-carved hills.">
+            <figcaption><b>Night field.</b> The kept stalking pose, carved into the same line work as the grass.</figcaption>
+          </figure>
+        </div>
+        <div class="two fig--wide">
+          <figure class="fig">
+            <img src="pp/img/maxine/linocut-river.jpg" width="1264" height="848" alt="Linocut moonlit river: Maxine sits on a flat rock by dark carved water, the crescent moon and its reflection behind her, dragonflies and cattails at the edges.">
+            <figcaption><b>Moonlit river.</b> Carved style on her scales, with her colors and design kept exactly.</figcaption></figure>
+          <figure class="fig">
+            <img src="pp/img/maxine/linocut-village.jpg" width="1264" height="848" alt="Linocut night village lane: Maxine walks a cobbled street with her basket, between lamplit houses and market stalls, under a crescent moon.">
+            <figcaption><b>Night village lane.</b> Every scene starts from the saved style and the character lock.</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="close-title">
+    <div class="wrap">
+      <h2 class="close__title" id="close-title">On model, <span class="turn">ready to model.</span></h2>
+      <p class="lede close__lede">The 3D model is the next step, and it starts from a set of references that all agree on who she is.</p>
+      <div class="actions">
+        <a class="btn" href="mailto:mccabelombardi@gmail.com">Email Michael</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="gf gf--std" style="--acc:#f07ab8;--acc-ink:#22140d;--acc-on-dark:#f07ab8">
+  <div class="gf__wrap">
+    <div class="gf__map">
+      <div class="gf__me" id="contact" tabindex="-1"><p class="gf__nm">Michael Lombardi</p><p><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p></div>
+      <nav class="gf__cols" aria-label="Site map">
+        <div class="gf__solo"><p class="gf__h"><a href="index.html">Story</a></p></div>
+        <div><p class="gf__h">Featured</p><p class="gf__sub">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div>
+        <div><p class="gf__h">Case Studies</p><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div>
+        <div><p class="gf__h">Snacks</p><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html" aria-current="page">Max Well Maxine</a></li></ul></div>
+        <div class="gf__solo"><p class="gf__h"><a href="resume.html">Résumé</a></p></div>
+      </nav>
+    </div>
+    <div class="gf__base"><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+<script src="pp/system.js"></script>
+<script>addEventListener('message',function(e){var d=e.data;if(!d||!d.xframe)return;var f=document.querySelector('iframe[data-x="'+d.xframe+'"]');if(f)f.style.height=Math.ceil(d.h)+'px'});</script>
+<script src="pp/chrome.js"></script>
+</body>
+</html>

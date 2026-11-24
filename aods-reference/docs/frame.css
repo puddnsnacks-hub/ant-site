@@ -1,0 +1,71 @@
+/* PORTFOLIO COPY · documentation chrome for the portfolio's copy of the reference (2026-11-17).
+   Lays out the utility strip: the way back to the portfolio first, then the theme control (the system's own segmented control),
+   then the system's links. Binds --s-* only, like the rest of the documentation chrome. No component rule is changed here. */
+
+.aods-header__utility .aods-header__content { justify-content: flex-start; align-items: center; column-gap: var(--s-space-xl);
+  flex-wrap: wrap; row-gap: var(--s-space-2xs); }   /* the reference gets this from doc.css; the style guide pages do not load it */
+.aods-header__utility .doc-theme--seg { margin-inline-start: auto; }
+
+.doc-theme--seg { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-space-xs) var(--s-space-md);
+  padding-block: var(--s-space-xs); font-family: var(--s-font-family-doc-mono), ui-monospace, monospace;
+  font-size: var(--s-type-code-sm-size); line-height: var(--s-type-code-sm-line-height); color: var(--s-color-pinned-ink-dark); }
+.doc-theme__label { color: var(--s-color-pinned-ink-strong-dark); }
+.doc-theme__flag { font-family: inherit; font-size: var(--s-type-ui-sm-size); font-weight: var(--s-font-weight-regular);
+  letter-spacing: 0; text-transform: lowercase; }
+.doc-theme__note { margin: 0; max-width: 36em; font-family: var(--s-font-family-doc), system-ui, sans-serif;
+  font-size: var(--s-type-ui-sm-size); line-height: var(--s-type-ui-sm-line-height); color: var(--s-color-pinned-ink-dark); }
+.doc-theme__more { color: var(--s-color-pinned-ink-strong-dark); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+.doc-theme__more:hover { text-decoration-thickness: 2px; }
+.doc-theme__more:focus-visible { outline: var(--s-focus-width) solid var(--s-color-focus-ring); outline-offset: var(--s-focus-gap); }
+.doc-theme__note--page { display: none; }
+
+/* deep links land under the sticky header, whatever its height (doc-header.js measures it into --doc-header-h) */
+[id], section.doc-section, .entry { scroll-margin-top: calc(var(--doc-header-h, 0px) + var(--s-space-base)); }
+
+/* the template strip */
+.t-docbar .doc-theme--seg { padding-block: 0; }
+.t-docbar .doc-back, .aods-header__utility .doc-back { font-weight: 600; }
+
+/* touch: the way back is a full-size target, like the switch's options */
+@media (pointer: coarse) {
+  .aods-header__utility .doc-back, .t-docbar .doc-back, .aods-header__utility .doc-letter, .t-docbar .doc-letter { min-height: var(--s-size-target-min); }
+}
+
+/* L1: "Letter from Michael" is a button wearing the strip's own link class (aods-header__utility-link, or the template bar's
+   link rules below), so it needs only the button's own box taken away. Zero specificity: the system's link rules still win. */
+:where(button.doc-letter) { appearance: none; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; text-align: start; }
+.aods-header__utility .doc-letter { display: inline-flex; align-items: center; }
+@media (max-width: 700px) {
+  .aods-header__utility .doc-theme--seg { margin-inline-start: 0; order: 3; flex-basis: 100%; }
+}
+/* phones and tablets (under 1024): the utility strip leaves the sticky header and scrolls away with the page; its sentence moves into the page */
+@media (max-width: 1023px) {
+  .doc-utility--page { padding-inline: var(--s-space-base); }
+  .aods-header__utility .doc-theme__note { display: none; }
+  .doc-theme__note--page { display: block; margin: 0 0 var(--s-space-base); max-width: 40em; font-family: var(--s-font-family-doc), system-ui, sans-serif;
+    font-size: var(--s-type-ui-sm-size); line-height: var(--s-type-ui-sm-line-height); color: var(--s-color-text-secondary); }
+}
+
+/* the template strip on the site templates (templates/*.html), which do not load docs/templates/templates.css: the same rules as there */
+.t-docbar { background: var(--s-color-pinned-surface-dark); color: var(--s-color-pinned-ink-dark);
+  font-family: var(--s-font-family-doc-mono), ui-monospace, monospace; font-size: var(--s-type-code-sm-size);
+  border-block-end: var(--s-emphasis-edge-2) solid var(--s-color-pinned-surface-elevated-dark); }
+.t-docbar__in { max-width: var(--s-size-measure-page); margin-inline: auto;
+  padding: var(--s-space-sm) var(--s-space-2xl); display: flex; align-items: center; gap: var(--s-space-xl); flex-wrap: wrap; }
+.t-docbar a, .t-docbar .doc-letter { display: inline-flex; align-items: center; min-height: var(--s-size-icon-lg);   /* 24 — the wide hit floor */
+  color: var(--s-color-pinned-ink-strong-dark); text-decoration: none; letter-spacing: 0.06em; }
+.t-docbar a:hover, .t-docbar .doc-letter:hover { text-decoration: underline; }
+.t-docbar a:focus-visible, .t-docbar .doc-letter:focus-visible { outline: var(--s-focus-width) solid var(--s-color-focus-ring); outline-offset: var(--s-focus-gap); }
+.t-docbar__note { margin-inline-start: auto; color: var(--s-color-pinned-ink-quiet-dark); }
+@media (pointer: coarse) { .t-docbar .doc-letter { min-height: var(--s-size-target-min); } }   /* after the bar's 24px floor, so touch gets 44 */
+@media (max-width: 700px) { .t-docbar__note { display: none; } .t-docbar__in { padding-inline: var(--s-space-base); } }
+
+/* a header specimen is position: static (doc.css, and inline on the specimen), so its open mega panel lost its containing block
+   and resolved against the body, covering the page. The panel sits in flow under its bar instead. Specimens only. */
+.spec .aods-header > .aods-header__mega, .g-specimen .aods-header > .aods-header__mega, [class*="spec"] .aods-header > .aods-header__mega { position: static; }
+
+/* the page header's mega panel is the dark pinned panel on a light header, but its link hover washes with the LIGHT-ground tint
+   (aods.css), an opaque cream behind light ink (about 1.3:1). No light-scope semantic token carries the on-dark hover wash, so
+   hover here is the underline alone. Pressing shows the system's pressed wash (--c-page-state-pressed, the darkening overlay), which the published hover rule outranks. The page header only: the header specimens keep the published behavior. */
+body > .aods-header:not([data-surface="dark"]) > .aods-header__mega :is(.aods-header__mega-link, a.aods-header__mega-heading):hover { --aods-wash: transparent; }
+body > .aods-header:not([data-surface="dark"]) > .aods-header__mega :is(.aods-header__mega-link, a.aods-header__mega-heading):active { --aods-wash: var(--c-page-state-pressed); }

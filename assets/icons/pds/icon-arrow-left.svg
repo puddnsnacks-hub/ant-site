@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+<!-- .icon/arrow-left, PDS hand, 32 grid (Figma node from "Icons · 41 glyphs") -->
+<path class="pds-offset" opacity="0.22" fill-rule="evenodd" clip-rule="evenodd" d="M10.3704 19.43L30.0204 18.44L28.5204 15.89L10.4404 16.22L16.2404 8.98L15.3104 6.25L4.95039 17.21L4.90039 18.86L14.6904 28.88L15.6404 26.2L10.3704 19.43Z" fill="currentColor"/>
+<path class="pds-glyph" fill-rule="evenodd" clip-rule="evenodd" d="M8.87039 17.93L28.5204 16.94L27.0204 14.39L8.94039 14.72L14.7404 7.48L13.8104 4.75L3.45039 15.71L3.40039 17.36L13.1904 27.38L14.1404 24.7L8.87039 17.93Z" fill="currentColor"/>
+</svg>

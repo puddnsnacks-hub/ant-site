@@ -1,0 +1,40 @@
+/* Spot what is off model. Shell tokens only. Images never wider than their files. */
+.x-maxine-spot { display: grid; gap: 16px; padding: 24px; background: var(--sx-paper); border: 2px solid var(--sx-ink); box-shadow: var(--sx-shadow); }
+.x-maxine-spot__howto { margin: 0; font: 500 18px/1.4 var(--sx-ui); color: var(--sx-ink); }
+.x-maxine-spot__stage { display: grid; grid-template-columns: minmax(0, 448px) minmax(0, 1fr); grid-template-areas: "fig out" "fig ref"; grid-template-rows: auto 1fr; gap: 20px 28px; align-items: start; }
+.x-maxine-spot__fig { grid-area: fig; }
+.x-maxine-spot__out { grid-area: out; }
+.x-maxine-spot__ref { grid-area: ref; }
+.x-maxine-spot__fig, .x-maxine-spot__ref { margin: 0; display: grid; gap: 8px; }
+.x-maxine-spot__tag { margin: 0; justify-self: start; padding: 4px 10px; font: 600 14px/1 var(--sx-ui); letter-spacing: .04em; text-transform: uppercase; background: var(--sx-ink); color: var(--g-color-brand-accent-5); }
+.x-maxine-spot__tag--ok { background: var(--grp-band); color: var(--grp-ink); }
+.x-maxine-spot__pic { position: relative; line-height: 0; max-width: 448px; border: 1px solid var(--sx-line); }
+.x-maxine-spot__pic img { display: block; width: 100%; height: auto; }
+.x-maxine-spot__ref img { display: block; width: 100%; max-width: 232px; height: auto; border: 1px solid var(--sx-line); }
+.x-maxine-spot__mark { position: absolute; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 0; border: 2px solid var(--sx-ink); background: var(--sx-paper); color: var(--sx-ink); font: 700 18px/1 var(--sx-ui); cursor: pointer; display: grid; place-items: center; padding: 0; }
+.x-maxine-spot__mark[aria-checked="true"] { background: var(--sx-ink); color: var(--g-color-brand-accent-5); box-shadow: 0 0 0 3px var(--sx-paper); }
+.x-maxine-spot__mark:focus-visible { outline: 3px solid var(--sx-ink); outline-offset: 3px; box-shadow: 0 0 0 3px var(--sx-paper), 0 0 0 9px var(--sx-paper); }
+.x-maxine-spot__out { border-top: 2px solid var(--sx-ink); padding-top: 14px; }
+.x-maxine-spot__n { margin: 0 0 10px; font: 600 22px/1.2 var(--sx-display); color: var(--sx-ink); }
+.x-maxine-spot__dl { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; }
+.x-maxine-spot__dl dt { font: 600 14px/1.5 var(--sx-ui); color: var(--sx-ink-2); text-transform: uppercase; letter-spacing: .04em; }
+.x-maxine-spot__dl dd { margin: 0 0 10px; font: 400 17px/1.45 var(--sx-body); color: var(--sx-ink); }
+@media (max-width: 767px) {
+  .x-maxine-spot { padding: 14px; gap: 12px; }
+  .x-maxine-spot__stage { grid-template-columns: minmax(0, 1fr) 72px; grid-template-areas: "fig ref" "out out"; grid-template-rows: auto auto; gap: 10px; }
+  .x-maxine-spot__pic { max-width: none; }
+  .x-maxine-spot__ref img { max-width: 72px; }
+  .x-maxine-spot__mark { width: 44px; height: 44px; font-size: 16px; }
+  .x-maxine-spot__ref .x-maxine-spot__tag { font-size: 11px; padding: 3px 6px; }
+  .x-maxine-spot__out { padding-top: 10px; }
+  .x-maxine-spot__n { font-size: 19px; margin-bottom: 6px; }
+  .x-maxine-spot__dl dd { font-size: 15px; margin-bottom: 6px; }
+  .x-maxine-spot__dl dt { font-size: 12px; }
+}
+@media (max-width: 400px) {
+  .x-maxine-spot__dl { display: block; line-height: 1.4; }
+  .x-maxine-spot__dl dt { display: inline; margin-right: 6px; }
+  .x-maxine-spot__dl dd { display: inline; font-size: 14px; line-height: 1.4; }
+  .x-maxine-spot__dl dd::after { content: ""; display: block; margin-bottom: 6px; }
+}
+@media (prefers-reduced-motion: reduce) { .x-maxine-spot * { transition: none !important; } }

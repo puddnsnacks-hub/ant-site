@@ -1,0 +1,9 @@
+.x-alcon-table { margin: 0; display: grid; gap: 16px; padding: 24px; background: var(--sx-paper); border: 2px solid var(--sx-ink); box-shadow: var(--sx-shadow); }
+.x-alcon-table__hint { margin: 0; font: 500 17px/1.4 var(--sx-ui); color: var(--sx-ink); }
+.x-alcon-table__shot { display: block; border: 1px solid var(--sx-line); background: var(--sx-sunken); }
+.x-alcon-table__shot img { display: block; width: 100%; height: auto; }
+.x-alcon-table__cap { margin: 0; font: 400 15px/1.5 var(--sx-caption); color: var(--sx-ink-2); max-width: var(--sx-measure); }
+@media (max-width: 767px) {
+  .x-alcon-table { padding: 16px; }
+}
+.x-alcon-table__shot:focus-visible { outline: 3px solid var(--sx-focus); outline-offset: 3px; }

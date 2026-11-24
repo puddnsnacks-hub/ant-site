@@ -1,0 +1,13 @@
+/* The app's status ladder, drawn with its own status colors (STATUS_CONFIG in car_research.html), shown as content. */
+.x-new-car-who-dis-funnel-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; border: var(--s-border-width-hairline) solid var(--sx-line-strong); background: var(--sx-paper); }
+.x-new-car-who-dis-funnel-step { display: grid; gap: var(--s-space-2xs); align-content: start; padding: var(--s-space-md) var(--s-space-sm) var(--s-space-md); border-top: 6px solid var(--x-ncwd-status); border-right: var(--s-border-width-hairline) solid var(--sx-line); position: relative; }
+.x-new-car-who-dis-funnel-step:last-child { border-right: 0; }
+.x-new-car-who-dis-funnel-n { font: 600 14px/1 var(--sx-code); color: var(--sx-ink-2); }
+.x-new-car-who-dis-funnel-name { font: 600 18px/1.2 var(--sx-ui); font-feature-settings: var(--sx-feat); color: var(--sx-ink); }
+.x-new-car-who-dis-funnel-date { font: 400 15px/1.35 var(--sx-body); color: var(--sx-ink-2); }
+@media (max-width: 767.98px) {
+  .x-new-car-who-dis-funnel-list { grid-template-columns: 1fr; }
+  .x-new-car-who-dis-funnel-step { border-top: 0; border-left: 6px solid var(--x-ncwd-status); border-right: 0; border-bottom: var(--s-border-width-hairline) solid var(--sx-line); grid-template-columns: 1.5rem 1fr; column-gap: var(--s-space-xs); padding: var(--s-space-sm) var(--s-space-sm); }
+  .x-new-car-who-dis-funnel-step:last-child { border-bottom: 0; }
+  .x-new-car-who-dis-funnel-n { grid-row: span 2; padding-top: 4px; }
+}

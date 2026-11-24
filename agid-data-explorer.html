@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGID Data Explorer · Michael Lombardi</title>
+<meta name="description" content="A public aging and disability data portal whose query asks one question at a time, with a heat map built for color-blind readers.">
+<link rel="stylesheet" href="pp/system.css">
+<style>
+  /* Per-project hooks. The only values a page team sets here. */
+  :root{ --accent:#99f6ff; --accent-text:#005ea2; }
+  /* Page-specific */
+  .hero__fig img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:left top;border:2px solid var(--ink)}
+  .quote--solo{max-width:34rem}
+  .duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s4)}
+  .duo--narrow{max-width:48rem}
+  .duo img{width:100%;border:2px solid var(--ink)}
+  .sec--dark .duo img{border-color:var(--paper)}
+  .duo__k{margin-bottom:var(--s1);font:600 var(--t-eyebrow)/1.5rem var(--f-ui);letter-spacing:.08em;text-transform:uppercase}
+  .rules{max-width:var(--measure);padding-left:1.25em}
+  .rules li+li{margin-top:var(--s2)}
+  .rules b{font-weight:600}
+  .fig--framed img{width:100%}
+  @media (max-width:899px){
+    .hero__fig img{aspect-ratio:1/1;border-width:2px 0}
+    .duo{grid-template-columns:minmax(0,1fr);gap:var(--s4)}
+    .duo--narrow{max-width:24rem}
+  }
+</style>
+<style id="xframe">.xframe{margin-top:var(--s6,48px)}.xframe iframe{display:block;width:100%;height:560px;border:0;background:#fff8eb}</style>
+<link rel="stylesheet" href="pp/chrome.css">
+<style id="thread">html:root{--accent:#3cc3d6;--accent-text:#00677a;--gold:#3cc3d6;--teal:#452f23;--teal-deep:#22140d;--ph-fill:#5c4a3d}</style>
+</head>
+<body id="top">
+<header class="gh gh--std" style="--acc:#3cc3d6;--acc-ink:#22140d;--acc-on-dark:#3cc3d6">
+  <a class="gh__skip" href="#main">Skip to content</a>
+  <div class="gh__strip" aria-hidden="true"></div>
+  <div class="gh__bar">
+    <div class="gh__who"><a class="gh__home" href="index.html" aria-label="Story" title="Story"><img src="assets/hatlamp-mark@2x.png" srcset="assets/hatlamp-mark@2x.png 2x, assets/hatlamp-mark@3x.png 3x" width="79" height="101" alt=""></a><button class="gh__btn gh__name" type="button" aria-expanded="false" aria-controls="gh-name">Michael Lombardi</button>
+      <div class="gh__panel gh__panel--who" id="gh-name"><ul><li><span class="gh__k">Email</span><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></li><li><span class="gh__k">Résumé</span><a href="resume.html">View the résumé</a></li></ul></div></div>
+    <button class="gh__toggle" type="button" aria-expanded="false" aria-controls="gh-nav">Menu<svg class="gh__io" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/></svg><svg class="gh__ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2"/></svg></button>
+    <nav class="gh__nav" id="gh-nav" aria-label="Site"><ul class="gh__list">
+      <li><a class="gh__link" href="index.html">Story</a></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-featured">Featured</button><span class="gh__glabel">Featured</span><div class="gh__panel" id="gh-featured"><p class="gh__ph">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-cases"><span class="gh__star" aria-hidden="true"><img src="assets/hatlamp-star@2x.png" srcset="assets/hatlamp-star@2x.png 2x, assets/hatlamp-star@3x.png 3x" width="27" height="45" alt=""></span>Case Studies</button><span class="gh__glabel">Case Studies</span><div class="gh__panel" id="gh-cases"><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html" aria-current="page">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-snacks">Snacks</button><span class="gh__glabel">Snacks</span><div class="gh__panel" id="gh-snacks"><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div></li>
+      <li><a class="gh__link" href="resume.html">Résumé</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">Case study · AGID 2.0 data portal</p>
+        <h1 class="hero__title" id="hero-title">One question <span class="turn">at a time.</span></h1>
+        <p class="lede hero__lede">AGID 2.0 gives program staff, analysts, evaluators and trainers one place to query federal aging and disability data. As its sole UX/UI designer, I designed a query that asks one question at a time and a heat map built for color-blind readers. The portal shipped and was live as of September 2025.</p>
+        <div class="actions">
+          <a class="btn" href="#explorer">See the explorer</a>
+          <a class="btn btn--quiet" href="#map">See the map</a>
+        </div>
+      </div>
+      <figure class="hero__fig">
+        <picture>
+          <source media="(max-width:899px)" srcset="pp/img/agid/step-results-phone.jpg" width="600" height="600">
+          <img src="pp/img/agid/explorer-results.jpg" width="1800" height="1155" alt="The Data Explorer after a finished query: a gray left rail with counted buttons, Data Set(s) [1], Year(s) [3] and States &amp; Territories [3], each with removable chips such as 2022, 2021, 2020 and AZ, CO, UT, beside a table of states by year.">
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec" id="problem" aria-labelledby="s1">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The problem</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s1">The data was all there. <span class="turn">Getting it out was not.</span></h2>
+        <div class="prose">
+          <p>Users called the old portal “difficult to navigate, especially for new users.” Data arrived “piecemeal” and “in raw format,” through filters “not as comprehensive as the data itself.”</p>
+          <p>The research team’s interviews became personas, all staff and partners in the network the portal serves. Their pains became my design decisions.</p>
+        </div>
+        <blockquote class="quote quote--solo">
+          <p>“So I think simple, simple, simple will help ensure that it’s actually used.”</p>
+          <footer>The Trainer persona, from an interview excerpt</footer>
+        </blockquote>
+      </div>
+    </div>
+  <div class="wrap xframe"><iframe data-x="x-agid-personas.html" src="x-agid-personas.html" title="The people the portal serves, in their words"></iframe></div>
+</section>
+
+  <section class="sec" id="explorer" aria-labelledby="s2">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The explorer</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s2">Ask in the order <span class="turn">the data needs.</span></h2>
+        <div class="prose">
+          <p>The core requirement asked one tool to search and export data “across one or more years and by one or more geographic locations.”</p>
+          <p>I put the whole query on one left rail. It asks for a data set, then years, then geography, then data elements. A field that depends on an earlier answer waits for that answer, so every visible field is one the user can fill right now.</p>
+        </div>
+        <figure class="fig fig--wide">
+          <picture>
+            <source media="(max-width:899px)" srcset="pp/img/agid/mock-elements-phone.jpg" width="600" height="600">
+            <img src="pp/img/agid/mock-elements.jpg" width="1600" height="942" alt="The Data Explorer mock with the Data Elements panes open: on the rail, chips for the data set, three years and three states; beside it four buckets, Demographics, Services, Funding and Programs, then a searchable tree with Meals &amp; Nutrition [0/6] expanded to Select All and three services.">
+          </picture>
+          <figcaption><b>Data elements come last.</b> By the time the tree opens, the data set, years and states already sit on the rail as chips, so the user is never asked for something the query cannot use yet.</figcaption>
+        </figure>
+      </div>
+    </div>
+  <div class="wrap xframe"><iframe data-x="x-agid-query.html" src="x-agid-query.html" title="Build a query one question at a time"></iframe></div>
+</section>
+
+  <section class="sec sec--dark sec--tilt" id="stays" aria-labelledby="s3">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">What stays</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s3">Every answer <span class="turn">stays on the rail.</span></h2>
+        <ul class="features">
+          <li class="feature"><h3>A chip for every answer</h3><p>Every filter button carries a count, such as Year(s) [3], and every choice becomes a removable chip. Clear Selections resets one filter; Clear All Selections resets the query.</p></li>
+          <li class="feature"><h3>A tree as big as the data</h3><p>Four buckets open into a tree with a type-to-filter box, Select All at every level and a count on every branch. The live site states the ceiling: “Choose up to 50 Data elements.”</p></li>
+          <li class="feature"><h3>A button that waits</h3><p>Run Query stays gray until there is something to run, then turns blue once there is a query to run.</p></li>
+        </ul>
+        <figure class="fig">
+          <div class="duo duo--narrow">
+            <div><p class="duo__k">Designed, August 2023</p><img src="pp/img/agid/rail-chips-mock.jpg" width="720" height="1168" alt="Design mock of the query rail: counted filter buttons with removable chips under each, Clear Selections links and a blue Run Query."></div>
+            <div><p class="duo__k">Built, May 2024</p><img src="pp/img/agid/rail-chips-live.jpg" width="720" height="1057" alt="The built rail on the live site: the same counted buttons and chips, with long tribal-organization names wrapped inside their chips."></div>
+          </div>
+          <figcaption><b>The chips crossed into code intact.</b> The build kept the pattern and only had to wrap long tribal-organization names inside their chips.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="map" aria-labelledby="s4">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The map</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s4">A map that survives <span class="turn">grayscale.</span></h2>
+        <div class="prose">
+          <p>The requirements asked for a “scalable heat map” and an experience accessible under Section 508. A map coded by hue alone loses the readers who cannot tell the hues apart. Pairing every hue with a pattern was my idea, and it shipped.</p>
+          <p>Twelve steps run from 0 to 10k: four hues, each as a solid, a light stripe and a dense stripe. I checked the map under seven simulated kinds of color vision plus typical vision. The stripes keep their density and direction with no color at all, and the four solids step from light to dark, so even they keep their order.</p>
+        </div>
+        <figure class="fig fig--wide">
+          <div class="duo">
+            <div><p class="duo__k">Typical color vision</p>
+              <picture><source media="(max-width:899px)" srcset="pp/img/agid/heatmap-normal-phone.jpg" width="960" height="1049"><img src="pp/img/agid/hero-normal.jpg" width="1516" height="1049" alt="Heat map of the United States: each state filled with one of twelve steps, four hues (yellow, cyan, lavender, pink to red) each as a solid, a light stripe or a dense stripe, with a legend from 0 to 10k."></picture></div>
+            <div><p class="duo__k">No color vision</p>
+              <picture><source media="(max-width:899px)" srcset="pp/img/agid/heatmap-achromatopsia-phone.jpg" width="960" height="1049"><img src="pp/img/agid/hero-achromatopsia.jpg" width="1516" height="1049" alt="The same heat map in grayscale: striped states still told apart by stripe density and direction, solid states by lightness."></picture></div>
+          </div>
+          <figcaption><b>One map, with and without color.</b> Stripes carry eight steps and lightness carries the four solids, so a reader who sees no color still reads the order.</figcaption>
+        </figure>
+        <ul class="rules">
+          <li><b>Hue names the band:</b> yellow from 0, cyan from 2.5k, lavender from 5k, and pink to red from 7.5k to 10k.</li>
+          <li><b>Direction repeats it:</b> vertical stripes for cyan, horizontal for lavender, and opposite diagonals for yellow and pink. With the color gone, horizontal stripes still mean the 5k band.</li>
+        </ul>
+      </div>
+    </div>
+  <div class="wrap xframe"><iframe data-x="x-agid-vision.html" src="x-agid-vision.html" title="The heat map through eight kinds of color vision"></iframe></div>
+</section>
+
+  <section class="sec" id="shipped" aria-labelledby="s5">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">Shipped</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s5">Built to the mocks, <span class="turn">then changed.</span></h2>
+        <div class="prose">
+          <p>AGID 2.0 shipped on the U.S. Web Design System. The May 2024 live site matches the August 2023 mocks almost one-to-one.</p>
+          <p>I ran usability testing on the designs. After it, the Data Explorer and the navigation were revised with default search settings, so casual users get an answer first.</p>
+        </div>
+        <blockquote class="quote quote--solo">
+          <p>“An untested design is an unfinished design.”</p>
+          <footer>Michael Lombardi</footer>
+        </blockquote>
+        <figure class="fig fig--wide fig--framed">
+          <img src="pp/img/agid/live-2025-start.jpg" width="1600" height="862" alt="The live Data Explorer in September 2025: the same left rail of Data Set, Years, Geography and Data Elements, with five numbered steps written out on screen beside it.">
+          <figcaption><b>Live, September 2025.</b> The rail and its order held, and the explorer now writes the rule on screen as five numbered steps.</figcaption>
+        </figure>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="close-title">
+    <div class="wrap">
+      <h2 class="close__title" id="close-title">One question, then the next.</h2>
+      <div class="actions">
+        <a class="btn" href="https://agid.acl.gov/data-explorer" target="_blank" rel="noopener">Open the Data Explorer<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+        <a class="btn btn--quiet" href="mailto:mccabelombardi@gmail.com">Email Michael</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+</main>
+
+<footer class="gf gf--std" style="--acc:#3cc3d6;--acc-ink:#22140d;--acc-on-dark:#3cc3d6">
+  <div class="gf__wrap">
+    <div class="gf__map">
+      <div class="gf__me" id="contact" tabindex="-1"><p class="gf__nm">Michael Lombardi</p><p><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p></div>
+      <nav class="gf__cols" aria-label="Site map">
+        <div class="gf__solo"><p class="gf__h"><a href="index.html">Story</a></p></div>
+        <div><p class="gf__h">Featured</p><p class="gf__sub">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div>
+        <div><p class="gf__h">Case Studies</p><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html" aria-current="page">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div>
+        <div><p class="gf__h">Snacks</p><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div>
+        <div class="gf__solo"><p class="gf__h"><a href="resume.html">Résumé</a></p></div>
+      </nav>
+    </div>
+    <div class="gf__base"><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+<script src="pp/system.js"></script>
+<script>addEventListener('message',function(e){var d=e.data;if(!d||!d.xframe)return;var f=document.querySelector('iframe[data-x="'+d.xframe+'"]');if(f)f.style.height=Math.ceil(d.h)+'px'});</script>
+<script src="pp/chrome.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" data-theme="pds">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script><meta charset="utf-8"><base target="_blank"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Try the rule: dress the ship with a controller or a keyboard</title>
+<link rel="stylesheet" href="assets/type/pds-fonts.css">
+<link rel="stylesheet" href="assets/type/pds-faces.css">
+<link rel="stylesheet" href="assets/type/pds-type.css">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/aods/dist/tokens.css">
+<link rel="stylesheet" href="assets/pds/theme.css">
+<link rel="stylesheet" href="assets/aods/dist/aods.css">
+<link rel="stylesheet" href="assets/pds/layer-tokens.css">
+<link rel="stylesheet" href="assets/pds/layer.css">
+<link rel="stylesheet" href="assets/suite.css">
+<link rel="stylesheet" href="custom/dreadnought-dpad.css">
+<style>html,body{margin:0;background:#fff8eb}html{overflow-x:hidden}body{padding:24px;min-height:0;display:block}body>*{max-width:100%;min-width:0;box-sizing:border-box}@media (max-width:520px){body{padding:12px}}</style></head>
+<body class="s-page">
+<div class="x-dreadnought" id="x-dreadnought" data-layout="revised">
+  <div class="x-dreadnought__top">
+    <p class="x-dreadnought__tag">Illustration of the rule, not the game</p>
+    <div class="x-dreadnought__switch s-seg" role="group" aria-label="Layout">
+      <button type="button" class="x-dreadnought__seg s-seg__btn" data-layout="greybox" aria-pressed="false">Greybox</button>
+      <button type="button" class="x-dreadnought__seg s-seg__btn" data-layout="revised" aria-pressed="true">Revised</button>
+    </div>
+  </div>
+  <p class="x-dreadnought__ask">Dress the ship with the arrows and Action, or tap and click (switch layouts to feel the difference).</p>
+  <div class="x-dreadnought__stage">
+    <div class="x-dreadnought__board">
+      <div class="x-dreadnought__tabs" id="x-dreadnought-tabs" role="group" aria-label="Higher-level menu"></div>
+      <div class="x-dreadnought__grid" id="x-dreadnought-grid" role="group" aria-describedby="x-dreadnought-help"></div>
+      <p class="x-dreadnought__help" id="x-dreadnought-help"></p>
+    </div>
+    <div class="x-dreadnought__side">
+      <div class="x-dreadnought__pad" id="x-dreadnought-pad" aria-label="On-screen controller" role="group">
+        <div class="x-dreadnought__bumpers">
+          <button type="button" class="x-dreadnought__btn" data-cmd="l1" aria-label="L1 bumper, previous menu">L1</button>
+          <button type="button" class="x-dreadnought__btn" data-cmd="r1" aria-label="R1 bumper, next menu">R1</button>
+        </div>
+        <div class="x-dreadnought__dpad">
+          <button type="button" class="x-dreadnought__btn" data-cmd="up" aria-label="D-pad up">&#9650;</button>
+          <button type="button" class="x-dreadnought__btn" data-cmd="left" aria-label="D-pad left">&#9664;</button>
+          <button type="button" class="x-dreadnought__btn" data-cmd="right" aria-label="D-pad right">&#9654;</button>
+          <button type="button" class="x-dreadnought__btn" data-cmd="down" aria-label="D-pad down">&#9660;</button>
+        </div>
+        <div class="x-dreadnought__face">
+          <button type="button" class="x-dreadnought__btn x-dreadnought__btn--act" data-cmd="act">Action</button>
+          <button type="button" class="x-dreadnought__btn" data-cmd="back">Back</button>
+        </div>
+      </div>
+      <table class="x-dreadnought__map">
+        <caption>One command, two inputs</caption>
+        <thead><tr><th scope="col">Command</th><th scope="col">Controller</th><th scope="col">Keyboard and mouse</th></tr></thead>
+        <tbody>
+          <tr data-row="section"><th scope="row">Section</th><td>D-pad left, right</td><td>&#8592; &#8594; keys, or click</td></tr>
+          <tr data-row="option"><th scope="row">Option</th><td data-cell="opt-pad">D-pad up, down</td><td data-cell="opt-key">&#8593; &#8595; keys, or click</td></tr>
+          <tr data-row="act"><th scope="row">Action</th><td>Action button</td><td>Left click, Enter</td></tr>
+          <tr data-row="back"><th scope="row">Back</th><td>Back button</td><td>Esc</td></tr>
+          <tr data-row="tabs"><th scope="row">Menu</th><td>L1, R1 bumpers</td><td>Click a tab</td></tr>
+        </tbody>
+      </table>
+      <p class="x-dreadnought__log" id="x-dreadnought-log" role="status" aria-live="polite">Appearance, Pattern slot selected. Nothing has been pressed yet.</p>
+    </div>
+  </div>
+</div>
+<script src="assets/aods/dist/aods.js"></script>
+<script src="custom/dreadnought-dpad.js"></script>
+<script>(function(){function h(){parent.postMessage({xframe:location.pathname.split('/').pop(),h:document.documentElement.scrollHeight},'*')}
+new ResizeObserver(h).observe(document.body);addEventListener('load',h);h()})();</script>
+</body></html>

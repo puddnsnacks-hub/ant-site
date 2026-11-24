@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+<!-- .icon/chevron-up, PDS hand, 32 grid (Figma node from "Icons · 41 glyphs") -->
+<path class="pds-offset" opacity="0.22" fill-rule="evenodd" clip-rule="evenodd" d="M7.72906 24.1204L17.3691 14.7304L26.4791 24.1304L29.4391 23.2404L19.4691 11.6504L18.3391 10.6104L16.7391 10.6504L15.5191 11.7604L5.03906 23.5804L7.72906 24.1204Z" fill="currentColor"/>
+<path class="pds-glyph" fill-rule="evenodd" clip-rule="evenodd" d="M6.22906 22.6204L15.8691 13.2304L24.9791 22.6304L27.9391 21.7404L17.9691 10.1504L16.8391 9.11035L15.2391 9.15035L14.0191 10.2604L3.53906 22.0804L6.22906 22.6204Z" fill="currentColor"/>
+</svg>

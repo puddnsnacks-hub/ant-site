@@ -1,0 +1,24 @@
+.x-gigantic-squint { display: grid; gap: var(--s-space-md); }
+.x-gigantic-squint__controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-space-sm) var(--s-space-lg); }
+.x-gigantic-squint__switch { font-family: var(--s-font-family-ui); font-weight: var(--s-font-weight-semibold); color: var(--s-color-text-primary); }
+.x-gigantic-squint__stage {
+  position: relative; overflow: hidden; width: 100%;
+  border: var(--s-border-width-hairline) solid var(--s-color-border-strong);
+  background: var(--s-color-surface-sunken, var(--s-color-surface-card));
+}
+.x-gigantic-squint__img {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover;
+  filter: blur(0);
+  transition: filter var(--s-motion-base) var(--s-motion-ease-standard);
+}
+.x-gigantic-squint[data-squint="on"] .x-gigantic-squint__img {
+  filter: blur(var(--x-gigantic-blur, 10px));
+  /* Push the soft blurred edge outside the frame instead of scaling the picture. */
+  inset: calc(-1.5 * var(--x-gigantic-blur, 10px));
+  width: calc(100% + 3 * var(--x-gigantic-blur, 10px));
+  height: calc(100% + 3 * var(--x-gigantic-blur, 10px));
+}
+.x-gigantic-squint__how { margin: 0; font-family: var(--s-font-family-ui); color: var(--s-color-text-secondary); font-size: 0.9375rem; }
+@media (prefers-reduced-motion: reduce) {
+  .x-gigantic-squint__img { transition: none; }
+}

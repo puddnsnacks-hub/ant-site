@@ -1,0 +1,2567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Character Study · Michael Lombardi</title>
+<meta name="description" content="Character Study, a tool for choosing a design system's type. The machine does the reading and measuring. The person does the choosing. A personal project by Michael Lombardi.">
+<meta property="og:title" content="Character Study · The quality of character.">
+<meta property="og:description" content="A tool for choosing a design system's type, by Michael Lombardi. Live at fonts.puddnsnacks.com.">
+<meta property="og:image" content="character-study/assets/character-study/cs-02-pds-specimen-17-roles.png">
+<link rel="stylesheet" href="character-study/fonts/gf-1.css">
+<link rel="stylesheet" href="character-study/fonts/gf-2.css">
+<link rel="stylesheet" href="character-study/fonts/gf-3.css">
+<link rel="stylesheet" href="character-study/fonts/gf-shapes.css">
+<link rel="stylesheet" href="character-study/fonts/gf-callback.css">
+<link rel="stylesheet" href="character-study/fonts/gf-o.css">
+<style>
+/* ---------- Tokens. The study (chrome) is grayscale and system type. The cast (content) is Michael's PDS type. ---------- */
+:root{
+  color-scheme: light;
+  --paper:#FBFBF9; --white:#FFFFFF; --study:#EEEEEB; --study-2:#E2E2DE;
+  --ink:#161616; --ink-2:#262625; --dim:#555552; --rule:#CFCFCA; --rule-2:#8A8A86;
+  --red:#F57C33; --red-lt:#FFB88F; --night:#141414; --night-dim:#B4B4B0;
+  --f-chrome: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --f-chrome-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --f-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --f-body: "Sarabun", system-ui, sans-serif;
+  --f-ui: "Afacad Flux", system-ui, sans-serif;
+  --f-cap: "Fira Sans", system-ui, sans-serif;
+  --f-code: "Fira Code", ui-monospace, monospace;
+  --gut: clamp(20px, 5.5vw, 88px);
+  --bg: var(--paper); --fg: var(--ink); --fg-2: var(--ink-2); --fg-dim: var(--dim); --ln: var(--rule); --accent: var(--red); --focus: var(--ink);
+}
+.t-paper{--bg:var(--paper); --fg:var(--ink); --fg-2:var(--ink-2); --fg-dim:var(--dim); --ln:var(--rule); --accent:var(--red); --focus:var(--ink)}
+.t-white{--bg:var(--white)}
+.t-study{--bg:var(--study); --fg:var(--ink); --fg-2:var(--ink-2); --fg-dim:var(--dim); --ln:var(--rule); --accent:var(--red); --focus:var(--ink)}
+.t-red{--bg:var(--red); --fg:var(--ink); --fg-2:var(--ink); --fg-dim:var(--ink); --ln:rgba(22,22,22,.45); --accent:var(--ink); --focus:var(--ink)}
+.t-night{--bg:var(--night); --fg:#F4F4F1; --fg-2:#E6E6E2; --fg-dim:var(--night-dim); --ln:#4A4A47; --accent:var(--red-lt); --focus:#F4F4F1}
+.t-paper,.t-white,.t-study,.t-red,.t-night{background:var(--bg); color:var(--fg)}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--f-body); font-size:19px; line-height:1.62; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased}
+img{max-width:100%; height:auto; display:block}
+a{color:inherit; text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--focus); outline-offset:3px}
+.sr{position:absolute!important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.skip{position:absolute; left:12px; top:-60px; z-index:50; background:var(--ink); color:#fff; font:600 15px/1 var(--f-chrome); padding:14px 16px; text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1440px; margin:0 auto; padding:0 var(--gut)}
+section[id], [id]{scroll-margin-top:24px}
+
+/* ---------- Header: the study. Conventional, gray, system type. ---------- */
+.hdr{font-family:var(--f-chrome); font-size:15px; line-height:1.3; border-bottom:1px solid var(--ln); position:relative; z-index:20}
+.hdr .wrap{display:flex; align-items:center; gap:24px; min-height:64px}
+.crumb{color:var(--fg-dim); white-space:nowrap}
+.crumb a{color:var(--fg-dim); display:inline-block; padding:6px 0}
+.crumb span[aria-hidden]{margin:0 .45em}
+.gnav{margin-left:auto}
+.gnav ul{list-style:none; margin:0; padding:0; display:flex; gap:4px}
+.gnav a{display:inline-flex; align-items:center; min-height:44px; padding:0 12px; color:var(--ink); text-decoration:none}
+.gnav a:hover{text-decoration:underline}
+details.pop{position:relative}
+details.pop > summary{list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 2px; font-weight:600; color:var(--ink)}
+details.pop > summary::-webkit-details-marker{display:none}
+details.pop > summary::after{content:""; width:7px; height:7px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:translateY(-2px) rotate(45deg)}
+details.pop[open] > summary::after{transform:translateY(2px) rotate(225deg)}
+.pop-panel{position:absolute; top:calc(100% + 8px); left:0; min-width:300px; background:var(--white); border:1px solid var(--rule-2); padding:18px 20px; display:grid; gap:14px; box-shadow:0 10px 0 -6px rgba(0,0,0,.06)}
+.pop-panel .k{display:block; font-family:var(--f-chrome-mono); font-size:12px; letter-spacing:.04em; color:var(--dim); text-transform:uppercase; margin-bottom:2px}
+.pop-panel a{display:inline-flex; min-height:32px; align-items:center}
+.menu{display:none; margin-left:auto}
+.menu .pop-panel{left:auto; right:0}
+.menu .pop-panel ul{list-style:none; margin:0; padding:0; display:grid}
+.menu .pop-panel ul a{display:flex; min-height:44px; align-items:center; text-decoration:none; border-bottom:1px solid var(--rule)}
+.ni{display:inline-grid; gap:2px; border:1.5px dashed var(--rule-2); padding:8px 12px; font-family:var(--f-chrome); font-size:14px; color:var(--ink); background:transparent}
+.ni b{font-family:var(--f-chrome-mono); font-weight:400; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim)}
+
+/* ---------- Hero ---------- */
+.hero{padding:clamp(48px,7vw,104px) 0 clamp(72px,9vw,140px)}
+.hero-grid{display:grid; grid-template-columns:minmax(0,7fr) minmax(0,4.6fr); gap:clamp(32px,6vw,104px); align-items:start}
+.eyebrow{font-family:var(--f-ui); font-size:15px; line-height:1.4; letter-spacing:.0429em; text-transform:uppercase; font-weight:500; margin:0 0 28px; color:var(--fg)}
+.eyebrow a{text-decoration:none; border-bottom:1px solid currentColor}
+h1.display{font-family:var(--f-display); font-weight:700; font-size:clamp(46px, 8.1vw, 124px); line-height:.96; letter-spacing:-.0333em; margin:0}
+.role-tag{font-family:var(--f-chrome-mono); font-size:12px; letter-spacing:.02em; color:var(--fg-dim); margin:22px 0 0; display:flex; flex-wrap:wrap; gap:6px 18px}
+.role-tag span{white-space:nowrap}
+.lede{font-size:clamp(19px, 1.1vw + 9px, 23px); line-height:1.55; max-width:31em; margin:36px 0 0; color:var(--fg-2); text-wrap:pretty}
+.actions{display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px; margin-top:40px}
+.btn{font-family:var(--f-ui); font-size:20px; line-height:1; letter-spacing:.04em; font-weight:500; display:inline-flex; align-items:center; gap:14px; min-height:58px; padding:0 30px; background:var(--ink); color:#fff; text-decoration:none; border:2px solid var(--ink)}
+.btn:hover{background:#000; text-decoration:underline; text-underline-offset:5px}
+.btn svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2}
+.t-red .btn:focus-visible, .t-paper .btn:focus-visible{outline-color:var(--ink)}
+.quiet-link{font-family:var(--f-body); font-size:17px; color:var(--fg-dim)}
+.hero-fig{margin:0 calc(-1 * var(--gut)) 0 0}
+.hero-fig figcaption{padding-right:var(--gut)}
+.spec{background:var(--white); border:1px solid var(--rule); border-right:0; color:var(--ink)}
+.sp-row{display:grid; grid-template-columns:132px minmax(0,1fr); gap:18px; align-items:center; padding:16px 22px 16px 18px; border-top:1px solid #E6E6E2}
+.sp-row:first-child{border-top:0}
+.sp-row.sel{box-shadow:inset 3px 0 0 var(--ink)}
+.sp-l{margin:0; font-family:var(--f-chrome-mono); font-size:11px; line-height:1.45; color:var(--dim)}
+.sp-l span{display:block}
+.sp-l b{display:block; font-family:var(--f-chrome); font-size:13px; font-weight:600; color:var(--ink); margin-bottom:2px}
+.sp-s{margin:0; min-width:0; color:var(--ink); overflow-wrap:break-word}
+.r-eyebrow{font-family:"Afacad Flux"; font-size:14px; line-height:19.6px; letter-spacing:.0429em; text-transform:uppercase; font-weight:500}
+.r-display{font-family:"Bricolage Grotesque"; font-weight:700; font-size:72px; line-height:88px; letter-spacing:-.0333em}
+.r-heading{font-family:"Fraunces"; font-weight:400; font-size:40px; line-height:48px; letter-spacing:-.06em}
+.r-body{font-family:"Sarabun"; font-size:16px; line-height:24px; letter-spacing:-.0062em}
+.r-button{display:inline-block; font-family:"Afacad Flux"; font-size:20px; line-height:24px; letter-spacing:.04em; background:var(--ink); color:#fff; padding:10px 16px}
+.r-pq{font-family:"Fraunces"; font-style:italic; font-size:28px; line-height:36px}
+.r-caption{font-family:"Fira Sans"; font-size:13px; line-height:16px; letter-spacing:-.0077em}
+.r-code{font-family:"Fira Code"; font-size:15px; line-height:24px; letter-spacing:-.0533em}
+
+
+/* ---------- Chapters ---------- */
+.ch{padding:clamp(72px,8.5vw,140px) 0}
+.ch-grid{display:grid; grid-template-columns:184px minmax(0,1fr); column-gap:clamp(32px,5vw,88px)}
+.mg{align-self:start; position:sticky; top:28px; font-family:var(--f-chrome); padding-top:14px; border-top:1px solid var(--fg)}
+.mg p{margin:0}
+.mg-n{font-family:var(--f-chrome-mono); font-size:13px; color:var(--fg-dim); letter-spacing:.04em}
+.mg-l{font-size:15px; font-weight:600; line-height:1.3; margin-top:6px!important; color:var(--fg)}
+.mg-a{font-family:var(--f-chrome-mono); font-size:12px; color:var(--fg-dim); margin-top:10px!important; line-height:1.5}
+h2{font-family:var(--f-display); font-weight:400; font-size:clamp(42px, 5.2vw, 78px); line-height:1.0; letter-spacing:-.035em; margin:0 0 36px; text-wrap:balance; max-width:14em}
+.main p{max-width:35em; margin:0 0 1.1em; color:var(--fg-2); text-wrap:pretty}
+.main p.lead{font-family:var(--f-display); font-size:clamp(26px,2.4vw,34px); line-height:1.2; letter-spacing:-.02em; color:var(--fg); max-width:22em; margin-bottom:.9em}
+.main p.src{font-family:var(--f-cap); font-size:15px; line-height:1.5; color:var(--fg-dim); margin-top:-.3em}
+.main p.src a{color:var(--fg-dim)}
+.pq{margin:clamp(56px,6vw,96px) 0; padding:0; position:relative}
+.pq p{font-family:var(--f-display); font-style:italic; font-weight:400; font-size:clamp(30px, 3.5vw, 52px); line-height:1.14; letter-spacing:-.012em; margin:0!important; color:var(--fg)!important; max-width:18em!important; text-wrap:balance}
+.pq::before{content:"\201C"; position:absolute; left:-.62em; top:-.18em; font-family:var(--f-display); font-weight:700; font-size:clamp(56px,6vw,96px); line-height:1; color:var(--accent)}
+.pq footer{font-family:var(--f-chrome); font-size:14px; line-height:1.4; color:var(--fg-dim); margin-top:20px}
+.pq footer a{color:var(--fg-dim)}
+figure{margin:0}
+figcaption{font-family:var(--f-cap); font-size:15px; line-height:1.5; color:var(--fg-dim); margin-top:16px; max-width:40em; text-wrap:pretty}
+figcaption b{font-weight:500; color:var(--fg); margin-right:.5em}
+.shot{border:1px solid var(--ln); background:#F4F4F4}
+
+/* Problem: the evening of tabs */
+.tabs{margin:clamp(48px,5vw,72px) 0 0; display:grid; grid-template-columns:minmax(0,1fr); gap:10px}
+.tabs > div{display:grid; gap:10px; min-width:0}
+.tabs-row{display:flex; gap:2px; padding:7px 7px 0; background:var(--study-2); border:1px solid var(--rule); border-bottom:0; overflow:hidden; font-family:var(--f-chrome); font-size:12px; color:#3C3C3A}
+.tab{flex:1 1 0; min-width:26px; max-width:240px; height:34px; display:flex; align-items:center; gap:8px; padding:0 10px; background:#D2D2CD; border-radius:7px 7px 0 0; overflow:hidden; white-space:nowrap}
+.tab i{flex:none; width:12px; height:12px; border-radius:3px; background:#8A8A86}
+.tab span{overflow:hidden; text-overflow:ellipsis; min-width:0}
+.tab.on{background:var(--white)}
+.tabs-row + .tabs-row{margin-top:0}
+.tabs figcaption{margin-top:14px}
+
+/* Turn: machine and person */
+.split{display:grid; grid-template-columns:1fr 1.15fr; margin-top:clamp(48px,5vw,80px); border:1px solid var(--ink)}
+.split > div{padding:clamp(28px,3.4vw,52px)}
+.split .m{background:var(--study); border-right:1px solid var(--ink)}
+.split .p{background:var(--white); box-shadow:inset 0 8px 0 var(--red)}
+.split h3{margin:0 0 26px; font-family:var(--f-chrome); font-size:14px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--dim)}
+.split .p h3{color:var(--ink)}
+.split ul{list-style:none; margin:0; padding:0}
+.split .m li{font-family:var(--f-chrome-mono); font-size:16px; line-height:1.4; color:#3A3A38; padding:14px 0; border-top:1px solid var(--rule)}
+.split .p li{font-family:var(--f-display); font-size:clamp(28px,2.8vw,42px); line-height:1.1; letter-spacing:-.02em; padding:16px 0; border-top:1px solid var(--rule)}
+
+/* Audition: the live letter grid */
+.audition .pq{margin-top:56px}
+.grid-tool{margin-top:clamp(40px,4.5vw,64px); background:var(--white); color:var(--ink); padding:clamp(16px,2vw,28px); border:1px solid var(--ink)}
+.gt-bar{display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px; font-family:var(--f-chrome); font-size:15px; color:var(--ink); padding-bottom:18px; border-bottom:1px solid var(--rule)}
+.gt-picks{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+.gt-picks .lbl{margin-right:6px; color:var(--dim)}
+.gt-picks button{font-family:var(--f-code); font-size:17px; width:44px; height:44px; border:1px solid var(--rule-2); background:var(--white); color:var(--ink); cursor:pointer; border-radius:4px}
+.gt-picks button:hover{border-color:var(--ink)}
+.gt-picks button[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink)}
+.gt-toggles{display:flex; flex-wrap:wrap; gap:6px 24px}
+.chk{display:inline-flex; align-items:center; gap:10px; min-height:44px; cursor:pointer}
+.chk input{width:20px; height:20px; margin:0; accent-color:var(--ink)}
+.tiles{list-style:none; margin:18px 0 0; padding:0; display:grid; grid-template-columns:repeat(8, minmax(0,1fr)); gap:8px}
+.tile{background:var(--white); border:1px solid #DCDCD8; display:grid; grid-template-rows:auto 34px}
+.tile svg{width:100%; aspect-ratio:100/92; display:block}
+.tile .nmw{display:flex; align-items:flex-start; justify-content:center}
+.tile .gl{fill:var(--ink); font-size:58px}
+.tile .ov{fill:none; stroke:var(--red); stroke-width:.9; font-family:"Fraunces"; font-size:58px; display:none}
+.grid-tool[data-compare="on"] .tile .ov{display:inline}
+.tile .nm{display:none; font-family:var(--f-cap); font-size:11.5px; line-height:1.2; color:var(--dim); text-align:center; padding:0 4px; overflow-wrap:anywhere}
+.grid-tool[data-names="on"] .tile .nm{display:block}
+.no-live .grid-fig{display:none}
+.grid-tool[data-compare="on"] .tile.pick{border-color:var(--red)}
+.audition .grid-cap{margin-top:16px}
+.in-tool{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:clamp(20px,2.4vw,36px); margin-top:clamp(56px,6vw,96px); align-items:end}
+.in-tool figcaption{margin-top:0}
+.grid-fallback{margin-top:clamp(40px,4.5vw,64px)}
+.in-tool .shot{border-color:var(--ink)}
+
+/* Casting */
+.cast-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.72fr); gap:clamp(32px,5vw,88px); align-items:start}
+.aside{margin-top:clamp(40px,5vw,72px); max-width:30em; border-left:3px solid var(--red); padding:4px 0 4px 24px}
+.aside p{margin:0!important}
+.aside-k{font-family:var(--f-chrome); font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--dim)!important}
+.aside-q{font-family:var(--f-display); font-style:italic; font-size:clamp(22px,1.9vw,28px); line-height:1.3; color:var(--ink)!important; margin-top:12px!important}
+.aside-n{font-family:var(--f-cap); font-size:15px; line-height:1.45; color:var(--dim)!important; margin-top:12px!important}
+.cast-grid figure img{max-width:400px; width:100%}
+
+/* Fonts fib: Macondo */
+.fib .pq p{font-size:clamp(36px,4.6vw,68px)}
+.mac{margin-top:clamp(48px,5vw,80px)}
+.mac svg{width:100%; height:auto; display:block}
+.mac .phone{display:none}
+.mac-x{font-family:"Macondo", Georgia, serif; fill:#F4F4F1}
+.mac-l{stroke:#F4F4F1; stroke-width:2.5}
+.mac-d{stroke:var(--red-lt); stroke-width:3; stroke-dasharray:10 8}
+.mac-t{font-family:var(--f-chrome); fill:#E6E6E2}
+.mac-v{font-family:var(--f-code); fill:#F4F4F1}
+.mac-vd{font-family:var(--f-code); fill:var(--red-lt)}
+.mac-td{font-family:var(--f-chrome); fill:var(--red-lt)}
+.mac-dim{font-family:var(--f-chrome); fill:var(--night-dim)}
+
+/* Study */
+.study-fig{margin-top:clamp(48px,5vw,80px)}
+
+/* Proof: the cast list */
+.playbill{margin:clamp(48px,5vw,80px) 0; border-top:2px solid var(--ink)}
+.playbill h3{font-family:var(--f-ui); font-size:15px; letter-spacing:.0429em; text-transform:uppercase; font-weight:500; margin:18px 0 8px}
+.pb-row{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:12px 40px; align-items:baseline; padding:20px 0 18px; border-bottom:1px solid var(--rule)}
+.main .pb-fam{font-size:clamp(38px,4.8vw,72px); line-height:1.02; color:var(--ink); margin:0; max-width:none}
+.pb-roles{font-family:var(--f-chrome); font-size:15px; line-height:1.5; color:var(--dim); margin:0!important}
+.pb-roles b{font-weight:600; color:var(--ink)}
+.f-bricolage{font-family:"Bricolage Grotesque"; font-weight:700; letter-spacing:-.0333em}
+.f-fraunces{font-family:"Fraunces"; font-weight:700; font-variation-settings:"opsz" 26, "SOFT" 74, "WONK" 1; letter-spacing:-.0333em}
+.f-sarabun{font-family:"Sarabun"; font-weight:400}
+.f-afacad{font-family:"Afacad Flux"; font-weight:500; letter-spacing:.01em}
+.f-fira{font-family:"Fira Sans"; font-weight:400}
+.f-code{font-family:"Fira Code"; font-weight:400; letter-spacing:-.03em}
+.f-plex{font-family:"IBM Plex Sans"; font-weight:400}
+.ss-fig{margin-top:clamp(48px,5vw,80px)}
+.ss-live{display:grid; grid-template-columns:auto minmax(0,1fr); gap:8px 28px; align-items:baseline; border:1px solid var(--ln); border-top:0; background:var(--white); padding:14px 22px 18px}
+.ss-k{font-family:var(--f-chrome-mono); font-size:12px; color:var(--dim); max-width:15em}
+.ss-t{font-family:"Fraunces"; font-weight:700; font-variation-settings:"opsz" 26, "SOFT" 74, "WONK" 1; font-feature-settings:"ss01"; font-size:clamp(36px,4.4vw,64px); line-height:1.1; letter-spacing:-.02em; color:var(--ink)}
+.aods-fig{margin-top:clamp(56px,6vw,96px)}
+
+/* Credit */
+.credit-list{list-style:none; margin:40px 0 0; padding:0; max-width:44em; border-top:1px solid var(--ink); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:40px}
+.credit-list li{font-family:var(--f-ui); font-size:20px; letter-spacing:.01em; padding:16px 0; border-bottom:1px solid var(--ln)}
+.credit-h{font-family:var(--f-chrome); font-size:14px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); margin:56px 0 0}
+
+.brief{margin-top:clamp(40px,4.5vw,64px); background:var(--white); border:1px solid var(--rule); max-width:52em}
+.brief-h{margin:0; padding:14px 24px; font-family:var(--f-chrome); font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); border-bottom:1px solid var(--rule)}
+.brief-rule{display:grid; grid-template-columns:180px minmax(0,1fr); gap:8px 28px; padding:20px 24px; border-top:1px solid #E6E6E2}
+.brief-rule:first-of-type{border-top:0}
+.main .br-k{margin:0; font-family:var(--f-chrome-mono); font-size:12px; line-height:1.5; color:var(--dim)}
+.main .br-t{margin:0; font-family:"IBM Plex Sans", system-ui, sans-serif; font-size:17px; line-height:1.6; color:var(--ink); letter-spacing:-.0125em}
+.br-t code{font-family:var(--f-code); font-size:.92em; background:#F0F0ED; padding:1px 5px}
+
+/* Close */
+.close{padding:clamp(96px,12vw,200px) 0 clamp(80px,9vw,140px)}
+.close .refrain{font-family:var(--f-display); font-weight:700; font-size:clamp(52px, 9vw, 150px); line-height:.95; letter-spacing:-.0333em; margin:0; max-width:9.5em; text-wrap:balance}
+.close .actions{margin-top:56px}
+.payoff{font-family:var(--f-display); font-weight:400; font-size:clamp(26px,2.8vw,40px); line-height:1.22; letter-spacing:-.015em; max-width:24em; margin:0 0 clamp(40px,5vw,72px); padding-top:18px; border-top:2px solid var(--ink); text-wrap:pretty}
+.close .quiet-link{color:var(--ink)}
+
+/* Next */
+.next{padding:clamp(64px,7vw,112px) 0}
+.next-h{font-family:var(--f-chrome); font-size:14px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); margin:0 0 24px}
+.next-grid{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1.15fr); gap:clamp(20px,2.6vw,40px); align-items:stretch}
+.card{display:flex; flex-direction:column; gap:10px; border-top:2px solid var(--ink); padding-top:18px; text-decoration:none; color:var(--ink)}
+.card:hover .card-t{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:6px}
+.card img{width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top; border:1px solid var(--rule); margin-bottom:6px}
+.card-h{font-family:var(--f-body); font-size:17px; line-height:1.45; color:var(--ink-2)}
+.card-k{font-family:var(--f-ui); font-size:14px; letter-spacing:.0429em; text-transform:uppercase; font-weight:500; color:var(--dim)}
+.card-t{font-family:var(--f-display); font-size:clamp(28px,2.8vw,42px); line-height:1.05; letter-spacing:-.025em}
+.card-go{margin-top:auto; font-family:var(--f-chrome); font-size:15px; color:var(--dim)}
+.snack{border-top:2px solid var(--red); display:grid; grid-template-columns:minmax(0,1fr) 92px; gap:16px; padding-top:18px; text-decoration:none; color:var(--ink)}
+.snack .card-t{font-size:clamp(24px,2vw,30px)}
+.snack p{font-family:var(--f-body); font-size:16px; line-height:1.5; color:var(--ink-2); margin:6px 0 10px}
+.snack img{width:92px; height:auto; border:1px solid var(--rule)}
+.snack:hover .card-t{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:5px}
+
+/* Footer: back in the study */
+.ftr{font-family:var(--f-chrome); font-size:15px; line-height:1.5; border-top:1px solid var(--ln); padding:48px 0 40px}
+.ftr-grid{display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto; gap:32px; align-items:start}
+.ftr .nm{font-weight:600; font-size:17px; margin:0}
+.ftr p{margin:4px 0}
+.ftr ul{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:0 6px}
+.ftr ul a{display:inline-flex; min-height:44px; align-items:center; padding:0 10px 0 0; text-decoration:none}
+.ftr ul a:hover{text-decoration:underline}
+.ftr .ni{margin-top:12px}
+.ftr .top{display:inline-flex; min-height:44px; align-items:center}
+.ftr .colophon{grid-column:1 / -1; margin:20px 0 0; padding-top:16px; border-top:1px solid var(--ln); font-size:13px; color:var(--dim)}
+
+/* ---------- Responsive: phones recompose ---------- */
+@media (max-width: 1180px){
+  .tiles{grid-template-columns:repeat(6, minmax(0,1fr))}
+}
+@media (max-width: 980px){
+  .gnav, .crumb{display:none}
+  .menu{display:block}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-fig{max-width:620px; margin-right:0}
+  .spec{border-right:1px solid var(--rule)}
+  .sp-row{grid-template-columns:104px minmax(0,1fr); gap:14px; padding:14px}
+  .hero-fig figcaption{padding-right:0}
+  .ch-grid{grid-template-columns:1fr}
+  .mg{position:static; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 14px; margin-bottom:28px; padding-top:12px}
+  .mg-l, .mg-a{margin-top:0!important}
+  .cast-grid{grid-template-columns:1fr}
+  .next-grid{grid-template-columns:1fr 1fr}
+  .next-grid .snack{grid-column:1 / -1}
+  .ftr-grid{grid-template-columns:1fr}
+}
+@media (max-width: 720px){
+  body{font-size:18px}
+  .pq{max-width:none}
+  .pq::before{position:static; display:block; margin-bottom:-.18em}
+  .split{grid-template-columns:1fr}
+  .sp-row{grid-template-columns:1fr; gap:6px}
+  .sp-l b, .sp-l span{display:inline; margin-right:10px}
+  .split .m{border-right:0; border-bottom:1px solid var(--ink)}
+  .tiles{grid-template-columns:repeat(3, minmax(0,1fr))}
+  .tiles .tile:nth-child(n+13){display:none}
+  .in-tool{grid-template-columns:1fr}
+  .ss-live{grid-template-columns:1fr}
+  .pb-row{grid-template-columns:1fr; gap:6px}
+  .mac .wide{display:none}
+  .mac .phone{display:block}
+  .credit-list{grid-template-columns:1fr}
+  .brief-rule{grid-template-columns:1fr}
+  .next-grid{grid-template-columns:1fr}
+  .tabs-row .tab:nth-child(n+19){display:none}
+  .gt-bar{gap:12px}
+}
+@media (max-width: 400px){
+  .btn{font-size:18px; padding:0 20px; gap:10px}
+  .snack{grid-template-columns:minmax(0,1fr) 68px}
+  .snack img{width:68px}
+}
+@media (max-width: 360px){
+  .gt-picks .lbl{width:100%}
+}
+@media print{
+  .hdr, .skip, .gt-bar{display:none}
+  .mg{position:static}
+  .t-paper,.t-white,.t-study,.t-red,.t-night{background:#fff!important; color:#000!important}
+  .t-night .mac-x, .t-night .mac-v, .t-night .mac-t{fill:#000}
+  .mac-l{stroke:#000}
+  .btn{background:none!important; color:#000!important; border:2px solid #000}
+  .tile, .grid-tool{border-color:#000}
+}
+
+/* ===== T128: his specs ===== */
+@font-face{font-family:"Afacad Flux Slant"; src:url("character-study/fonts/afacad-flux-variable.woff2") format("woff2"); font-weight:100 1000; font-style:normal; font-display:swap}
+/* pull quotes (T131 size): Fraunces 32/44, letter-spacing 1%, weight 450, WONK 0.49, optical size 52 (italic kept) */
+.pq p, .fib .pq p{font-family:"Fraunces", Georgia, serif; font-weight:450; font-size:32px; line-height:44px; letter-spacing:.01em; font-variation-settings:"opsz" 52, "WONK" 0.49}
+/* h2 (the section headings): Afacad Flux, slant -9, weight 800, rotated -3.85deg in CSS (3.85 in Figma, which counts the other way), letter-spacing -1% */
+h2:not(.refrain):not(.next-h){font-family:"Afacad Flux Slant", var(--f-ui); font-weight:800; font-variation-settings:"slnt" -9; letter-spacing:-.01em; width:fit-content; rotate:-3.85deg; transform-origin:50% 50%; margin-bottom:calc(36px + .5em)}
+/* the turn lowers the left end by up to half the width times sin 3.85deg (under .5em at the 14em cap); the extra margin keeps it off the next line */
+/* h3: Afacad Flux, semibold, letter-spacing -1% */
+h3, .split h3, .playbill h3, h3.credit-h, h3.brief-h{font-family:var(--f-ui); font-weight:600; letter-spacing:-.01em}
+
+/* ===== T133 ===== */
+@font-face{font-family:"Fraunces Original"; src:url("character-study/fonts/fraunces-variable.woff2") format("woff2"); font-weight:100 900; font-style:normal; font-display:swap}
+.xb-plate{margin:clamp(40px,4.5vw,72px) 0}
+.xb-plate .shot{width:100%}
+.xb-browser{background:#D9D8D3; border:1px solid var(--ln); overflow:hidden; font-family:var(--f-chrome)}
+.ch-grid > .main{min-width:0}
+.xb-tabwrap{overflow:hidden}
+.xb-tabrow{display:flex; align-items:flex-end; gap:1px; padding:10px 8px 0; height:46px; overflow:hidden}
+.xb-tab{flex:none; display:flex; align-items:center; gap:7px; height:34px; padding:0 9px; background:#E6E5E0; color:#3F3E3B; font-size:12.5px; white-space:nowrap; overflow:hidden; border-radius:7px 7px 0 0; min-width:0}
+.xb-tab span{overflow:hidden; text-overflow:ellipsis}
+.xb-tab::before{content:""; flex:none; width:12px; height:12px; border-radius:2px; background:#9C9A94}
+.xb-tab.on{background:#FAFAF8; color:#151514}
+.main p.xb-row-lab{margin:0; max-width:none; padding:10px 12px 0; font-family:var(--f-chrome); font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#595854}
+.xb-shapes{background:#FAFAF8; border-top:1px solid var(--ln); padding-bottom:12px}
+.xb-shape-row{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:1px; background:#E6E5E0; margin:10px 12px 0; border:1px solid #E6E5E0}
+.xb-shp{background:#fff; aspect-ratio:1; display:flex; align-items:center; justify-content:center; color:var(--ink)}
+.xb-shp span{font-size:clamp(20px,3.4vw,48px); line-height:1}
+.xb-room{background:var(--white); border:1px solid var(--ln); padding:clamp(18px,2.6vw,36px)}
+.xb-room-row{display:block; padding:14px 0 16px; border-top:1px solid var(--ln)}
+.xb-room-row:first-child{border-top:0}
+.xb-lab{display:block; font-family:var(--f-code); font-size:12px; color:var(--dim); line-height:1.35; margin-bottom:4px}
+.xb-lab b{font-family:var(--f-chrome); font-weight:600; font-size:14px; color:var(--ink)}
+.xb-s{font-size:40px; line-height:1.2; white-space:nowrap; color:var(--ink); display:inline-block}
+.xb-m{height:6px; background:var(--rule-2); margin-top:8px; width:0}
+.main h3.xb-sub{font-size:clamp(26px,2.4vw,34px); line-height:1.15; margin:clamp(48px,5vw,80px) 0 .5em; color:var(--fg)}
+.xb-epi{display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 24px}
+.main .xb-epi p{font-family:"Fraunces",Georgia,serif; font-weight:400; font-variation-settings:"opsz" 96,"SOFT" 60,"WONK" 1; font-size:clamp(32px,4vw,58px); letter-spacing:-.03em; line-height:1.05; margin:0; color:var(--fg); max-width:none}
+.xb-epi span{font-family:var(--f-cap); font-size:15px; color:var(--fg-dim)}
+
+/* 05: the callback (cs-c), in this page's colors */
+.cb{margin-top:clamp(32px,4vw,56px); display:grid; grid-template-columns:minmax(0,1fr) minmax(0,440px); gap:40px; align-items:start}
+.cb-panel{background:var(--white); border:1px solid var(--ln)}
+.cb-top{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px 18px; border-bottom:1px solid var(--ln); font-family:var(--f-chrome); font-size:14px; color:var(--ink)}
+.cb-top b{font-weight:600}
+.cand{display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"line line" "name verdicts" "reason reason"; gap:10px 18px; padding:16px 18px 18px; border-bottom:1px solid var(--ln); align-items:center}
+.main p.cand-line{grid-area:line; font-size:clamp(30px,3.4vw,46px); line-height:1.15; margin:0; overflow-wrap:anywhere; color:var(--ink); max-width:none}
+.main p.cand-name{grid-area:name; font-family:var(--f-code); font-size:13px; color:var(--dim); margin:0; min-height:20px}
+.cand .verdicts{grid-area:verdicts}
+.cand-name .his{color:var(--ink); font-weight:600}
+.verdicts{display:flex; gap:6px}
+.vbtn{font-family:var(--f-ui); font-size:16px; min-width:64px; min-height:44px; padding:0 10px; background:var(--white); color:var(--ink); border:1px solid var(--rule-2); cursor:pointer}
+.vbtn:hover{border-color:var(--ink)}
+.vbtn[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink)}
+.vbtn[aria-pressed="true"]::before{content:"\2713\00a0"}
+.reason{grid-area:reason; display:flex; gap:10px; align-items:center}
+.reason label{font-family:var(--f-chrome); font-size:13px; color:var(--dim); white-space:nowrap}
+.reason input{flex:1; min-width:0; font:16px var(--f-body); min-height:44px; padding:4px 10px; border:1px solid var(--rule-2); background:var(--white); color:var(--ink)}
+.ledger{padding:16px 18px 18px; background:var(--study)}
+.ledger h3{font-size:13px; text-transform:uppercase; margin:0 0 8px; color:var(--ink)}
+.ledger ol{margin:0; padding:0 0 0 20px; font-family:var(--f-code); font-size:14px; line-height:1.6; color:var(--ink)}
+.main .ledger p.empty{font-family:var(--f-cap); font-size:15px; margin:0; color:var(--ink)}
+.f-playfair{font-family:"Playfair Display",serif; font-weight:700}
+.f-young{font-family:"Young Serif",serif; font-weight:400}
+.fallback-img{display:none}
+.is-fallback .live-only{display:none!important}
+.is-fallback .fallback-img{display:block}
+.plate{background:var(--white); border:1px solid var(--ln)}
+.chip{display:inline-block; margin-right:8px; padding:4px 6px 3px; border:1.5px solid currentColor; font:600 11.5px/1 var(--f-chrome-mono); letter-spacing:.06em; text-transform:uppercase; vertical-align:2px; white-space:nowrap; color:var(--fg)}
+.scale{font-family:var(--f-code); font-size:12px; color:var(--fg-dim); margin-left:6px; white-space:nowrap}
+.zoom{display:block; position:relative}
+.zoom img{cursor:zoom-in}
+.zoom .hint{position:absolute; right:10px; bottom:10px; background:var(--ink); color:#fff; font-family:var(--f-chrome); font-size:14px; min-height:36px; padding:0 12px; line-height:1; border:0; cursor:pointer}
+.zoom .hint:hover{text-decoration:underline}
+.zoom .hint:focus-visible{outline:3px solid var(--ink); outline-offset:3px; box-shadow:0 0 0 6px #fff}
+
+/* 07: ragged & wonky as three labeled lines, and the code figure, one width */
+.xw{max-width:680px}
+.main .ss-fig.xw, .main .css-fig.xw{margin-top:clamp(40px,4.5vw,72px)}
+.ss-rows{border:1px solid var(--ln); background:var(--white)}
+.ss-row{display:grid; grid-template-columns:150px minmax(0,1fr); gap:6px 24px; align-items:center; padding:14px 20px 16px; border-top:1px solid var(--ln)}
+.ss-row:first-child{border-top:0}
+.main .ss-row p.ss-k{margin:0; max-width:none; font-family:var(--f-chrome-mono); font-size:12px; line-height:1.4; color:var(--dim)}
+.main .ss-row p.ss-k b{display:block; font-family:var(--f-chrome); font-weight:600; font-size:13px; color:var(--ink)}
+.main .ss-row p.ss-t{margin:0; max-width:none; font-size:clamp(34px,4.2vw,56px); line-height:1.1; letter-spacing:-.02em; color:var(--ink); font-weight:700; font-variation-settings:"opsz" 26,"SOFT" 74,"WONK" 1; white-space:nowrap}
+.ss-orig{font-family:"Fraunces Original",serif!important}
+.ss-served{font-family:"Fraunces",serif!important}
+.ss-on{font-feature-settings:"ss01" 1!important}
+.ss-off{font-feature-settings:"ss01" 0!important}
+.ss-x{box-shadow:inset 0 -.1em 0 var(--red)}
+
+/* the footer, laid out as the site map (T135) */
+.ftr-map{display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,5fr); gap:28px clamp(24px,3vw,48px); border-top:2px solid var(--fg); padding-top:22px}
+.ftr .ftr-me p{margin:4px 0}
+.sm-grid{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:28px clamp(20px,2.6vw,40px)}
+.ftr p.sm-h{margin:0 0 8px; font-family:var(--f-ui); font-weight:600; letter-spacing:-.01em; font-size:clamp(20px,1.8vw,26px); line-height:1.15; color:var(--fg)}
+.sm-h a{text-decoration:none}
+.sm-h a:hover{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:5px}
+.ftr .sm-col ul{display:block; list-style:none; margin:0; padding:0}
+.ftr .sm-col li a{display:inline-block; min-height:0; padding:5px 0; font-family:var(--f-body); font-size:16px; line-height:1.4; color:var(--fg-2); text-decoration:underline}
+.ftr .sm-col a[aria-current="page"]{font-weight:600; color:var(--fg)}
+/* T137: light text on almost black (t-night, #141414) */
+.ftr .colophon{color:var(--fg-dim)}
+.ftr .ni{border-color:var(--fg-dim); color:var(--fg)}
+.ftr .ni b{color:var(--fg-dim)}
+.ftr .sm-col .ni{margin-top:2px}
+.ftr .top{margin-top:20px}
+
+/* the full-size viewer */
+dialog.cs-viewer{border:0; padding:0; max-width:min(96vw,1500px); max-height:94vh; background:var(--paper); color:var(--ink); overflow:hidden}
+dialog.cs-viewer::backdrop{background:rgba(12,12,14,.86)}
+.cs-v-bar{display:flex; justify-content:space-between; align-items:center; gap:16px; padding:10px 14px; border-bottom:1px solid var(--rule); font-family:var(--f-cap); font-size:15px}
+.cs-v-bar p{margin:0}
+.cs-v-close{min-height:44px; padding:0 14px; background:var(--ink); color:#fff; border:0; font:15px var(--f-chrome); cursor:pointer}
+.cs-v-body{overflow:auto; max-height:calc(94vh - 66px); padding:12px}
+.cs-v-body img{max-width:none}
+
+@media (max-width:1180px){ .cb{grid-template-columns:minmax(0,1fr)} .cb > figure:last-child{max-width:440px} }
+@media (max-width:1100px){ .ftr-map{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:900px){ .sm-grid{grid-template-columns:1fr 1fr} }
+@media (max-width:640px){
+  .cand{grid-template-columns:minmax(0,1fr); grid-template-areas:"line" "verdicts" "name" "reason"}
+  .zoom .hint{min-height:44px}
+  .ss-row{grid-template-columns:1fr}
+}
+@media (max-width:420px){ .sm-grid{grid-template-columns:1fr} }
+@media print{ .zoom .hint{display:none} }
+
+/* T152: the export panel, working (the app's own layout: segmented tabs, code box, Copy, Download) */
+.ex{border:1px solid var(--ln); background:var(--white); padding:20px 22px 18px; font-family:var(--f-chrome)}
+.ex-seg{display:inline-flex; border:1px solid var(--rule); border-radius:6px; overflow:hidden; margin-bottom:18px}
+.ex-seg button{appearance:none; border:0; border-left:1px solid var(--rule); background:var(--white); color:var(--ink); font:500 15px/1 var(--f-chrome); padding:0 16px; min-height:36px; cursor:pointer}
+.ex-seg button:first-child{border-left:0}
+.ex-seg button[aria-selected="true"]{background:var(--ink); color:var(--white)}
+.ex-seg button:focus-visible, .ex-btn:focus-visible, .ex-code:focus-visible{outline:3px solid var(--ink); outline-offset:2px}
+.ex-code{display:block; width:100%; box-sizing:border-box; resize:vertical; border:1px solid var(--rule); border-radius:4px; background:var(--white); color:var(--ink); padding:10px 12px; font:400 13.5px/1.6 var(--f-chrome-mono); white-space:pre; overflow:auto; tab-size:2}
+.ex-acts{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:14px}
+.ex-btn{appearance:none; display:inline-flex; align-items:center; min-height:44px; padding:0 18px; border:1px solid var(--rule-2); border-radius:6px; background:var(--white); color:var(--ink); font:500 16px/1 var(--f-chrome); text-decoration:none; cursor:pointer}
+.ex-btn--pri{background:var(--ink); border-color:var(--ink); color:var(--white)}
+.ex-say{font-size:14px; color:var(--dim)}
+.main .ex p.ex-hint{margin:14px 0 0; max-width:none; font-family:var(--f-chrome); font-size:14px; line-height:1.5; color:var(--dim)}
+/* Character Study feature sections (find, tune, preview). Only what the page lacks. */
+.fx-pane{display:grid; grid-template-columns:minmax(0,320px) minmax(0,1fr); gap:clamp(20px,3vw,40px); align-items:end; margin:clamp(40px,4.5vw,72px) 0 0}
+.fx-pane .shot{width:100%}
+.fx-pane figcaption{margin-top:0}
+.fx-wide{margin:clamp(40px,4.5vw,72px) 0 0; max-width:798px}
+.fx-wide .shot{width:100%}
+@media (max-width:760px){
+  .fx-pane{grid-template-columns:minmax(0,1fr)}
+  .fx-pane .shot{max-width:360px}
+  .fx-pane figcaption{margin-top:16px}
+}
+</style>
+<link rel="stylesheet" href="pp/chrome.css">
+<style id="thread">.mg{top:96px}.ex-seg button:focus-visible{outline-offset:-3px}</style>
+</head>
+<body id="top">
+
+<header class="gh gh--cs" style="--acc:#f57c33;--acc-ink:#22140d;--acc-on-dark:#f57c33">
+  <a class="gh__skip" href="#main">Skip to content</a>
+  <div class="gh__strip" aria-hidden="true"></div>
+  <div class="gh__bar">
+    <div class="gh__who"><a class="gh__home" href="index.html" aria-label="Story" title="Story"><img src="assets/hatlamp-mark@2x.png" srcset="assets/hatlamp-mark@2x.png 2x, assets/hatlamp-mark@3x.png 3x" width="79" height="101" alt=""></a><button class="gh__btn gh__name" type="button" aria-expanded="false" aria-controls="gh-name">Michael Lombardi</button>
+      <div class="gh__panel gh__panel--who" id="gh-name"><ul><li><span class="gh__k">Email</span><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></li><li><span class="gh__k">Résumé</span><a href="resume.html">View the résumé</a></li></ul></div></div>
+    <button class="gh__toggle" type="button" aria-expanded="false" aria-controls="gh-nav">Menu<svg class="gh__io" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/></svg><svg class="gh__ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2"/></svg></button>
+    <nav class="gh__nav" id="gh-nav" aria-label="Site"><ul class="gh__list">
+      <li><a class="gh__link" href="index.html">Story</a></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-featured">Featured</button><span class="gh__glabel">Featured</span><div class="gh__panel" id="gh-featured"><p class="gh__ph">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-cases">Case Studies</button><span class="gh__glabel">Case Studies</span><div class="gh__panel" id="gh-cases"><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-snacks"><span class="gh__star" aria-hidden="true"><img src="assets/hatlamp-star@2x.png" srcset="assets/hatlamp-star@2x.png 2x, assets/hatlamp-star@3x.png 3x" width="27" height="45" alt=""></span>Snacks</button><span class="gh__glabel">Snacks</span><div class="gh__panel" id="gh-snacks"><ul><li><a href="intro-characterstudy.html" aria-current="page">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div></li>
+      <li><a class="gh__link" href="resume.html">Résumé</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="story"><a id="main" tabindex="-1"></a>
+
+<!-- 01 · Hero -->
+<section class="hero t-white" aria-labelledby="h-hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">A personal project · live at <a href="https://fonts.puddnsnacks.com" target="_blank" rel="noopener">fonts.puddnsnacks.com<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></p>
+      <h1 class="display" id="h-hero">The quality of character.</h1>
+      <p class="role-tag"><span>Display</span><span>Bricolage Grotesque 700</span></p>
+      <p class="lede" data-draft>Choosing a design system's type means auditioning about two thousand faces, one tab at a time. Character Study sets the same letters in every Google Fonts family at once, lets a designer cast a face for every role, and exports the whole system as code. The machine does the reading and measuring. The person does the choosing.</p>
+      <div class="actions">
+        <a class="btn" href="https://fonts.puddnsnacks.com" target="_blank" rel="noopener">Open Character Study <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg><span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>
+        <span class="quiet-link">A tool for designers and design-system leads</span>
+      </div>
+    </div>
+    <figure class="hero-fig">
+      <div class="spec" role="group" aria-label="Specimen of Michael's type system">
+        <div class="sp-row"><p class="sp-l"><b>Eyebrow</b><span>Afacad Flux</span><span>14/19.6</span></p><p class="sp-s r-eyebrow">One set, eight roles</p></div>
+        <div class="sp-row sel"><p class="sp-l"><b>Display</b><span>Bricolage Grotesque 700</span><span>72/88</span></p><p class="sp-s r-display">Read first.</p></div>
+        <div class="sp-row"><p class="sp-l"><b>Heading</b><span>Fraunces</span><span>40/48</span></p><p class="sp-s r-heading">Every section gets a name</p></div>
+        <div class="sp-row"><p class="sp-l"><b>Body</b><span>Sarabun</span><span>16/24</span></p><p class="sp-s r-body">Body carries the reading. It stays calm at length, holds its shape at small sizes, and never competes with its headings.</p></div>
+        <div class="sp-row"><p class="sp-l"><b>Button label</b><span>Afacad Flux</span><span>20/24</span></p><p class="sp-s"><span class="r-button">Do one thing</span></p></div>
+        <div class="sp-row"><p class="sp-l"><b>Pull quote</b><span>Fraunces italic</span><span>28/36</span></p><p class="sp-s r-pq">A pull quote slows the reader down.</p></div>
+        <div class="sp-row"><p class="sp-l"><b>Caption</b><span>Fira Sans</span><span>13/16</span></p><p class="sp-s r-caption">Fig. 2 · A caption says what the picture means.</p></div>
+        <div class="sp-row"><p class="sp-l"><b>Code</b><span>Fira Code</span><span>15/24</span></p><p class="sp-s r-code">/* every role ships as code */</p></div>
+      </div>
+      <figcaption data-draft><b>The cast</b>The type for my own design system, set from the values Character Study exported. Eight of its roles, each at true size. <a href="character-study/assets/character-study/cs-02-pds-specimen-17-roles.png">Every role, in the tool's specimen</a></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 02 · Problem (T133: cs-b's content) -->
+<section class="ch t-study" id="problem" aria-labelledby="h-problem">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">02</p><p class="mg-l">The problem</p></div>
+    <div class="main">
+      <h2 id="h-problem">A long evening of tabs.</h2>
+      <p data-draft>Google Fonts serves about two thousand families, and most people meet them one at a time, a tab for every candidate. Find a face you like, and the hunt starts over for the second one. Then the pair you loved on its own falls apart beside real content, at real sizes.</p>
+      <blockquote class="pq">
+        <p>Once we've spent all that time and effort choosing a primary typeface for our project, we get to do it all over again for a secondary typeface.</p>
+        <footer>Google Fonts Knowledge, on pairing · <a href="https://fonts.google.com/knowledge/choosing_type/pairing_typefaces" target="_blank" rel="noopener">source<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></footer>
+      </blockquote>
+      <figure class="tabs">
+        <div aria-hidden="true"><div class="tabs-row"><div class="tab"><i></i><span>Inter - Google Fonts</span></div><div class="tab"><i></i><span>Roboto - Google Fonts</span></div><div class="tab"><i></i><span>Lora - Google Fonts</span></div><div class="tab on"><i></i><span>Playfair Display - Google Fonts</span></div></div><div class="tabs-row"><div class="tab"><i></i><span>Inter - Google Fonts</span></div><div class="tab"><i></i><span>Roboto - Google Fonts</span></div><div class="tab"><i></i><span>Lora - Google Fonts</span></div><div class="tab"><i></i><span>Playfair Display - Google Fonts</span></div><div class="tab"><i></i><span>Merriweather - Google Fonts</span></div><div class="tab"><i></i><span>Montserrat - Google Fonts</span></div><div class="tab"><i></i><span>Source Serif 4 - Google Fonts</span></div><div class="tab"><i></i><span>Work Sans - Google Fonts</span></div><div class="tab"><i></i><span>Libre Baskerville - Google Fonts</span></div><div class="tab"><i></i><span>DM Sans - Google Fonts</span></div><div class="tab"><i></i><span>Poppins - Google Fonts</span></div><div class="tab on"><i></i><span>Crimson Pro - Google Fonts</span></div></div><div class="tabs-row"><div class="tab"><i></i><span>Inter - Google Fonts</span></div><div class="tab"><i></i><span>Roboto - Google Fonts</span></div><div class="tab"><i></i><span>Lora - Google Fonts</span></div><div class="tab"><i></i><span>Playfair Display - Google Fonts</span></div><div class="tab"><i></i><span>Merriweather - Google Fonts</span></div><div class="tab"><i></i><span>Montserrat - Google Fonts</span></div><div class="tab"><i></i><span>Source Serif 4 - Google Fonts</span></div><div class="tab"><i></i><span>Work Sans - Google Fonts</span></div><div class="tab"><i></i><span>Libre Baskerville - Google Fonts</span></div><div class="tab"><i></i><span>DM Sans - Google Fonts</span></div><div class="tab"><i></i><span>Poppins - Google Fonts</span></div><div class="tab"><i></i><span>Crimson Pro - Google Fonts</span></div><div class="tab"><i></i><span>Manrope - Google Fonts</span></div><div class="tab"><i></i><span>Raleway - Google Fonts</span></div><div class="tab"><i></i><span>Nunito - Google Fonts</span></div><div class="tab"><i></i><span>Bitter - Google Fonts</span></div><div class="tab"><i></i><span>Karla - Google Fonts</span></div><div class="tab"><i></i><span>Spectral - Google Fonts</span></div><div class="tab"><i></i><span>Rubik - Google Fonts</span></div><div class="tab"><i></i><span>Lato - Google Fonts</span></div><div class="tab"><i></i><span>PT Serif - Google Fonts</span></div><div class="tab"><i></i><span>Outfit - Google Fonts</span></div><div class="tab"><i></i><span>Literata - Google Fonts</span></div><div class="tab"><i></i><span>Mulish - Google Fonts</span></div><div class="tab"><i></i><span>Cardo - Google Fonts</span></div><div class="tab"><i></i><span>Open Sans - Google Fonts</span></div><div class="tab"><i></i><span>Figtree - Google Fonts</span></div><div class="tab"><i></i><span>Newsreader - Google Fonts</span></div><div class="tab"><i></i><span>Sora - Google Fonts</span></div><div class="tab on"><i></i><span>Alegreya - Google Fonts</span></div></div></div>
+        <figcaption data-draft><b>The search</b>A tab for every candidate, and every comparison made from memory.</figcaption>
+      </figure>
+      <h3 class="xb-sub" data-draft>A pairing isn't a type system.</h3>
+      <p data-draft>A system is a cast of roles (eyebrow, heading, body, button, caption, code), each with its own weight, size, spacing and features. Faces at the same size take up different room, so a face swapped late moves everything it touches.</p>
+      <p data-draft>The pairing generators answer by choosing for you.</p>
+      <figure class="xb-plate">
+        <div class="xb-room" id="room">
+          <div class="xb-room-row"><span class="xb-lab"><b>Fraunces</b> · 40px</span><div class="xb-s f-fraunces" style="font-weight:500;font-variation-settings:'opsz' 40">Handgloves</div><div class="xb-m" aria-hidden="true"></div></div>
+          <div class="xb-room-row"><span class="xb-lab"><b>Afacad Flux</b> · 40px</span><div class="xb-s f-afacad">Handgloves</div><div class="xb-m" aria-hidden="true"></div></div>
+          <div class="xb-room-row"><span class="xb-lab"><b>IBM Plex Sans</b> · 40px</span><div class="xb-s f-plex">Handgloves</div><div class="xb-m" aria-hidden="true"></div></div>
+          <div class="xb-room-row"><span class="xb-lab"><b>Fira Code</b> · 40px</span><div class="xb-s f-code" style="letter-spacing:0 !important">Handgloves</div><div class="xb-m" aria-hidden="true"></div></div>
+        </div>
+        <figcaption data-draft><b>Set live, every line at 40px</b>Four faces set the same word at the same size, and each takes its own width. A face swapped late moves every role that touches it.</figcaption>
+      </figure>
+      <p class="src">The x-height ratio "varies between fonts." · <a href="https://web.dev/blog/font-size-adjust" target="_blank" rel="noopener">web.dev, font-size-adjust<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · The turn (T133: cs-b's content) -->
+<section class="ch t-paper" id="turn" aria-labelledby="h-turn">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">03</p><p class="mg-l">The turn</p></div>
+    <div class="main">
+      <h2 id="h-turn">Taste stays with the person.</h2>
+      <p data-draft>Taste left to a machine makes the work feel one-dimensional and generic. So Character Study never scores or suggests a pairing. It does what machines are good at, reading every font file and setting every letter at once, and leaves every choice to the person using it.</p>
+      <p data-draft>AI here builds tools that make human decisions faster. It doesn't make them.</p>
+      <figure class="xb-plate">
+        <div class="split" role="group" aria-label="Who does what in Character Study">
+          <div class="m">
+          <h3>The machine</h3>
+          <ul>
+            <li>Reads every font file</li>
+            <li>Measures every letter</li>
+            <li>Sets every family at once</li>
+            <li>Traces the pick over every tile</li>
+          </ul>
+          </div>
+          <div class="p">
+          <h3>The person</h3>
+          <ul>
+            <li>Casts each role</li>
+            <li>Writes down why</li>
+            <li>Locks what's settled</li>
+          </ul>
+          </div>
+        </div>
+        <figcaption data-draft><b>Set in type</b>The split Character Study is built on. The machine brings reach and speed, and every taste decision stays with the person.</figcaption>
+      </figure>
+      <blockquote class="pq">
+        <p>The preview is the only colorful thing on screen.</p>
+        <footer>Michael Lombardi, the Character Study brief</footer>
+      </blockquote>
+      <h3 class="xb-sub" data-draft>A quiet room for loud type.</h3>
+      <p>The brief set the rule plainly: "The interface must be understated, so it never distracts from the fonts being judged."</p>
+      <p data-draft>The tool's own chrome is the system font in grayscale, so it can never be mistaken for a candidate. All the color and personality on screen belongs to the type being judged.</p>
+      <figure class="xb-plate">
+        <picture>
+      <source media="(max-width: 640px)" srcset="character-study/img/cs-01-phone-specimen-crop.png" width="1216" height="616">
+      <img class="shot" src="character-study/img/cs-01-app-pds-specimen.png" width="2400" height="1500" loading="lazy" alt="The whole Character Study window: a gray Fonts pane on the left with filters and family cards, the PDS specimen in the center with A Design System in heavy Fraunces, the Display inspector with locks on the right, and a row of role chips along the bottom.">
+    </picture>
+        <figcaption data-draft><b>From the tool</b>The whole study: gray chrome all around, and the type system in the middle doing all the talking.</figcaption>
+      </figure>
+      <div class="xb-epi">
+        <p>A study is a place as well.</p>
+        <span>Michael Lombardi, on the name</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch t-study" id="find" aria-labelledby="h-find">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">04</p><p class="mg-l">Search and filter</p></div>
+    <div class="main">
+      <h2 id="h-find" data-draft>Narrowed by the numbers.</h2>
+      <p data-draft>About two thousand families is not a shortlist. So the Fonts pane starts from what a role needs instead of from the top of the alphabet. Search by name or designer, then narrow by category, tags, axes, weights, features and languages.</p>
+      <p data-draft>Every option shows how many families it would leave before I click it, and an option that would leave none can't be checked. I never filter my way into an empty list and have to back out.</p>
+      <figure class="fx-pane">
+        <img class="shot" src="character-study/img/cs-fx-filters.png" width="640" height="1596" loading="lazy" alt="Character Study's Fonts pane: a Name or designer search box and a Name sort menu, then the Category, Axes and Features filters open with Serif, Optical size axis and Stylistic sets checked. Each option shows a count, Monospace is grayed out at 0, and the list reads 9 of 2,003 families, starting with Bodoni Moda.">
+        <figcaption data-draft><b>Three boxes checked</b>Serif, Optical size axis and Stylistic sets leave nine of 2,003 families, and every box I haven't checked already says what it would leave.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · The audition -->
+<section class="ch t-red audition" id="audition" aria-labelledby="h-audition">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">05</p><p class="mg-l">The audition</p></div>
+    <div class="main">
+      <h2 id="h-audition">Shape before name.</h2>
+      <p data-draft>Type one to four letters and the letter grid sets them in every matching family at once. The eye catches a shape it likes before it ever reads a name. Turn on compare, and the current pick is traced over every tile, aligned on the baseline, so the difference is visible instead of described.</p>
+      <blockquote class="pq">
+        <p>The tool is mostly for finding font family combinations, so the font-finding parts get the most care.</p>
+        <footer>Michael Lombardi, the agent brief</footer>
+      </blockquote>
+      <figure class="grid-fig">
+        <div class="grid-tool" id="grid" data-compare="off" data-names="off">
+          <div class="gt-bar">
+            <div class="gt-picks" role="group" aria-label="Letter">
+              <span class="lbl" aria-hidden="true">Letter</span>
+              <button type="button" data-ch="Q" aria-label="Q, capital Q" aria-pressed="false">Q</button>
+<button type="button" data-ch="R" aria-label="R, capital R" aria-pressed="false">R</button>
+<button type="button" data-ch="g" aria-label="g, lowercase g" aria-pressed="false">g</button>
+<button type="button" data-ch="a" aria-label="a, lowercase a" aria-pressed="false">a</button>
+<button type="button" data-ch="y" aria-label="y, lowercase y" aria-pressed="false">y</button>
+<button type="button" data-ch="&amp;" aria-label="&amp;, ampersand" aria-pressed="true">&amp;</button>
+<button type="button" data-ch="0" aria-label="0, zero" aria-pressed="false">0</button>
+<button type="button" data-ch="O" aria-label="O, capital O" aria-pressed="false">O</button>
+<button type="button" data-ch="1" aria-label="1, one" aria-pressed="false">1</button>
+<button type="button" data-ch="l" aria-label="l, lowercase l" aria-pressed="false">l</button>
+            </div>
+            <div class="gt-toggles">
+              <label class="chk"><input type="checkbox" id="cmp"> Compare with Fraunces</label>
+              <label class="chk"><input type="checkbox" id="nms"> Show names</label>
+            </div>
+          </div>
+          <p class="sr">The selected character set in two dozen Google Fonts families: Abril Fatface, Archivo Black, Bricolage Grotesque, Bungee, Caveat, Cormorant Garamond, DM Serif Display, EB Garamond, Fraunces, Gloock, Instrument Serif, Italiana, Josefin Sans, Libre Bodoni, Lobster, Major Mono Display, Pacifico, Playfair Display, Rye, Space Grotesk, Syne, Unbounded, UnifrakturMaguntia, Young Serif.</p>
+          <ul class="tiles" aria-hidden="true"><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Abril Fatface'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Abril Fatface</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Archivo Black'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Archivo Black</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Bricolage Grotesque'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Bricolage Grotesque</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Bungee'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Bungee</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Caveat'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Caveat</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Cormorant Garamond'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Cormorant Garamond</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'DM Serif Display'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">DM Serif Display</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'EB Garamond'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">EB Garamond</span></span></li><li class="tile pick"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Fraunces'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Fraunces</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Gloock'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Gloock</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Instrument Serif'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Instrument Serif</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Italiana'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Italiana</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Josefin Sans'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Josefin Sans</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Libre Bodoni'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Libre Bodoni</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Lobster'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Lobster</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Major Mono Display'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Major Mono Display</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Pacifico'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Pacifico</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Playfair Display'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Playfair Display</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Rye'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Rye</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Space Grotesk'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Space Grotesk</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Syne'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Syne</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Unbounded'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Unbounded</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'UnifrakturMaguntia'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">UnifrakturMaguntia</span></span></li><li class="tile"><svg viewBox="0 0 100 92" aria-hidden="true"><text class="gl" x="50" y="65" text-anchor="middle" style="font-family:'Young Serif'">&amp;</text><text class="ov" x="50" y="65" text-anchor="middle">&amp;</text></svg><span class="nmw"><span class="nm">Young Serif</span></span></li></ul>
+          <p class="sr" id="gt-status" aria-live="polite"></p>
+        </div>
+        <figcaption class="grid-cap" data-draft><b>The letter grid</b>A shape gets noticed before a name gets read.</figcaption>
+      </figure>
+      <figure class="grid-fallback" id="grid-fallback" hidden>
+        <img class="shot" src="character-study/img/cs-04-letter-grid-ampersand-two-rows.png" width="1774" height="592" alt="Character Study's letter grid: two rows of white tiles, each showing an ampersand in a different Google Fonts family, from plain sans serifs to a heavy slab and a swash.">
+        <figcaption data-draft><b>The letter grid</b>One ampersand, family after family. A shape gets noticed before a name gets read.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · Casting -->
+<section class="ch t-paper" id="casting" aria-labelledby="h-casting">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">06</p><p class="mg-l">Casting</p></div>
+    <div class="main">
+      <h2 id="h-casting">A reason on the record.</h2>
+      <p data-draft>Every role holds a short list of candidates. Each one gets a verdict, keep, maybe or no, and a one-line reason that is saved with the set, so the decision outlives the meeting where it was made. What's settled gets locked, so trying a new candidate never moves a value already decided.</p>
+    <div class="cb">
+      <figure id="cb" data-needs="700 44px Fraunces|700 44px &quot;Playfair Display&quot;|400 44px &quot;Young Serif&quot;|700 44px &quot;Bricolage Grotesque&quot;" data-text="A Design System">
+        <div class="cb-panel">
+          <div class="cb-top"><span><b>Role</b> Display</span><span>Names stay hidden until there's a verdict</span></div>
+          <div class="live-only" id="cands">
+            <div class="cand" data-name="Fraunces" data-his="1">
+              <p class="cand-line f-fraunces">A Design System</p>
+              <div class="verdicts" role="group" aria-label="Verdict for candidate 1"><button type="button" class="vbtn" aria-pressed="false" data-v="keep">Keep</button><button type="button" class="vbtn" aria-pressed="false" data-v="maybe">Maybe</button><button type="button" class="vbtn" aria-pressed="false" data-v="no">No</button></div>
+              <p class="cand-name" aria-live="polite">Candidate 1</p>
+              <div class="reason"><label for="r1">Reason</label><input id="r1" type="text" maxlength="70" placeholder="One line on why" autocomplete="off"></div>
+            </div>
+            <div class="cand" data-name="Playfair Display">
+              <p class="cand-line f-playfair">A Design System</p>
+              <div class="verdicts" role="group" aria-label="Verdict for candidate 2"><button type="button" class="vbtn" aria-pressed="false" data-v="keep">Keep</button><button type="button" class="vbtn" aria-pressed="false" data-v="maybe">Maybe</button><button type="button" class="vbtn" aria-pressed="false" data-v="no">No</button></div>
+              <p class="cand-name" aria-live="polite">Candidate 2</p>
+              <div class="reason"><label for="r2">Reason</label><input id="r2" type="text" maxlength="70" placeholder="One line on why" autocomplete="off"></div>
+            </div>
+            <div class="cand" data-name="Young Serif">
+              <p class="cand-line f-young">A Design System</p>
+              <div class="verdicts" role="group" aria-label="Verdict for candidate 3"><button type="button" class="vbtn" aria-pressed="false" data-v="keep">Keep</button><button type="button" class="vbtn" aria-pressed="false" data-v="maybe">Maybe</button><button type="button" class="vbtn" aria-pressed="false" data-v="no">No</button></div>
+              <p class="cand-name" aria-live="polite">Candidate 3</p>
+              <div class="reason"><label for="r3">Reason</label><input id="r3" type="text" maxlength="70" placeholder="One line on why" autocomplete="off"></div>
+            </div>
+            <div class="cand" data-name="Bricolage Grotesque">
+              <p class="cand-line f-bricolage">A Design System</p>
+              <div class="verdicts" role="group" aria-label="Verdict for candidate 4"><button type="button" class="vbtn" aria-pressed="false" data-v="keep">Keep</button><button type="button" class="vbtn" aria-pressed="false" data-v="maybe">Maybe</button><button type="button" class="vbtn" aria-pressed="false" data-v="no">No</button></div>
+              <p class="cand-name" aria-live="polite">Candidate 4</p>
+              <div class="reason"><label for="r4">Reason</label><input id="r4" type="text" maxlength="70" placeholder="One line on why" autocomplete="off"></div>
+            </div>
+          </div>
+          <img class="fallback-img" src="character-study/img/cs-callback-fallback-2x.png" width="1360" height="568" alt="Four candidates for the Display role, each setting 'A Design System': Fraunces, Playfair Display, Young Serif and Bricolage Grotesque." loading="lazy">
+          <div class="ledger live-only">
+            <h3>Saved with the set</h3>
+            <p class="empty" id="ledger-empty">No verdicts yet. Call one, and it lands here with its reason.</p>
+            <ol id="ledger" aria-live="polite"></ol>
+          </div>
+        </div>
+        <figcaption><span class="chip">Design example</span><span data-draft>The callback, built for this page. These four candidates are picked for the demo, not my shortlist. The verdict and the reason travel together, the way they do in the tool.</span></figcaption>
+      </figure>
+      <figure>
+        <span class="plate" style="display:block"><img id="insp-img" class="measured" src="character-study/img/cs-inspector-locks-2x.png" width="880" height="1250" alt="The Display inspector: Family Fraunces, size 72 px, weight 700, axes opsz 26, SOFT 74 and WONK 1, line height 88 px and tracking -2.4 px. A lock icon sits beside each value, and most are marked locked." loading="lazy"></span>
+        <figcaption><span class="chip">From the tool</span><span data-draft>My Display role, settled. Every value marked locked stays put while candidates come and go.</span> <span class="scale" data-scale-for="insp-img"></span></figcaption>
+      </figure>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch t-study" id="tune" aria-labelledby="h-tune">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">07</p><p class="mg-l">Editing options</p></div>
+    <div class="main">
+      <h2 id="h-tune" data-draft>A family resemblance.</h2>
+      <p data-draft>Most roles in a type system are relatives. Text link and Caption start from Body, and the button labels start from UI. So each role takes its font from its parent until I break the link, and every value in the inspector says where it comes from: from Body, own value, or locked.</p>
+      <p data-draft>Each role has its own Font, Spacing, Case and features, Layout and Color, with the rarer settings behind More. Size, line height and tracking get a phone value too, scaled from the desktop size until I set my own. What the inspector holds is what the export writes: a custom property for every value and a class for every role.</p>
+      <figure class="fx-pane">
+        <img class="shot" src="character-study/img/cs-fx-inspector-text-link.png" width="640" height="1300" loading="lazy" alt="The inspector for the Text link role. The Font group reads from Body: Family is Sarabun, marked from Body with a link icon beside it. Size 16 px and Weight 300 are marked locked, and Weight shows a broken-link icon. Below are Spacing with line height 24 px and tracking 0, then Case and features with Case As typed and Decoration Underline, each group with its own lock.">
+        <figcaption data-draft><b>Text link, in the inspector</b>The family follows Body through the link, while the weight's link is broken, so that 300 belongs to Text link alone.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · Honest data -->
+<section class="ch t-night fib" id="honest-data" aria-labelledby="h-fib">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">08</p><p class="mg-l">Honest data</p></div>
+    <div class="main">
+      <h2 id="h-fib">Fonts fib.</h2>
+      <blockquote class="pq">
+        <p>Never fill in a plausible guess.</p>
+        <footer>Michael Lombardi, the agent brief</footer>
+      </blockquote>
+      <p data-draft>Font files describe themselves, and some of them are wrong. Macondo declares an x-height of 0.024 em. Its letter x actually measures 0.456 em. Character Study measures the letters themselves, keeps the declared value beside the measured one, and flags any gap over ten percent. About a fifth of the families have an x-height or cap height more than ten percent off.</p>
+      <figure class="mac">
+        <svg class="wide" viewBox="0 0 1200 560" role="img" aria-labelledby="mac-t1">
+          <title id="mac-t1">The letter x in Macondo, with three lines: the baseline, a dashed line just above it where the font file declares the x-height, 0.024 em, and a line level with the top of the x where it actually measures, 0.456 em.</title>
+          <text class="mac-x" x="70" y="470" font-size="760">x</text>
+          <line class="mac-l" x1="40" y1="123.4" x2="1160" y2="123.4"/>
+          <line class="mac-d" x1="40" y1="451.8" x2="1160" y2="451.8"/>
+          <line class="mac-l" x1="40" y1="470" x2="1160" y2="470"/>
+          <text class="mac-t" x="560" y="102" font-size="30">measured from the letter</text>
+          <text class="mac-v" x="1160" y="102" font-size="40" text-anchor="end">0.456 em</text>
+          <text class="mac-td" x="560" y="432" font-size="30">declared in the font file</text>
+          <text class="mac-vd" x="1160" y="432" font-size="40" text-anchor="end">0.024 em</text>
+          <text class="mac-dim" x="560" y="512" font-size="28">baseline</text>
+        </svg>
+        <svg class="phone" viewBox="0 196 600 480" role="img" aria-labelledby="mac-t2">
+          <title id="mac-t2">The letter x in Macondo, with three lines: the baseline, a dashed line just above it where the font file declares the x-height, 0.024 em, and a line level with the top of the x where it actually measures, 0.456 em.</title>
+          <text class="mac-t" x="20" y="232" font-size="28">measured from the letter</text>
+          <text class="mac-v" x="20" y="280" font-size="44">0.456 em</text>
+          <text class="mac-x" x="150" y="560" font-size="560">x</text>
+          <line class="mac-l" x1="10" y1="304.6" x2="590" y2="304.6"/>
+          <line class="mac-d" x1="10" y1="546.6" x2="590" y2="546.6"/>
+          <line class="mac-l" x1="10" y1="560" x2="590" y2="560"/>
+          <text class="mac-td" x="20" y="606" font-size="28">declared in the font file</text>
+          <text class="mac-vd" x="20" y="654" font-size="44">0.024 em</text>
+          <text class="mac-dim" x="590" y="606" font-size="26" text-anchor="end">baseline</text>
+        </svg>
+        <figcaption data-draft><b>Macondo, the letter x</b>Declared versus measured. A tool that judges type has to measure the letters, not trust the label.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="ch t-study" id="preview" aria-labelledby="h-preview">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">09</p><p class="mg-l">The preview</p></div>
+    <div class="main">
+      <h2 id="h-preview" data-draft>The page before the page.</h2>
+      <p data-draft>A face that looks right alone can fall apart beside the rest of the cast. So the preview sets the whole system the way it will be used. Landing page puts every role on one page, from the nav and the headline to the buttons, a form, code and the footer, so the roles get judged together instead of one at a time.</p>
+      <p data-draft>It fits the pane or holds a real width, down to a phone's 390 px. Text swaps my own sample into every role, and Colors tries the page in light and dark with the contrast checked. Click any line and its role opens in the inspector.</p>
+      <figure class="fx-wide">
+        <picture>
+          <source media="(max-width: 600px)" srcset="character-study/img/cs-fx-landing-page-phone.png" width="916" height="1110">
+          <img class="shot" src="character-study/img/cs-fx-landing-page.png" width="1596" height="1660" loading="lazy" alt="The preview pane set to Landing page with my PDS set: a nav of Product, Pricing and Docs with a small edit button, the eyebrow NEW THIS SEASON, the headline A Design System in heavy serif with an outline around it, a paragraph, a start your free trial button and a Read the full story link, then a heading, body text, a note, and a pull quote in italic.">
+        </picture>
+        <figcaption data-draft><b>Landing page, my PDS set</b>Every role on one page at its real size, with Display outlined because it's the role open in the inspector.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 08 · Proof -->
+<section class="ch t-paper" id="proof" aria-labelledby="h-proof">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">10</p><p class="mg-l">Proof</p></div>
+    <div class="main">
+      <h2 id="h-proof">Cast, then shipped.</h2>
+      <p data-draft>I used Character Study to cast the type for my own design system: Bricolage Grotesque for display, Fraunces for headings, Sarabun for reading, Afacad Flux for the interface, Fira Sans for the small print, Fira Code for code and IBM Plex Sans for documentation. The CSS it exported became the system's type file almost unchanged.</p>
+      <div class="playbill" role="group" aria-labelledby="pb-h">
+        <h3 id="pb-h">The cast</h3>
+        <div class="pb-row"><p class="pb-fam f-bricolage">Bricolage Grotesque</p><p class="pb-roles"><b>Display</b></p></div>
+        <div class="pb-row"><p class="pb-fam f-fraunces">Fraunces</p><p class="pb-roles"><b>Heading</b> · Pull quote</p></div>
+        <div class="pb-row"><p class="pb-fam f-sarabun">Sarabun</p><p class="pb-roles"><b>Body</b> · Text link</p></div>
+        <div class="pb-row"><p class="pb-fam f-afacad">Afacad Flux</p><p class="pb-roles"><b>UI</b> · Button labels · Forms · Label · Eyebrow</p></div>
+        <div class="pb-row"><p class="pb-fam f-fira">Fira Sans</p><p class="pb-roles"><b>Caption</b> · Legal · Notes</p></div>
+        <div class="pb-row"><p class="pb-fam f-code">Fira Code</p><p class="pb-roles"><b>Code</b></p></div>
+        <div class="pb-row"><p class="pb-fam f-plex">IBM Plex Sans</p><p class="pb-roles"><b>Documentation</b></p></div>
+      </div>
+      <p data-draft>Only the font import moved. Google's served files strip out stylistic sets, so Fraunces and Afacad Flux are hosted with the system instead. I found it the way a user would, setting my own type and testing it.</p>
+      <figure class="ss-fig xw">
+        <div class="ss-rows" role="group" aria-label="Ragged and wonky, set three ways">
+          <div class="ss-row"><p class="ss-k"><b>Self-hosted file</b>Stylistic set 1 on</p><p class="ss-t ss-orig ss-on">Ragged <span class="ss-x">&amp;</span> wo<span class="ss-x">n</span>ky</p></div>
+          <div class="ss-row"><p class="ss-k"><b>Self-hosted file</b>Stylistic set 1 off</p><p class="ss-t ss-orig ss-off">Ragged <span class="ss-x">&amp;</span> wo<span class="ss-x">n</span>ky</p></div>
+          <div class="ss-row"><p class="ss-k"><b>Google's served file</b>Stylistic set 1 requested</p><p class="ss-t ss-served ss-on">Ragged <span class="ss-x">&amp;</span> wo<span class="ss-x">n</span>ky</p></div>
+        </div>
+        <figcaption data-draft><span class="chip">Set live</span><b>Stylistic set 1</b>With the set on, the looped ampersand turns plain and the n changes with it (both marked). The self-hosted file carries the set, so the top line changes. Google's served file arrives without it: asked for the set, it sets the same line as the set turned off. That is why two faces are self-hosted.</figcaption>
+      </figure>
+      <figure class="css-fig xw">
+        <div class="ex" id="ex">
+          <div class="ex-seg" role="tablist" aria-label="Export or import">
+            <button type="button" role="tab" id="ex-t-css" aria-controls="ex-p" aria-selected="true" data-tab="css">CSS</button><button type="button" role="tab" id="ex-t-json" aria-controls="ex-p" aria-selected="false" data-tab="json" tabindex="-1">JSON</button><button type="button" role="tab" id="ex-t-import" aria-controls="ex-p-import" aria-selected="false" data-tab="import" tabindex="-1">Import</button>
+          </div>
+          <div role="tabpanel" id="ex-p" aria-labelledby="ex-t-css">
+            <textarea class="ex-code" id="ex-code" readonly rows="12" spellcheck="false" aria-label="CSS for this set">/* PDS: type system from Character Study. */
+/* Google Fonts&#x27; files leave out stylistic sets, small caps, slashed zero, old-style and lining figures
+   and discretionary ligatures, so through the link below those won&#x27;t render for: display (Fraunces), heading (Fraunces), ui (Afacad Flux), button (Afacad Flux), forms (Afacad Flux), label (Afacad Flux).
+   To use them, self-host the original font files from https://github.com/google/fonts. */
+@import url(&quot;https://fonts.googleapis.com/css2?family=Afacad+Flux:slnt,wght@0,300;0,350;0,400;0,500&amp;family=Fira+Code:wght@400&amp;family=Fira+Sans:wght@400&amp;family=Fraunces:ital,opsz,wght,SOFT,WONK@0,26,400,24,0.5;0,26,700,74,1;1,44,400,19,1&amp;family=IBM+Plex+Sans:wght@400&amp;family=Sarabun:wght@300;400&amp;display=swap&quot;);
+
+:root {
+  /* eyebrow */
+  --type-eyebrow-family: &quot;Afacad Flux&quot;, sans-serif;
+  --type-eyebrow-weight: 500;
+  --type-eyebrow-size: 14px;
+  --type-eyebrow-line-height: 1.4;
+  --type-eyebrow-tracking: 0.0429em;
+  --type-eyebrow-variation: normal;
+  --type-eyebrow-features: normal;
+  /* display */
+  --type-display-family: &quot;Fraunces&quot;, serif;
+  --type-display-weight: 700;
+  --type-display-size: 72px;
+  --type-display-line-height: 1.2222;
+  --type-display-tracking: -0.0333em;
+  --type-display-variation: &quot;opsz&quot; 26, &quot;SOFT&quot; 74, &quot;WONK&quot; 1;
+  --type-display-features: &quot;ss01&quot; 1;
+  /* heading */
+  --type-heading-family: &quot;Fraunces&quot;, serif;
+  --type-heading-weight: 400;
+  --type-heading-size: 40px;
+  --type-heading-line-height: 1.2;
+  --type-heading-tracking: -0.06em;
+  --type-heading-variation: &quot;opsz&quot; 26, &quot;SOFT&quot; 24, &quot;WONK&quot; 0.5;
+  --type-heading-features: &quot;ss01&quot; 1;
+  /* body */
+  --type-body-family: &quot;Sarabun&quot;, sans-serif;
+  --type-body-weight: 400;
+  --type-body-size: 16px;
+  --type-body-line-height: 1.5;
+  --type-body-tracking: -0.0062em;
+  --type-body-variation: normal;
+  --type-body-features: normal;
+  /* link */
+  --type-link-family: &quot;Sarabun&quot;, sans-serif;
+  --type-link-weight: 300;
+  --type-link-size: 16px;
+  --type-link-line-height: 1.5;
+  --type-link-tracking: 0;
+  --type-link-variation: normal;
+  --type-link-features: normal;
+  /* ui */
+  --type-ui-family: &quot;Afacad Flux&quot;, sans-serif;
+  --type-ui-weight: 400;
+  --type-ui-size: 18px;
+  --type-ui-line-height: 1.3333;
+  --type-ui-tracking: -0.0056em;
+  --type-ui-variation: normal;
+  --type-ui-features: &quot;ss02&quot; 1, &quot;ss03&quot; 1, &quot;ss04&quot; 1, &quot;zero&quot; 1;
+  /* button */
+  --type-button-family: &quot;Afacad Flux&quot;, sans-serif;
+  --type-button-weight: 300;
+  --type-button-size: 20px;
+  --type-button-line-height: 1.2;
+  --type-button-tracking: 0.04em;
+  --type-button-variation: normal;
+  --type-button-features: &quot;ss02&quot; 1, &quot;ss03&quot; 1, &quot;ss04&quot; 1;
+  /* buttonSmall */
+  --type-button-small-family: &quot;Afacad Flux&quot;, sans-serif;
+  --type-button-small-weight: 300;
+  --type-button-small-size: 16px;
+  --type-button-small-line-height: 1;
+  --type-button-small-tracking: 0.05em;
+  --type-button-small-variation: normal;
+  --type-button-small-features: normal;
+  /* buttonLarge */
+  --type-button-large-family: &quot;Afacad Flux&quot;, sans-serif;
+  --type-button-large-weight: 300;
+  --type-button-large-size: 24px;
+  --type-button-large-line-height: 1;
+  --type-button-large-tracking: 0.0208em;
+  --type-button-large-variation: &quot;slnt&quot; 0;
+  --type-button-large-features: normal;
+  /* forms */
+  --type-forms-family: &quot;Afacad Flux&quot;, sans-serif;
+  --type-forms-weight: 350;
+  --type-forms-size: 20px;
+  --type-forms-line-height: 1.6;
+  --type-forms-tracking: -0.01em;
+  --type-forms-variation: normal;
+  --type-forms-features: &quot;ss02&quot; 1, &quot;ss03&quot; 1, &quot;ss04&quot; 1;
+  /* caption */
+  --type-caption-family: &quot;Fira Sans&quot;, sans-serif;
+  --type-caption-weight: 400;
+  --type-caption-size: 13px;
+  --type-caption-line-height: 1.2308;
+  --type-caption-tracking: -0.0077em;
+  --type-caption-variation: normal;
+  --type-caption-features: normal;
+  /* code */
+  --type-code-family: &quot;Fira Code&quot;, monospace;
+  --type-code-weight: 400;
+  --type-code-size: 15px;
+  --type-code-line-height: 1.6;
+  --type-code-tracking: -0.0533em;
+  --type-code-variation: normal;
+  --type-code-features: normal;
+  /* legal */
+  --type-legal-family: &quot;Fira Sans&quot;, sans-serif;
+  --type-legal-weight: 400;
+  --type-legal-size: 12px;
+  --type-legal-line-height: 1.5;
+  --type-legal-tracking: 0;
+  --type-legal-variation: normal;
+  --type-legal-features: normal;
+  /* label */
+  --type-label-family: &quot;Afacad Flux&quot;, sans-serif;
+  --type-label-weight: 400;
+  --type-label-size: 14px;
+  --type-label-line-height: 1.3;
+  --type-label-tracking: 0;
+  --type-label-variation: normal;
+  --type-label-features: &quot;ss04&quot; 1;
+  /* pullQuote */
+  --type-pull-quote-family: &quot;Fraunces&quot;, serif;
+  --type-pull-quote-weight: 400;
+  --type-pull-quote-size: 28px;
+  --type-pull-quote-line-height: 1.2857;
+  --type-pull-quote-tracking: 0;
+  --type-pull-quote-variation: &quot;opsz&quot; 44, &quot;SOFT&quot; 19, &quot;WONK&quot; 1;
+  --type-pull-quote-features: normal;
+  /* notes */
+  --type-notes-family: &quot;Fira Sans&quot;, sans-serif;
+  --type-notes-weight: 400;
+  --type-notes-size: 15px;
+  --type-notes-line-height: 1.3333;
+  --type-notes-tracking: 0;
+  --type-notes-variation: normal;
+  --type-notes-features: normal;
+  /* documentation */
+  --type-documentation-family: &quot;IBM Plex Sans&quot;, sans-serif;
+  --type-documentation-weight: 400;
+  --type-documentation-size: 16px;
+  --type-documentation-line-height: 1.5;
+  --type-documentation-tracking: -0.0125em;
+  --type-documentation-variation: normal;
+  --type-documentation-features: normal;
+}
+
+@media (max-width: 899.98px) {
+  :root {
+    /* display */
+    --type-display-size: 50px;
+    /* heading */
+    --type-heading-size: 30px;
+    /* ui */
+    --type-ui-size: 17px;
+    /* button */
+    --type-button-size: 18px;
+    /* buttonLarge */
+    --type-button-large-size: 21px;
+    /* forms */
+    --type-forms-size: 18px;
+    /* pullQuote */
+    --type-pull-quote-size: 23px;
+  }
+}
+
+.type-eyebrow {
+  font-family: var(--type-eyebrow-family);
+  font-weight: var(--type-eyebrow-weight);
+  font-size: var(--type-eyebrow-size);
+  line-height: var(--type-eyebrow-line-height);
+  letter-spacing: var(--type-eyebrow-tracking);
+  font-variation-settings: var(--type-eyebrow-variation);
+  font-feature-settings: var(--type-eyebrow-features);
+  word-spacing: 0.0857em;
+  text-transform: uppercase;
+  color: #141414;
+}
+
+.type-display {
+  font-family: var(--type-display-family);
+  font-weight: var(--type-display-weight);
+  font-size: var(--type-display-size);
+  line-height: var(--type-display-line-height);
+  letter-spacing: var(--type-display-tracking);
+  font-variation-settings: var(--type-display-variation);
+  font-feature-settings: var(--type-display-features);
+  word-spacing: 0.0736em;
+  font-variant-numeric: proportional-nums;
+  color: #141414;
+}
+
+.type-heading {
+  font-family: var(--type-heading-family);
+  font-weight: var(--type-heading-weight);
+  font-size: var(--type-heading-size);
+  line-height: var(--type-heading-line-height);
+  letter-spacing: var(--type-heading-tracking);
+  font-variation-settings: var(--type-heading-variation);
+  font-feature-settings: var(--type-heading-features);
+  word-spacing: 0.06em;
+  color: #141414;
+}
+
+.type-body {
+  font-family: var(--type-body-family);
+  font-weight: var(--type-body-weight);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line-height);
+  letter-spacing: var(--type-body-tracking);
+  font-variation-settings: var(--type-body-variation);
+  font-feature-settings: var(--type-body-features);
+  word-spacing: 0.025em;
+  margin-block-end: 1em;
+  max-width: 70ch;
+  color: #141414;
+}
+
+.type-link {
+  font-family: var(--type-link-family);
+  font-weight: var(--type-link-weight);
+  font-size: var(--type-link-size);
+  line-height: var(--type-link-line-height);
+  letter-spacing: var(--type-link-tracking);
+  font-variation-settings: var(--type-link-variation);
+  font-feature-settings: var(--type-link-features);
+  word-spacing: 0.025em;
+  margin-block-end: 0.75em;
+  text-decoration-line: underline;
+  color: #141414;
+}
+
+.type-ui {
+  font-family: var(--type-ui-family);
+  font-weight: var(--type-ui-weight);
+  font-size: var(--type-ui-size);
+  line-height: var(--type-ui-line-height);
+  letter-spacing: var(--type-ui-tracking);
+  font-variation-settings: var(--type-ui-variation);
+  font-feature-settings: var(--type-ui-features);
+  word-spacing: 0.0556em;
+  margin-block-end: 0.8889em;
+  color: #141414;
+}
+
+.type-button {
+  font-family: var(--type-button-family);
+  font-weight: var(--type-button-weight);
+  font-size: var(--type-button-size);
+  line-height: var(--type-button-line-height);
+  letter-spacing: var(--type-button-tracking);
+  font-variation-settings: var(--type-button-variation);
+  font-feature-settings: var(--type-button-features);
+  word-spacing: 0.08em;
+  text-transform: lowercase;
+  text-align: center;
+  color: #ffffff;
+  background-color: #262626;
+  padding-top: 9px;
+  padding-right: 20px;
+  padding-bottom: 11px;
+  padding-left: 20px;
+  border-radius: 0px;
+}
+
+.type-button-small {
+  font-family: var(--type-button-small-family);
+  font-weight: var(--type-button-small-weight);
+  font-size: var(--type-button-small-size);
+  line-height: var(--type-button-small-line-height);
+  letter-spacing: var(--type-button-small-tracking);
+  font-variation-settings: var(--type-button-small-variation);
+  font-feature-settings: var(--type-button-small-features);
+  word-spacing: 0.1em;
+  text-transform: lowercase;
+  text-align: center;
+  color: #ffffff;
+  background-color: #262626;
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  border-radius: 0px;
+}
+
+.type-button-large {
+  font-family: var(--type-button-large-family);
+  font-weight: var(--type-button-large-weight);
+  font-size: var(--type-button-large-size);
+  line-height: var(--type-button-large-line-height);
+  letter-spacing: var(--type-button-large-tracking);
+  font-variation-settings: var(--type-button-large-variation);
+  font-feature-settings: var(--type-button-large-features);
+  word-spacing: 0.0417em;
+  text-transform: lowercase;
+  text-align: center;
+  color: #ffffff;
+  background-color: #262626;
+  padding-top: 15px;
+  padding-right: 24px;
+  padding-bottom: 17px;
+  padding-left: 24px;
+  border-radius: 0px;
+}
+
+.type-forms {
+  font-family: var(--type-forms-family);
+  font-weight: var(--type-forms-weight);
+  font-size: var(--type-forms-size);
+  line-height: var(--type-forms-line-height);
+  letter-spacing: var(--type-forms-tracking);
+  font-variation-settings: var(--type-forms-variation);
+  font-feature-settings: var(--type-forms-features);
+  word-spacing: 0.02em;
+  margin-block-end: 0.8em;
+  font-variant-numeric: tabular-nums;
+  max-width: 64ch;
+  color: #141414;
+}
+
+.type-caption {
+  font-family: var(--type-caption-family);
+  font-weight: var(--type-caption-weight);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line-height);
+  letter-spacing: var(--type-caption-tracking);
+  font-variation-settings: var(--type-caption-variation);
+  font-feature-settings: var(--type-caption-features);
+  word-spacing: 0.0308em;
+  font-variant-numeric: tabular-nums;
+  color: #141414;
+}
+
+.type-code {
+  font-family: var(--type-code-family);
+  font-weight: var(--type-code-weight);
+  font-size: var(--type-code-size);
+  line-height: var(--type-code-line-height);
+  letter-spacing: var(--type-code-tracking);
+  font-variation-settings: var(--type-code-variation);
+  font-feature-settings: var(--type-code-features);
+  word-spacing: -0.1533em;
+  margin-block-end: 0.5333em;
+  font-variant-numeric: tabular-nums;
+  color: #141414;
+}
+
+.type-legal {
+  font-family: var(--type-legal-family);
+  font-weight: var(--type-legal-weight);
+  font-size: var(--type-legal-size);
+  line-height: var(--type-legal-line-height);
+  letter-spacing: var(--type-legal-tracking);
+  font-variation-settings: var(--type-legal-variation);
+  font-feature-settings: var(--type-legal-features);
+  color: #141414;
+}
+
+.type-label {
+  font-family: var(--type-label-family);
+  font-weight: var(--type-label-weight);
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line-height);
+  letter-spacing: var(--type-label-tracking);
+  font-variation-settings: var(--type-label-variation);
+  font-feature-settings: var(--type-label-features);
+  word-spacing: 0.0714em;
+  color: #141414;
+}
+
+.type-pull-quote {
+  font-family: var(--type-pull-quote-family);
+  font-weight: var(--type-pull-quote-weight);
+  font-style: italic;
+  font-size: var(--type-pull-quote-size);
+  line-height: var(--type-pull-quote-line-height);
+  letter-spacing: var(--type-pull-quote-tracking);
+  font-variation-settings: var(--type-pull-quote-variation);
+  font-feature-settings: var(--type-pull-quote-features);
+  max-width: 71ch;
+  color: #141414;
+}
+
+.type-notes {
+  font-family: var(--type-notes-family);
+  font-weight: var(--type-notes-weight);
+  font-size: var(--type-notes-size);
+  line-height: var(--type-notes-line-height);
+  letter-spacing: var(--type-notes-tracking);
+  font-variation-settings: var(--type-notes-variation);
+  font-feature-settings: var(--type-notes-features);
+  color: #141414;
+}
+
+.type-documentation {
+  font-family: var(--type-documentation-family);
+  font-weight: var(--type-documentation-weight);
+  font-size: var(--type-documentation-size);
+  line-height: var(--type-documentation-line-height);
+  letter-spacing: var(--type-documentation-tracking);
+  font-variation-settings: var(--type-documentation-variation);
+  font-feature-settings: var(--type-documentation-features);
+  word-spacing: 0.025em;
+  max-width: 80ch;
+  color: #141414;
+}
+</textarea>
+            <div class="ex-acts"><button type="button" class="ex-btn ex-btn--pri" id="ex-copy">Copy</button><button type="button" class="ex-btn" id="ex-dl">Download</button><span class="ex-say" id="ex-say" role="status"></span></div>
+            <p class="ex-hint" id="ex-hint">Loads only the weights, italics and axis values the set uses. Hidden attributes are left out. Phone sizes apply under 900 px.</p>
+          </div>
+          <div role="tabpanel" id="ex-p-import" aria-labelledby="ex-t-import" hidden>
+            <p class="ex-hint" data-draft>A set file imports into Character Study on any browser.</p>
+            <div class="ex-acts"><a class="ex-btn ex-btn--pri" href="https://fonts.puddnsnacks.com" target="_blank" rel="noopener">Open Character Study<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></div>
+          </div>
+          <script type="application/json" id="ex-json">{
+  "format": "characterstudy-set",
+  "version": 3,
+  "app": "Character Study",
+  "exportedAt": "2026-11-11T00:38:15.267Z",
+  "set": {
+    "id": "d4d61baf-0294-41a7-90ae-83d0de3097ed",
+    "name": "PDS",
+    "notes": "",
+    "createdAt": "2026-10-27T19:00:49.155Z",
+    "updatedAt": "2026-11-11T00:08:18.765Z",
+    "roles": [
+      "eyebrow",
+      "display",
+      "heading",
+      "body",
+      "link",
+      "ui",
+      "button",
+      "buttonSmall",
+      "buttonLarge",
+      "forms",
+      "caption",
+      "code",
+      "legal",
+      "label",
+      "pullQuote",
+      "notes",
+      "documentation"
+    ],
+    "rules": {},
+    "content": {
+      "global": null
+    },
+    "theme": {
+      "light": {
+        "page": "#ffffff",
+        "surface": "#f4f4f4",
+        "text": "#141414",
+        "quiet": "#5c5c5c",
+        "accent": "#141414",
+        "buttonFill": "#262626",
+        "buttonLabel": "#ffffff"
+      },
+      "dark": {
+        "page": "#121212",
+        "surface": "#1e1e1e",
+        "text": "#f2f2f2",
+        "quiet": "#a8a8a8",
+        "accent": "#f2f2f2",
+        "buttonFill": "#e8e8e8",
+        "buttonLabel": "#121212"
+      },
+      "scheme": "light"
+    },
+    "scale": {
+      "enabled": false,
+      "base": 16,
+      "ratio": 1.25
+    },
+    "phoneScale": 60,
+    "settings": {
+      "eyebrow": {
+        "inheritsFrom": "label",
+        "links": {
+          "family": true,
+          "weight": false,
+          "italic": true,
+          "axes": false
+        },
+        "font": {
+          "weight": 500,
+          "axes": {
+            "opsz": 19
+          }
+        },
+        "size": {
+          "unit": "px",
+          "value": 14
+        },
+        "lineHeight": 1.4,
+        "tracking": 0.0429,
+        "textCase": "uppercase",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": null,
+        "wordSpacing": 0.0857,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {},
+        "groupLocks": {},
+        "sampleText": null,
+        "note": "",
+        "candidates": [
+          {
+            "family": "Alex Brush",
+            "addedAt": "2026-10-27T22:45:04.088Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "display": {
+        "inheritsFrom": null,
+        "links": {
+          "family": false,
+          "weight": false,
+          "italic": false,
+          "axes": false
+        },
+        "font": {
+          "family": "Fraunces",
+          "weight": 700,
+          "italic": false,
+          "axes": {
+            "opsz": 26,
+            "SOFT": 74,
+            "WONK": 1
+          }
+        },
+        "size": {
+          "unit": "px",
+          "value": 72
+        },
+        "lineHeight": 1.2222,
+        "tracking": -0.0333,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "proportional",
+        "maxLineLength": null,
+        "wordSpacing": 0.0736,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [
+          "ss01"
+        ],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {
+          "family": "locked",
+          "size": "locked",
+          "weight": "locked",
+          "lineHeight": "locked",
+          "tracking": "locked",
+          "wordSpacing": "locked",
+          "paragraphSpacing": "locked",
+          "textCase": "locked",
+          "textDecoration": "locked",
+          "align": "locked"
+        },
+        "groupLocks": {
+          "spacing": "locked",
+          "features": "locked"
+        },
+        "sampleText": "A Design System",
+        "note": "",
+        "candidates": [
+          {
+            "family": "Fraunces",
+            "addedAt": "2026-11-10T21:15:42.055Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "heading": {
+        "inheritsFrom": "display",
+        "links": {
+          "family": false,
+          "weight": false,
+          "italic": true,
+          "axes": false
+        },
+        "font": {
+          "family": "Fraunces",
+          "weight": 400,
+          "axes": {
+            "opsz": 26,
+            "SOFT": 24,
+            "WONK": 0.5
+          }
+        },
+        "size": {
+          "unit": "px",
+          "value": 40
+        },
+        "lineHeight": 1.2,
+        "tracking": -0.06,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": null,
+        "wordSpacing": 0.06,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [
+          "ss01"
+        ],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {
+          "family": "locked",
+          "size": "locked",
+          "weight": "locked",
+          "axes": "locked",
+          "lineHeight": "locked",
+          "tracking": "locked",
+          "wordSpacing": "locked",
+          "paragraphSpacing": "locked",
+          "textCase": "locked",
+          "textDecoration": "locked",
+          "numerals": "locked"
+        },
+        "groupLocks": {},
+        "sampleText": null,
+        "note": "",
+        "candidates": [
+          {
+            "family": "Fraunces",
+            "addedAt": "2026-11-10T22:26:34.430Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "body": {
+        "inheritsFrom": null,
+        "links": {
+          "family": false,
+          "weight": false,
+          "italic": false,
+          "axes": false
+        },
+        "font": {
+          "family": "Sarabun",
+          "weight": 400,
+          "italic": false,
+          "axes": {}
+        },
+        "size": {
+          "unit": "px",
+          "value": 16
+        },
+        "lineHeight": 1.5,
+        "tracking": -0.0062,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": 70,
+        "wordSpacing": 0.025,
+        "paragraphSpacing": 1,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {
+          "family": "locked",
+          "size": "locked",
+          "weight": "locked"
+        },
+        "groupLocks": {
+          "font": "locked",
+          "features": "locked",
+          "spacing": "locked"
+        },
+        "sampleText": "Good type sets the pace of reading. It should feel calm at length, hold its shape at small sizes, and pair with its headings without competing for attention.\n",
+        "note": "",
+        "candidates": [
+          {
+            "family": "Sarabun",
+            "addedAt": "2026-11-10T22:36:29.911Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "link": {
+        "inheritsFrom": "body",
+        "links": {
+          "family": true,
+          "weight": false,
+          "italic": true,
+          "axes": true
+        },
+        "font": {
+          "weight": 300
+        },
+        "size": {
+          "unit": "px",
+          "value": 16
+        },
+        "lineHeight": 1.5,
+        "tracking": 0,
+        "textCase": "none",
+        "textDecoration": "underline",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": null,
+        "wordSpacing": 0.025,
+        "paragraphSpacing": 0.75,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "accent",
+        "locks": {},
+        "groupLocks": {
+          "font": "locked",
+          "spacing": "locked",
+          "features": "locked",
+          "layout": "locked"
+        },
+        "sampleText": null,
+        "note": "Color is the vivid ramp\n",
+        "candidates": [],
+        "phone": {}
+      },
+      "ui": {
+        "inheritsFrom": "body",
+        "links": {
+          "family": false,
+          "weight": false,
+          "italic": true,
+          "axes": true
+        },
+        "font": {
+          "family": "Afacad Flux",
+          "weight": 400
+        },
+        "size": {
+          "unit": "px",
+          "value": 18
+        },
+        "lineHeight": 1.3333,
+        "tracking": -0.0056,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": null,
+        "wordSpacing": 0.0556,
+        "paragraphSpacing": 0.8889,
+        "smallCaps": false,
+        "stylisticSets": [
+          "ss02",
+          "ss04",
+          "ss03"
+        ],
+        "ligatures": "normal",
+        "slashedZero": true,
+        "align": "start",
+        "color": "text",
+        "locks": {},
+        "groupLocks": {
+          "font": "locked",
+          "features": "locked",
+          "spacing": "locked"
+        },
+        "sampleText": "Save YOUR Gg Qq RFf Aa changes 100/256-0213+48-7* x92",
+        "note": "",
+        "candidates": [
+          {
+            "family": "Afacad Flux",
+            "addedAt": "2026-11-10T22:49:58.817Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "button": {
+        "inheritsFrom": "ui",
+        "links": {
+          "family": false,
+          "weight": false,
+          "italic": true,
+          "axes": true
+        },
+        "font": {
+          "family": "Afacad Flux",
+          "weight": 300
+        },
+        "size": {
+          "unit": "px",
+          "value": 20
+        },
+        "lineHeight": 1.2,
+        "tracking": 0.04,
+        "textCase": "lowercase",
+        "textDecoration": "none",
+        "paddingTop": 9,
+        "paddingRight": 20,
+        "paddingBottom": 11,
+        "paddingLeft": 20,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": null,
+        "wordSpacing": 0.08,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [
+          "ss02",
+          "ss03",
+          "ss04"
+        ],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "center",
+        "color": "text",
+        "locks": {
+          "family": "locked",
+          "size": "locked",
+          "weight": "locked",
+          "tracking": "locked",
+          "wordSpacing": "locked",
+          "paragraphSpacing": "locked",
+          "paddingTop": "locked",
+          "paddingRight": "locked",
+          "paddingBottom": "locked",
+          "paddingLeft": "locked",
+          "lineHeight": "locked"
+        },
+        "groupLocks": {
+          "features": "locked"
+        },
+        "sampleText": null,
+        "note": "",
+        "candidates": [
+          {
+            "family": "Afacad Flux",
+            "addedAt": "2026-11-10T21:02:44.717Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "buttonSmall": {
+        "inheritsFrom": "ui",
+        "links": {
+          "family": false,
+          "weight": false,
+          "italic": true,
+          "axes": true
+        },
+        "font": {
+          "family": "Afacad Flux",
+          "weight": 300
+        },
+        "size": {
+          "unit": "px",
+          "value": 16
+        },
+        "lineHeight": 1,
+        "tracking": 0.05,
+        "textCase": "lowercase",
+        "textDecoration": "none",
+        "paddingTop": 8,
+        "paddingRight": 16,
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": null,
+        "wordSpacing": 0.1,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "center",
+        "color": "text",
+        "locks": {
+          "radius": "locked",
+          "paddingLeft": "locked",
+          "paddingRight": "locked",
+          "wordSpacing": "locked",
+          "tracking": "locked",
+          "lineHeight": "locked",
+          "size": "locked",
+          "textDecoration": "locked",
+          "textCase": "locked",
+          "align": "locked",
+          "paddingTop": "locked",
+          "paddingBottom": "locked"
+        },
+        "groupLocks": {},
+        "sampleText": null,
+        "note": "",
+        "candidates": [
+          {
+            "family": "Afacad Flux",
+            "addedAt": "2026-11-10T21:02:51.534Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "buttonLarge": {
+        "inheritsFrom": "ui",
+        "links": {
+          "family": false,
+          "weight": false,
+          "italic": true,
+          "axes": false
+        },
+        "font": {
+          "family": "Afacad Flux",
+          "weight": 300,
+          "axes": {
+            "slnt": 0
+          }
+        },
+        "size": {
+          "unit": "px",
+          "value": 24
+        },
+        "lineHeight": 1,
+        "tracking": 0.0208,
+        "textCase": "lowercase",
+        "textDecoration": "none",
+        "paddingTop": 15,
+        "paddingRight": 24,
+        "paddingBottom": 17,
+        "paddingLeft": 24,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": null,
+        "wordSpacing": 0.0417,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "center",
+        "color": "text",
+        "locks": {
+          "family": "locked",
+          "weight": "locked",
+          "size": "locked",
+          "lineHeight": "locked",
+          "tracking": "locked",
+          "wordSpacing": "locked",
+          "paragraphSpacing": "locked",
+          "paddingTop": "locked",
+          "paddingRight": "locked",
+          "paddingBottom": "locked",
+          "paddingLeft": "locked",
+          "radius": "locked",
+          "textCase": "locked",
+          "textDecoration": "locked",
+          "align": "locked"
+        },
+        "groupLocks": {},
+        "sampleText": null,
+        "note": "",
+        "candidates": [
+          {
+            "family": "Afacad Flux",
+            "addedAt": "2026-11-10T21:04:23.439Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "forms": {
+        "inheritsFrom": "ui",
+        "links": {
+          "family": true,
+          "weight": false,
+          "italic": true,
+          "axes": true
+        },
+        "font": {
+          "weight": 350
+        },
+        "size": {
+          "unit": "px",
+          "value": 20
+        },
+        "lineHeight": 1.6,
+        "tracking": -0.01,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "tabular",
+        "maxLineLength": 64,
+        "wordSpacing": 0.02,
+        "paragraphSpacing": 0.8,
+        "smallCaps": false,
+        "stylisticSets": [
+          "ss02",
+          "ss03",
+          "ss04"
+        ],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {},
+        "groupLocks": {
+          "font": "locked",
+          "spacing": "locked",
+          "features": "locked"
+        },
+        "sampleText": null,
+        "note": "",
+        "candidates": [],
+        "phone": {}
+      },
+      "caption": {
+        "inheritsFrom": "body",
+        "links": {
+          "family": false,
+          "weight": false,
+          "italic": true,
+          "axes": true
+        },
+        "font": {
+          "family": "Fira Sans",
+          "weight": 400
+        },
+        "size": {
+          "unit": "px",
+          "value": 13
+        },
+        "lineHeight": 1.2308,
+        "tracking": -0.0077,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "tabular",
+        "maxLineLength": null,
+        "wordSpacing": 0.0308,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {},
+        "groupLocks": {
+          "font": "locked",
+          "spacing": "locked",
+          "features": "locked"
+        },
+        "sampleText": null,
+        "note": "",
+        "candidates": [
+          {
+            "family": "Fira Sans",
+            "addedAt": "2026-11-10T23:14:16.329Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "code": {
+        "inheritsFrom": null,
+        "links": {
+          "family": false,
+          "weight": false,
+          "italic": false,
+          "axes": false
+        },
+        "font": {
+          "family": "Fira Code",
+          "weight": 400,
+          "italic": false,
+          "axes": {}
+        },
+        "size": {
+          "unit": "px",
+          "value": 15
+        },
+        "lineHeight": 1.6,
+        "tracking": -0.0533,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "tabular",
+        "maxLineLength": null,
+        "wordSpacing": -0.1533,
+        "paragraphSpacing": 0.5333,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {},
+        "groupLocks": {
+          "font": "locked"
+        },
+        "sampleText": null,
+        "note": "",
+        "candidates": [
+          {
+            "family": "Fira Code",
+            "addedAt": "2026-11-10T23:19:26.911Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "legal": {
+        "inheritsFrom": "caption",
+        "links": {
+          "family": true,
+          "weight": true,
+          "italic": true,
+          "axes": true
+        },
+        "font": {},
+        "size": {
+          "unit": "px",
+          "value": 12
+        },
+        "lineHeight": 1.5,
+        "tracking": 0,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": null,
+        "wordSpacing": 0,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {},
+        "groupLocks": {
+          "font": "locked",
+          "spacing": "locked",
+          "features": "locked",
+          "layout": "locked"
+        },
+        "sampleText": null,
+        "note": "",
+        "candidates": [],
+        "phone": {}
+      },
+      "label": {
+        "inheritsFrom": "ui",
+        "links": {
+          "family": true,
+          "weight": false,
+          "italic": true,
+          "axes": true
+        },
+        "font": {
+          "weight": 400
+        },
+        "size": {
+          "unit": "px",
+          "value": 14
+        },
+        "lineHeight": 1.3,
+        "tracking": 0,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": null,
+        "wordSpacing": 0.0714,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [
+          "ss04"
+        ],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {},
+        "groupLocks": {
+          "spacing": "locked",
+          "features": "locked"
+        },
+        "sampleText": "Shipping address 9022-734+1129900 ooGgQq FfMn _ — – ",
+        "note": "",
+        "candidates": [],
+        "phone": {}
+      },
+      "pullQuote": {
+        "inheritsFrom": "display",
+        "links": {
+          "family": true,
+          "weight": false,
+          "italic": false,
+          "axes": false
+        },
+        "font": {
+          "weight": 400,
+          "italic": true,
+          "axes": {
+            "opsz": 44,
+            "SOFT": 19,
+            "WONK": 1
+          }
+        },
+        "size": {
+          "unit": "px",
+          "value": 28
+        },
+        "lineHeight": 1.2857,
+        "tracking": 0,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": 71,
+        "wordSpacing": 0,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {},
+        "groupLocks": {},
+        "sampleText": null,
+        "note": "",
+        "candidates": [],
+        "phone": {}
+      },
+      "notes": {
+        "inheritsFrom": "body",
+        "links": {
+          "family": false,
+          "weight": true,
+          "italic": true,
+          "axes": true
+        },
+        "font": {
+          "family": "Fira Sans"
+        },
+        "size": {
+          "unit": "px",
+          "value": 15
+        },
+        "lineHeight": 1.3333,
+        "tracking": 0,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": null,
+        "wordSpacing": 0,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {},
+        "groupLocks": {},
+        "sampleText": null,
+        "note": "",
+        "candidates": [
+          {
+            "family": "Fira Sans",
+            "addedAt": "2026-11-11T00:04:11.588Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      },
+      "documentation": {
+        "inheritsFrom": "body",
+        "links": {
+          "family": false,
+          "weight": false,
+          "italic": true,
+          "axes": true
+        },
+        "font": {
+          "family": "IBM Plex Sans",
+          "weight": 400
+        },
+        "size": {
+          "unit": "px",
+          "value": 16
+        },
+        "lineHeight": 1.5,
+        "tracking": -0.0125,
+        "textCase": "none",
+        "textDecoration": "none",
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "radius": 0,
+        "numerals": "default",
+        "maxLineLength": 80,
+        "wordSpacing": 0.025,
+        "paragraphSpacing": 0,
+        "smallCaps": false,
+        "stylisticSets": [],
+        "ligatures": "normal",
+        "slashedZero": false,
+        "align": "start",
+        "color": "text",
+        "locks": {},
+        "groupLocks": {},
+        "sampleText": null,
+        "note": "",
+        "candidates": [
+          {
+            "family": "IBM Plex Sans",
+            "addedAt": "2026-11-11T00:06:02.900Z",
+            "verdict": null,
+            "reason": "",
+            "note": "",
+            "offsets": {
+              "sizePct": 0,
+              "trackingEm": 0,
+              "weight": null
+            }
+          }
+        ],
+        "phone": {}
+      }
+    }
+  }
+}
+</script>
+        </div>
+        <figcaption><span class="chip">Set live</span><span data-draft>The handoff is code: one import for only the faces the set uses, then a custom property and a class for every role.</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 09 · What I did -->
+<section class="ch t-study" id="credit" aria-labelledby="h-credit">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">11</p><p class="mg-l">What I did</p></div>
+    <div class="main">
+      <h2 id="h-credit">My brief, my calls.</h2>
+      <blockquote class="pq">
+        <p>Literally a tool to aid in designing design systems.</p>
+        <footer>Michael Lombardi</footer>
+      </blockquote>
+      <p data-draft>I wrote the brief as law for the coding agent, with four checkpoints where the build stopped for my approval, and made the product calls: no pairing suggestions, measure the letters, quiet chrome, export a system and not a pair. It went from an empty repository to live in about ten hours.</p>
+      <div class="brief" role="group" aria-labelledby="brief-h">
+        <h3 class="brief-h" id="brief-h">From the agent brief</h3>
+        <div class="brief-rule"><p class="br-k">Working rule 3</p><p class="br-t">Never invent data. Font facts come from the font files or Google's metadata. If a value can't be found, store <code>null</code>, log why, and let the UI show "unknown." Never fill in a plausible guess.</p></div>
+        <div class="brief-rule"><p class="br-k">The tool's own look, on the system font</p><p class="br-t">It is so common it reads as invisible, it needs no download, and it can never be mistaken for a candidate.</p></div>
+      </div>
+      <h3 class="credit-h" id="credit-h">Credit</h3>
+      <ul class="credit-list" aria-labelledby="credit-h">
+        <li>Product idea</li>
+        <li>UX and UI direction</li>
+        <li>The agent brief</li>
+        <li>Data rules</li>
+        <li>QA at four checkpoints</li>
+        <li>Built with an AI coding agent</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · Close -->
+<section class="close t-red" aria-labelledby="h-close">
+  <div class="wrap">
+    <p class="payoff" data-draft>Type gets chosen early, in context, with the reasons written down, and it ships to the team as code.</p>
+    <h2 class="refrain" id="h-close" data-draft>The quality of characters.</h2>
+    <div class="actions">
+      <a class="btn" href="https://fonts.puddnsnacks.com" target="_blank" rel="noopener">Open Character Study <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg><span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>
+      <a class="quiet-link" href="mailto:mccabelombardi@gmail.com">Email Michael</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="gf gf--cs" style="--acc:#f57c33;--acc-ink:#22140d;--acc-on-dark:#f57c33">
+  <div class="gf__wrap">
+    <div class="gf__map">
+      <div class="gf__me" id="contact" tabindex="-1"><p class="gf__nm">Michael Lombardi</p><p><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p></div>
+      <nav class="gf__cols" aria-label="Site map">
+        <div class="gf__solo"><p class="gf__h"><a href="index.html">Story</a></p></div>
+        <div><p class="gf__h">Featured</p><p class="gf__sub">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div>
+        <div><p class="gf__h">Case Studies</p><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div>
+        <div><p class="gf__h">Snacks</p><ul><li><a href="intro-characterstudy.html" aria-current="page">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div>
+        <div class="gf__solo"><p class="gf__h"><a href="resume.html">Résumé</a></p></div>
+      </nav>
+    </div>
+    <div class="gf__base"><a href="#top">Back to top</a><span class="gf__colophon">Set in Bricolage Grotesque, Sarabun, Afacad Flux, Fira Sans and Fira Code, with the frame in the system font. Draft copy for review.</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var grid = document.getElementById('grid'); if(!grid) return;
+  var status = document.getElementById('gt-status');
+  var picks = grid.querySelectorAll('.gt-picks button');
+  var glyphs = grid.querySelectorAll('.tile text');
+  var cmp = document.getElementById('cmp'), nms = document.getElementById('nms');
+  function say(){
+    var cur = grid.querySelector('.gt-picks button[aria-pressed="true"]');
+    status.textContent = 'Showing ' + cur.getAttribute('aria-label') + ' in two dozen families' + (cmp.checked ? ', with Fraunces traced over each' : '') + (nms.checked ? ', names shown' : '') + '.';
+  }
+  for (var i = 0; i < picks.length; i++){
+    picks[i].addEventListener('click', function(){
+      for (var j = 0; j < picks.length; j++) picks[j].setAttribute('aria-pressed', picks[j] === this ? 'true' : 'false');
+      var ch = this.getAttribute('data-ch');
+      for (var k = 0; k < glyphs.length; k++) glyphs[k].textContent = ch;
+      say();
+    });
+  }
+  cmp.addEventListener('change', function(){ grid.setAttribute('data-compare', cmp.checked ? 'on' : 'off'); say(); });
+  nms.addEventListener('change', function(){ grid.setAttribute('data-names', nms.checked ? 'on' : 'off'); say(); });
+  cmp.checked = false; nms.checked = false;
+  // If the grid's faces never arrive (offline), show the real capture instead of 24 identical tiles.
+  var want = ["Abril Fatface", "Archivo Black", "Bricolage Grotesque", "Bungee", "Caveat", "Cormorant Garamond", "DM Serif Display", "EB Garamond", "Fraunces", "Gloock", "Instrument Serif", "Italiana", "Josefin Sans", "Libre Bodoni", "Lobster", "Major Mono Display", "Pacifico", "Playfair Display", "Rye", "Space Grotesk", "Syne", "Unbounded", "UnifrakturMaguntia", "Young Serif"];
+  function loaded(){ var got = {}; document.fonts.forEach(function(f){ if (f.status === 'loaded') got[f.family.replace(/["']/g, '')] = 1; }); var n = 0; for (var i = 0; i < want.length; i++) if (got[want[i]]) n++; return n; }
+  function judge(){ if (loaded() < want.length / 2){ document.body.classList.add('no-live'); document.getElementById('grid-fallback').hidden = false; } }
+  if (document.fonts && document.fonts.ready){ var t = setTimeout(judge, 6000); document.fonts.ready.then(function(){ var q = []; for (var i = 0; i < want.length; i++) q.push(document.fonts.load('58px "' + want[i] + '"', '&')); Promise.all(q).then(function(){ clearTimeout(t); judge(); }, function(){ clearTimeout(t); judge(); }); }); }
+  // Header popovers close on Escape or a click outside.
+  var pops = document.querySelectorAll('details.pop');
+  document.addEventListener('click', function(e){ for (var i = 0; i < pops.length; i++) if (pops[i].open && !pops[i].contains(e.target)) pops[i].open = false; });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') for (var i = 0; i < pops.length; i++) if (pops[i].open){ pops[i].open = false; pops[i].querySelector('summary').focus(); } });
+})();
+</script>
+<script>
+(function(){
+  var ex=document.getElementById('ex'); if(!ex) return;
+  var tabs=[].slice.call(ex.querySelectorAll('[role=tab]')), code=document.getElementById('ex-code'), hint=document.getElementById('ex-hint'),
+      pan=document.getElementById('ex-p'), imp=document.getElementById('ex-p-import'), say=document.getElementById('ex-say');
+  var text={css:code.value, json:document.getElementById('ex-json').textContent};
+  var meta={css:['CSS for this set','Loads only the weights, italics and axis values the set uses. Hidden attributes are left out. Phone sizes apply under 900 px.','pds.css','text/css','CSS'],
+            json:['JSON for this set','The whole set: candidates, verdicts, notes, locks, text and colors. Import it here on any browser.','pds.characterstudy.json','application/json','JSON']};
+  var cur='css';
+  function show(id, focus){
+    tabs.forEach(function(t){ var on=t.getAttribute('data-tab')===id; t.setAttribute('aria-selected',on?'true':'false'); t.tabIndex=on?0:-1; if(on&&focus) t.focus(); });
+    say.textContent='';
+    if(id==='import'){ pan.hidden=true; imp.hidden=false; return; }
+    cur=id; imp.hidden=true; pan.hidden=false; pan.setAttribute('aria-labelledby','ex-t-'+id);
+    code.value=text[id]; code.scrollTop=0; code.setAttribute('aria-label',meta[id][0]); hint.textContent=meta[id][1];
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){ show(t.getAttribute('data-tab')); });
+    t.addEventListener('keydown',function(e){ var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0; if(!d) return; e.preventDefault(); show(tabs[(i+d+tabs.length)%tabs.length].getAttribute('data-tab'),true); });
+  });
+  document.getElementById('ex-copy').addEventListener('click',function(){
+    var what=meta[cur][4], done=function(){ say.textContent='Copied the '+what+'.'; }, no=function(){ say.textContent="The browser didn't allow copying; use Download instead."; };
+    try{ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text[cur]).then(done,function(){ code.focus(); code.select(); try{ document.execCommand('copy')?done():no(); }catch(e){ no(); } }); }
+         else { code.focus(); code.select(); document.execCommand('copy')?done():no(); } }catch(e){ no(); }
+  });
+  document.getElementById('ex-dl').addEventListener('click',function(){
+    var url=URL.createObjectURL(new Blob([text[cur]],{type:meta[cur][3]})), a=document.createElement('a');
+    a.href=url; a.download=meta[cur][2]; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ URL.revokeObjectURL(url); },1000);
+  });
+})();
+</script>
+<script>
+/* T133: the room's measured widths, the callback, true-size labels and the full-size viewer */
+(function(){
+  var doc=document;
+  function $$(s,r){ return [].slice.call((r||doc).querySelectorAll(s)); }
+  /* same size, different room: draw each line's measured width under it */
+  function room(){ $$('#room .xb-room-row').forEach(function(row){ var s=row.querySelector('.xb-s'), m=row.querySelector('.xb-m'); var r=doc.createRange(); r.selectNodeContents(s); m.style.width=Math.round(r.getBoundingClientRect().width)+'px'; }); }
+  room(); addEventListener('resize',room); addEventListener('load',room); if(doc.fonts&&doc.fonts.ready) doc.fonts.ready.then(room);
+
+  /* live type with a pre-rendered fallback */
+  function needFonts(el){
+    var specs=(el.getAttribute('data-needs')||'').split('|').filter(Boolean), text=el.getAttribute('data-text')||'Ag';
+    if(!doc.fonts||!doc.fonts.load) return Promise.resolve(true);
+    return Promise.all(specs.map(function(s){ return doc.fonts.load(s,text).then(function(f){ return f.length>0; },function(){ return false; }); })).then(function(r){ return r.every(Boolean); });
+  }
+  function guard(el){
+    var settled=false, t=setTimeout(function(){ if(!settled) el.classList.add('is-fallback'); },6000);
+    needFonts(el).then(function(ok){ settled=true; clearTimeout(t); el.classList.toggle('is-fallback',!ok); });
+  }
+
+  /* 05 the callback */
+  var cb=doc.getElementById('cb');
+  if(cb){
+    var ledger=doc.getElementById('ledger'), empty=doc.getElementById('ledger-empty');
+    var ledgerRender=function(){
+      ledger.innerHTML=''; var n=0;
+      $$('.cand',cb).forEach(function(c){
+        var v=c.getAttribute('data-verdict'); if(!v) return; n++;
+        var r=c.querySelector('input').value.trim(), li=doc.createElement('li');
+        li.textContent='display → '+c.getAttribute('data-name')+' · '+v+(r?' · "'+r+'"':' · reason still blank');
+        ledger.appendChild(li);
+      });
+      empty.style.display=n?'none':'';
+    };
+    $$('.cand',cb).forEach(function(c){
+      var nameEl=c.querySelector('.cand-name');
+      $$('.vbtn',c).forEach(function(b){
+        b.addEventListener('click',function(){
+          var on=b.getAttribute('aria-pressed')!=='true';
+          $$('.vbtn',c).forEach(function(x){ x.setAttribute('aria-pressed',(x===b&&on)?'true':'false'); });
+          if(on){ c.setAttribute('data-verdict',b.getAttribute('data-v'));
+            nameEl.innerHTML=c.getAttribute('data-name')+(c.getAttribute('data-his')?' · <span class="his">the face I cast for Display</span>':'');
+          } else c.removeAttribute('data-verdict');
+          ledgerRender();
+        });
+      });
+      c.querySelector('input').addEventListener('input',ledgerRender);
+    });
+    guard(cb);
+  }
+
+  /* "True size" or "Shown at N% of true size", measured from the rendered width (pictures are 2x) */
+  function measure(){
+    $$('[data-scale-for]').forEach(function(s){
+      var im=doc.getElementById(s.getAttribute('data-scale-for'));
+      if(!im||!im.naturalWidth||!im.getBoundingClientRect().width){ s.textContent=''; return; }
+      var pct=Math.round(im.getBoundingClientRect().width/(im.naturalWidth/2)*100);
+      s.textContent=(pct>=99&&pct<=101)?'True size':'Shown at '+pct+'% of true size';
+    });
+  }
+  $$('[data-scale-for]').forEach(function(s){ var im=doc.getElementById(s.getAttribute('data-scale-for')); if(im) im.addEventListener('load',measure); });
+  addEventListener('resize',measure); addEventListener('load',measure); measure();
+
+  /* full-size viewer: any [data-full] button, or a click on the picture beside it */
+  var dlg=doc.createElement('dialog'); dlg.className='cs-viewer'; dlg.setAttribute('aria-labelledby','cs-v-cap');
+  dlg.innerHTML='<div class="cs-v-bar"><p id="cs-v-cap"></p><button type="button" class="cs-v-close">Close</button></div><div class="cs-v-body" tabindex="0" aria-label="Full-size image, scrollable"><img alt=""></div>';
+  doc.body.appendChild(dlg);
+  var vimg=dlg.querySelector('img'), vcap=dlg.querySelector('#cs-v-cap'), opener=null;
+  function open(t){
+    opener=t; var c=(t.getAttribute('data-cap')||'').split('|');
+    vcap.textContent=''; if(c.length>1){ var s=doc.createElement('span'); s.className='chip'; s.textContent=c[0]; vcap.appendChild(s); }
+    vcap.appendChild(doc.createTextNode(c.length>1?c.slice(1).join('|'):(c[0]||'Full size')));
+    var fw=+t.getAttribute('data-fw')||0; vimg.style.width=fw?fw+'px':'auto';
+    var inner=t.closest('.zoom')&&t.closest('.zoom').querySelector('img'); vimg.alt=inner?inner.alt:'';
+    vimg.src=t.getAttribute('data-full');
+    if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');
+    dlg.querySelector('.cs-v-close').focus();
+  }
+  doc.addEventListener('click',function(e){
+    if(!e.target.closest||dlg.contains(e.target)) return;
+    var t=e.target.closest('[data-full]');
+    if(!t&&e.target.tagName==='IMG'){ var z=e.target.closest('.zoom'); if(z) t=z.querySelector('[data-full]'); }
+    if(t){ e.preventDefault(); open(t); }
+  });
+  $$('[data-full]').forEach(function(t){ t.setAttribute('aria-haspopup','dialog'); });
+  function close(){ if(dlg.open){ if(dlg.close) dlg.close(); else dlg.removeAttribute('open'); } }
+  dlg.querySelector('.cs-v-close').addEventListener('click',close);
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) close(); });
+  dlg.addEventListener('close',function(){ if(opener&&opener.focus) opener.focus(); });
+})();
+</script>
+<script src="pp/chrome.js"></script>
+</body>
+</html>

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR Manager · Print once. Point anywhere. Whenever.</title>
+<meta name="description" content="QR Manager gives every printed QR code a permanent short address, so where it sends people can change without a reprint. Try the live sample code.">
+<meta property="og:title" content="QR Manager · Print once. Point anywhere. Whenever.">
+<meta property="og:description" content="Every printed code gets a permanent short address. Where it sends people can change any time, from any phone.">
+<meta name="theme-color" content="#22140d">
+<link rel="stylesheet" href="qr-page/fonts/fonts.css">
+<style>
+/* Tokens. Brown is the gray: every neutral comes from the PDS brown ramps. Green is the only color, and it means go. */
+:root{
+  color-scheme: light;
+  /* brown neutrals */
+  --paper:#FFF9F7;      /* primary-5 */
+  --white:#FFFFFF;
+  --study:#F6F3EE;      /* gray-5 */
+  --study-2:#EAE3DB;    /* gray-10 */
+  --rule:#DCCCBC;       /* gray-20 */
+  --rule-2:#B9A694;     /* gray-30 */
+  --ink:#301507;        /* primary-b-80 */
+  --ink-turn:#754227;   /* primary-b-60 */
+  --sub:#614F38;        /* gray-b-60 */
+  --body:#3B382F;       /* gray-b-70 */
+  --dim:#8A5941;        /* primary-50 */
+  --eyebrow:#AD5400;    /* primary-b-50 */
+  --band:#452F23;       /* primary-60 */
+  --night:#22140D;      /* primary-90 */
+  --night-2:#2F1F16;    /* primary-70 */
+  --night-dim:#E4BBA8;  /* primary-30 */
+  /* green, the accent */
+  --go:#1EF083;         /* vivid-b-30 */
+  --go-ink:#041709;     /* vivid-b-90 */
+  --go-edge:#0E5929;    /* vivid-b-60 */
+  --go-text:#237C40;    /* vivid-b-50 */
+  --go-pale:#DAFFE0;    /* vivid-b-10 */
+  /* type */
+  --f-chrome: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --f-display: "Boldonse", "Hanken Grotesk", system-ui, sans-serif;
+  --f-eyebrow: "Handjet", system-ui, sans-serif;
+  --f-sub: "Hanken Grotesk", system-ui, sans-serif;
+  --f-body: "Libertinus Serif", Georgia, serif;
+  --f-ui: "Cabin", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --gut: clamp(20px, 5.5vw, 88px);
+  --bg:var(--paper); --fg:var(--ink); --fg-2:var(--body); --fg-sub:var(--sub); --fg-dim:var(--dim); --ln:var(--rule); --eb:var(--eyebrow); --focus:var(--ink);
+}
+.t-paper{--bg:var(--paper)}
+.t-white{--bg:var(--white)}
+.t-study{--bg:var(--study)}
+.t-night{--bg:var(--night); --fg:#FFF9F7; --fg-2:#F3E7DF; --fg-sub:var(--night-dim); --fg-dim:var(--night-dim); --ln:#4A3328; --eb:var(--go); --focus:var(--go)}
+.t-band{--bg:var(--band); --fg:#FFF9F7; --fg-2:#F3E7DF; --fg-sub:var(--night-dim); --fg-dim:var(--night-dim); --ln:#6A4C3C; --eb:var(--go); --focus:var(--go)}
+.t-go{--bg:var(--go); --fg:var(--go-ink); --fg-2:var(--go-ink); --fg-sub:var(--go-ink); --fg-dim:#0B3F1D; --ln:rgba(4,23,9,.35); --eb:var(--go-ink); --focus:var(--go-ink)}
+.t-paper,.t-white,.t-study,.t-night,.t-band,.t-go{background:var(--bg); color:var(--fg)}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+body{margin:0; background:var(--paper); color:var(--body); font-family:var(--f-body); font-size:19px; line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility}
+img{max-width:100%; height:auto; display:block}
+a{color:inherit; text-decoration-thickness:1px; text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--focus); outline-offset:3px}
+.skip{position:absolute; left:12px; top:-60px; z-index:50; background:var(--ink); color:#fff; font:600 15px/1 var(--f-chrome); padding:14px 16px; text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1440px; margin:0 auto; padding:0 var(--gut)}
+[id]{scroll-margin-top:84px}
+figure{margin:0}
+.mono{font-family:var(--f-mono); font-size:.88em; letter-spacing:-.01em}
+
+/* ---------- Masthead: the chrome stays quiet and brown ---------- */
+.mast{position:sticky; top:0; z-index:30; font-family:var(--f-chrome); font-size:15px; border-bottom:1px solid var(--ln)}
+.mast .wrap{display:flex; align-items:center; gap:20px; min-height:64px}
+.brand{display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); font-weight:600; font-size:16px}
+.brand img{width:32px; height:32px}
+.nav{margin-left:auto; display:flex; gap:2px}
+.nav a{display:inline-flex; align-items:center; min-height:44px; padding:0 12px; color:var(--ink); text-decoration:none}
+.nav a:hover{text-decoration:underline}
+
+/* ---------- Buttons ---------- */
+.btn{font-family:var(--f-ui); font-weight:500; font-size:16px; line-height:20px; display:inline-flex; align-items:center; justify-content:center; padding:16px 20px; min-height:52px; text-decoration:none; border:2px solid transparent; cursor:pointer; white-space:nowrap}
+.btn--go{background:var(--go); color:var(--go-ink); border-color:var(--go-edge)}
+.btn--go:hover{background:#49F59A}
+.btn--ghost{background:transparent; color:#fff; border-color:#fff; font-weight:400}
+.btn--ghost:hover{background:rgba(255,255,255,.08)}
+.btn--line{background:transparent; color:var(--ink); border-color:var(--ink); font-weight:400}
+.btn--line:hover{background:var(--study-2)}
+.btn--dark{background:var(--go-ink); color:var(--go); border-color:var(--go-ink)}
+.btn--dark:hover{background:#0B3F1D}
+.btn--sm{min-height:40px; padding:9px 14px; font-size:15px}
+.btn[disabled]{opacity:.6; cursor:wait}
+.actions{display:flex; flex-wrap:wrap; gap:12px}
+
+/* Coming soon: neutral, dashed, never green */
+.soon{display:inline-block; font-family:var(--f-chrome); font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; line-height:1; padding:5px 7px 4px; border:1.5px dashed currentColor; color:var(--fg-dim); margin-right:.5em; vertical-align:2px; white-space:nowrap}
+
+/* Eyebrow, from the frame: arrow plus Handjet */
+.eyebrow{display:flex; align-items:center; gap:8px; margin:0 0 18px; font-family:var(--f-eyebrow); font-weight:500; font-size:16px; line-height:24px; letter-spacing:.08em; text-transform:uppercase; color:var(--eb); font-variation-settings:"ELGR" 1, "ELSH" 2}
+.eyebrow img{width:25px; height:8px}
+.t-night .eyebrow img,.t-band .eyebrow img{filter:brightness(0) saturate(100%) invert(76%) sepia(64%) saturate(731%) hue-rotate(86deg) brightness(101%)}
+
+/* ---------- Hero, after the frame ---------- */
+.hero{position:relative; overflow:hidden; padding:clamp(40px,5vw,72px) 0 clamp(64px,8vw,120px)}
+.hero-art{position:absolute; top:-7%; right:-5%; width:min(58vw, 900px)}
+.hero-art img{width:100%; height:auto}
+.hero .wrap{position:relative}
+.hero-copy{display:flex; flex-direction:column; align-items:flex-start; gap:18px; max-width:760px}
+.hero-copy .eyebrow{margin:0}
+.box{background:var(--white); padding:20px}
+h1{margin:0; font-family:var(--f-display); font-weight:400; font-size:clamp(30px, 3.9vw, 56px); line-height:1.5; letter-spacing:.03em; color:var(--ink)}
+h1 span{display:block}
+h1 .turn{color:var(--ink-turn)}
+.hero .sub{margin:0 0 18px; font-family:var(--f-sub); font-weight:600; font-size:clamp(21px,1.8vw,24px); line-height:32px; color:var(--sub)}
+.hero .lede{margin:0; font-size:20px; line-height:32px; color:var(--body); max-width:620px}
+.hero .band-actions{background:var(--band); padding:20px; display:flex; flex-wrap:wrap; gap:12px}
+.hero .fine{margin:2px 0 0; font-family:var(--f-chrome); font-size:14px; line-height:1.5; color:var(--dim); max-width:560px; background:rgba(255,249,247,.92); padding:6px 0}
+.hero-cap{position:relative; margin:-6px 0 0 22%; max-width:340px; font-family:var(--f-chrome); font-size:14px; line-height:1.5; color:var(--dim); background:var(--paper); padding:10px 12px; border-left:3px solid var(--go)}
+
+/* ---------- Chapters: numbered margin in the chrome ---------- */
+.ch{padding:clamp(72px,8.5vw,136px) 0}
+.ch-grid{display:grid; grid-template-columns:184px minmax(0,1fr); column-gap:clamp(32px,5vw,88px)}
+.mg{align-self:start; position:sticky; top:88px; font-family:var(--f-chrome); padding-top:14px; border-top:1px solid var(--fg)}
+.mg p{margin:0}
+.mg-n{font-family:var(--f-mono); font-size:13px; color:var(--fg-dim); letter-spacing:.04em}
+.mg-l{font-size:15px; font-weight:600; line-height:1.3; margin-top:6px!important; color:var(--fg)}
+h2{margin:0 0 28px; font-family:var(--f-display); font-weight:400; font-size:clamp(30px, 3.6vw, 52px); line-height:1.45; letter-spacing:.02em; color:var(--fg); text-wrap:balance}
+.lede{font-size:clamp(20px,1.6vw,22px); line-height:1.6; color:var(--fg-2); max-width:34em; margin:0 0 1em; text-wrap:pretty}
+.fineprint{font-family:var(--f-chrome); font-size:14.5px; line-height:1.55; color:var(--fg-dim); max-width:46em; margin:0}
+.caption{font-family:var(--f-chrome); font-size:14px; line-height:1.5; color:var(--fg-dim); margin-top:14px; max-width:40em}
+
+/* Story: a photo and a note */
+.story{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:clamp(28px,4vw,64px); align-items:center; margin-top:clamp(48px,6vw,88px)}
+.story--flip .story-photo{order:2}
+.story-photo img{width:100%; border:1px solid var(--ln)}
+.who{margin:0 0 10px; font-family:var(--f-eyebrow); font-weight:500; font-size:16px; line-height:24px; letter-spacing:.06em; text-transform:uppercase; color:var(--eb); font-variation-settings:"ELGR" 1, "ELSH" 2}
+.story h3,.pop-body h3{margin:0 0 16px; font-family:var(--f-display); font-weight:400; font-size:clamp(24px,2.3vw,34px); line-height:1.5; letter-spacing:.02em; color:var(--fg)}
+.story p:not(.who){margin:0 0 1em; color:var(--fg-2); max-width:34em}
+.uses{list-style:none; margin:18px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:8px}
+.uses li{font-family:var(--f-ui); font-size:15px; line-height:1.3; padding:7px 11px; border:1px solid var(--rule-2); color:var(--fg)}
+.t-night .uses li,.t-band .uses li{border-color:#6A4C3C}
+.uses li.later{border:0; padding:7px 0; color:var(--fg-dim)}
+
+/* Change the ending: one flyer, three days */
+.journey{display:grid; grid-template-columns:minmax(0,360px) minmax(0,1fr); gap:clamp(32px,5vw,80px); margin-top:clamp(40px,5vw,72px); align-items:start}
+.journey-print{position:sticky; top:96px}
+.journey-print img{border:1px solid var(--ln)}
+.stamp{display:inline-block; font-family:var(--f-eyebrow); font-weight:500; font-size:15px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); border:1.5px solid var(--ink); padding:1px 8px; margin-right:.5em; font-variation-settings:"ELGR" 1, "ELSH" 2}
+.legs{list-style:none; margin:0; padding:0; display:grid; gap:clamp(40px,5vw,72px)}
+.leg{display:grid; grid-template-columns:minmax(0,1fr) 240px; gap:clamp(24px,3vw,48px); align-items:center; border-top:1px solid var(--ln); padding-top:28px}
+.day{margin:0 0 8px; font-family:var(--f-mono); font-size:14px; font-weight:500; color:var(--fg-dim); letter-spacing:.02em}
+.leg h3{margin:0 0 12px; font-family:var(--f-sub); font-weight:700; font-size:clamp(22px,1.9vw,27px); line-height:1.25; color:var(--fg)}
+.leg p{margin:0; color:var(--fg-2)}
+
+/* Devices, drawn in the darkest brown */
+.phone{border:9px solid var(--night); border-radius:30px; background:var(--night); overflow:hidden; aspect-ratio:780/1688; position:relative}
+.phone-screen{position:absolute; inset:0; overflow:hidden; background:var(--white); border-radius:21px}
+.phone-screen > img{width:100%; height:100%; object-fit:cover; object-position:top}
+.dest{font-family:var(--f-chrome); font-size:12px; line-height:1.4; color:#26231F; height:100%; display:flex; flex-direction:column}
+.dest-bar{margin:0; padding:22px 10px 8px; background:var(--go); color:var(--go-ink); font-family:var(--f-mono); font-size:10.5px; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.dest-body{padding:12px; display:grid; gap:8px; align-content:start}
+.dest-body p{margin:0}
+.dest-h{font-weight:700; font-size:15px; line-height:1.2}
+.dest-body img{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:4px}
+.dest-call{font-weight:600}
+
+/* Try it: the green band */
+.sample-grid{display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); gap:clamp(28px,4vw,64px); margin-top:clamp(36px,4vw,56px); align-items:start}
+.tile{background:var(--white); padding:22px; border:2px solid var(--go-ink)}
+.tile img{width:100%}
+.panel{background:var(--white); color:#26231F; padding:clamp(20px,2.4vw,32px); border:2px solid var(--go-ink); display:grid; gap:18px}
+.panel .label{margin:0; font-family:var(--f-chrome); font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--dim)}
+.now{border-bottom:1px solid var(--rule); padding-bottom:16px}
+.now .host{margin:4px 0 2px; font-family:var(--f-mono); font-size:clamp(20px,1.8vw,24px); font-weight:500; color:var(--go-text); overflow-wrap:anywhere}
+.now .when{margin:0; font-family:var(--f-chrome); font-size:15px; color:var(--body)}
+.row{display:flex; gap:10px; margin-top:8px}
+.row input{flex:1; min-width:0; min-height:52px; font-family:var(--f-mono); font-size:16px; padding:0 14px; border:2px solid var(--ink); background:var(--paper); color:var(--ink); border-radius:0}
+.row input[aria-invalid="true"]{border-color:#B3261E}
+.msg{margin:8px 0 0; min-height:1.4em; font-family:var(--f-chrome); font-size:15px}
+.msg[data-tone="error"]{color:#B3261E}
+.msg[data-tone="ok"]{color:var(--go-text)}
+.how{margin:0; padding-left:1.3em; font-family:var(--f-chrome); font-size:15.5px; line-height:1.6}
+.rules{margin:0; font-family:var(--f-chrome); font-size:14px; line-height:1.55; color:var(--dim)}
+.welcome{font-family:var(--f-chrome); font-size:15.5px; margin:0; max-width:40em}
+
+/* Back of house: the rig */
+.rig{margin-top:clamp(36px,4vw,56px)}
+.devices{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,210px); gap:clamp(18px,3vw,40px); align-items:end}
+.laptop .lid{border:12px solid #120A06; border-bottom-width:18px; border-radius:14px 14px 0 0; background:#120A06; aspect-ratio:1800/1125; overflow:hidden; position:relative}
+.laptop .lid img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top}
+.laptop .base{height:14px; background:#3A2A20; border-radius:0 0 12px 12px; margin:0 -3%}
+.devices .phone{border-color:#120A06; background:#120A06}
+.tabs{display:flex; flex-wrap:wrap; gap:8px; margin-top:28px}
+.chip{font-family:var(--f-ui); font-size:15px; min-height:44px; padding:0 16px; background:transparent; color:var(--fg); border:1.5px solid #6A4C3C; cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--go); color:var(--go-ink); border-color:var(--go)}
+.chip:hover{border-color:var(--fg)}
+.rig .caption{min-height:3em}
+
+/* Ready and working */
+.feat-grid{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:clamp(20px,2.6vw,40px); margin-top:clamp(36px,4vw,56px)}
+.feat h3,.queue h3{margin:0 0 14px; font-family:var(--f-sub); font-weight:700; font-size:20px; line-height:1.3; color:var(--ink); padding-top:14px; border-top:2px solid var(--ink)}
+.ticks{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.ticks li{position:relative; padding-left:28px; font-size:17.5px; line-height:1.45; color:var(--body)}
+.ticks li::before{content:""; position:absolute; left:0; top:.28em; width:16px; height:16px; background:var(--go); border:1.5px solid var(--go-edge)}
+.ticks li::after{content:""; position:absolute; left:5px; top:calc(.28em + 2px); width:5px; height:9px; border-right:2px solid var(--go-ink); border-bottom:2px solid var(--go-ink); transform:rotate(45deg)}
+.queue{margin-top:clamp(48px,5vw,72px)}
+.queue h3 .soon{margin-left:.6em; vertical-align:3px}
+.queue ul{list-style:none; margin:0; padding:0; columns:4 220px; column-gap:clamp(20px,2.6vw,40px)}
+.queue li{break-inside:avoid; font-family:var(--f-ui); font-size:15.5px; line-height:1.4; color:var(--sub); padding:8px 0; border-bottom:1px dashed var(--rule-2)}
+
+/* The manual */
+.man{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(28px,4vw,72px); align-items:start}
+.man-index{list-style:none; counter-reset:m; margin:0; padding:0; border-top:2px solid var(--ink)}
+.man-index li{counter-increment:m; border-bottom:1px solid var(--rule)}
+.man-index a{display:flex; gap:14px; align-items:baseline; min-height:48px; padding:12px 0; text-decoration:none; font-family:var(--f-sub); font-weight:500; font-size:18px; color:var(--ink)}
+.man-index a::before{content:counter(m, decimal-leading-zero); font-family:var(--f-mono); font-size:13px; color:var(--dim); min-width:24px}
+.man-index a:hover{text-decoration:underline}
+
+/* Seen around town */
+.feed{list-style:none; margin:clamp(36px,4vw,56px) 0 0; padding:0; display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:clamp(14px,1.8vw,24px); align-items:start}
+.post{display:flex; flex-direction:column; gap:10px; width:100%; padding:0; border:0; background:transparent; text-align:left; cursor:pointer; color:var(--ink)}
+.post img{width:100%; aspect-ratio:4/5; object-fit:cover; border:1px solid var(--ln)}
+.post .p-who{font-family:var(--f-eyebrow); font-weight:500; font-size:15px; letter-spacing:.06em; text-transform:uppercase; color:var(--eyebrow); font-variation-settings:"ELGR" 1, "ELSH" 2}
+.post .p-t{font-family:var(--f-sub); font-weight:700; font-size:20px; line-height:1.25}
+.post:hover .p-t{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px}
+.post .p-open{font-family:var(--f-chrome); font-size:14px; color:var(--dim)}
+
+dialog.pop{border:0; padding:0; max-width:min(960px, 94vw); width:100%; background:transparent; color:var(--body)}
+dialog.pop::backdrop{background:rgba(34,20,13,.78)}
+.pop-panel{background:var(--paper); display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); max-height:88vh; overflow:auto; border:2px solid var(--ink)}
+.pop-photo img{width:100%; height:100%; object-fit:cover}
+.pop-body{padding:clamp(22px,3vw,40px); position:relative}
+.pop-body p:not(.who){margin:0 0 1em; color:var(--body)}
+.pop-close{position:sticky; top:0; float:right; margin:-6px -6px 10px 10px}
+
+/* Close: one code, many destinations */
+.close{padding:clamp(88px,11vw,180px) 0 clamp(80px,9vw,140px)}
+.close-grid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:clamp(32px,5vw,80px); align-items:center}
+.loop{position:relative; aspect-ratio:2/1}
+.loop svg{position:absolute; inset:0; width:100%; height:100%}
+.loop path{fill:none; stroke:var(--go-ink); stroke-width:2; stroke-dasharray:6 7}
+.loop-code{position:absolute; left:50%; top:50%; width:21%; transform:translate(-50%,-50%); background:var(--white); padding:8px; border:2px solid var(--go-ink)}
+.stop{position:absolute; left:var(--x); top:var(--y); transform:translate(-50%,-50%); font-family:var(--f-ui); font-size:clamp(12px,1.05vw,15px); line-height:1.2; white-space:nowrap; background:var(--go); padding:4px 8px; border:1.5px solid var(--go-ink); color:var(--go-ink)}
+.close h2{font-size:clamp(32px,4vw,58px)}
+.close .lede{color:var(--go-ink)}
+.close .fine{font-family:var(--f-chrome); font-size:14px; margin:18px 0 0; color:#0B3F1D}
+.close .soon{color:#0B3F1D}
+
+/* Footer: back in the chrome */
+.ftr{font-family:var(--f-chrome); font-size:15px; line-height:1.5; border-top:1px solid var(--ln); padding:40px 0}
+.ftr .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px 32px}
+.ftr p{margin:0}
+.ftr a{display:inline-flex; min-height:44px; align-items:center}
+.ftr .colophon{flex-basis:100%; font-size:13px; color:var(--dim); border-top:1px solid var(--ln); padding-top:14px}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px){
+  .feat-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .feed{grid-template-columns:repeat(3, minmax(0,1fr))}
+  .leg{grid-template-columns:minmax(0,1fr) 200px}
+}
+@media (max-width: 980px){
+  .nav a.nav-x{display:none}
+  .hero{display:flex; flex-direction:column}
+  .hero-art{position:relative; top:auto; right:auto; width:min(560px, calc(100% - 2*var(--gut))); margin:32px auto 0; order:2}
+  .hero-cap{position:static; max-width:none; margin:4px 0 0}
+  .ch-grid{grid-template-columns:1fr}
+  .mg{position:static; display:flex; gap:12px; align-items:baseline; margin-bottom:24px; padding-top:12px}
+  .mg-l{margin-top:0!important}
+  .story,.journey,.sample-grid,.man,.close-grid{grid-template-columns:1fr}
+  .story--flip .story-photo{order:0}
+  .journey-print{position:static; max-width:360px}
+  .pop-panel{grid-template-columns:1fr}
+  .pop-photo img{max-height:42vh}
+}
+@media (max-width: 720px){
+  body{font-size:18px}
+  .nav{display:none}
+  .mast .wrap{justify-content:space-between}
+  .hero .band-actions{flex-direction:column; align-self:stretch}
+  .hero .band-actions .btn{width:100%}
+  .box{padding:16px}
+  .leg{grid-template-columns:1fr}
+  .leg .phone{max-width:240px}
+  .devices{grid-template-columns:1fr}
+  .devices .phone{max-width:220px; justify-self:center}
+  .feat-grid{grid-template-columns:1fr}
+  .feed{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .row{flex-direction:column}
+  .stop{font-size:11px; padding:3px 6px}
+  .stop.extra{display:none}
+}
+@media print{ .mast{position:static} .tabs,.pop-close{display:none} }
+</style>
+<link rel="stylesheet" href="pp/chrome.css">
+<style id="thread">.mast.t-study{position:static;padding-top:10px}</style>
+</head>
+<body>
+
+<header class="gh gh--qr" style="--acc:#1ef083;--acc-ink:#22140d;--acc-on-dark:#1ef083">
+  <a class="gh__skip" href="#main">Skip to content</a>
+  <div class="gh__strip" aria-hidden="true"></div>
+  <div class="gh__bar">
+    <div class="gh__who"><a class="gh__home" href="index.html" aria-label="Story" title="Story"><img src="assets/hatlamp-mark@2x.png" srcset="assets/hatlamp-mark@2x.png 2x, assets/hatlamp-mark@3x.png 3x" width="79" height="101" alt=""></a><button class="gh__btn gh__name" type="button" aria-expanded="false" aria-controls="gh-name">Michael Lombardi</button>
+      <div class="gh__panel gh__panel--who" id="gh-name"><ul><li><span class="gh__k">Email</span><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></li><li><span class="gh__k">Résumé</span><a href="resume.html">View the résumé</a></li></ul></div></div>
+    <button class="gh__toggle" type="button" aria-expanded="false" aria-controls="gh-nav">Menu<svg class="gh__io" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/></svg><svg class="gh__ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2"/></svg></button>
+    <nav class="gh__nav" id="gh-nav" aria-label="Site"><ul class="gh__list">
+      <li><a class="gh__link" href="index.html">Story</a></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-featured">Featured</button><span class="gh__glabel">Featured</span><div class="gh__panel" id="gh-featured"><p class="gh__ph">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-cases">Case Studies</button><span class="gh__glabel">Case Studies</span><div class="gh__panel" id="gh-cases"><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-snacks"><span class="gh__star" aria-hidden="true"><img src="assets/hatlamp-star@2x.png" srcset="assets/hatlamp-star@2x.png 2x, assets/hatlamp-star@3x.png 3x" width="27" height="45" alt=""></span>Snacks</button><span class="gh__glabel">Snacks</span><div class="gh__panel" id="gh-snacks"><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html" aria-current="page">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div></li>
+      <li><a class="gh__link" href="resume.html">Résumé</a></li>
+    </ul></nav>
+  </div>
+</header>
+<header class="mast t-study">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="QR Manager, back to top"><img src="qr-page/img/hat-160.webp" width="160" height="160" alt="">QR Manager</a>
+    <nav class="nav" aria-label="Site">
+      <a href="#wild">Stories</a>
+      <a href="#sample">Try it</a>
+      <a class="nav-x" href="https://qr.puddnsnacks.com/manual/" target="_blank" rel="noopener">Manual<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>
+      <a class="nav-x" href="https://qr.puddnsnacks.com/app" target="_blank" rel="noopener">Sign in<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>
+    </nav>
+    <a class="btn btn--go btn--sm" href="#sample">Try the sample</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO, after the PDS frame "Light · Hero -b" -->
+<section class="hero t-paper" id="top" aria-labelledby="hero-title">
+  <figure class="hero-art"><img src="qr-page/img/hero-sticker-figma.png" width="1260" height="1260" alt="Die-cut glitter sticker: a halftone portrait in a blue helmet, a QR code across the helmet, and the word SNACKS in green outlined letters."><figcaption class="hero-cap">A real sticker with a real code. Scan it, and code <span class="mono">002</span> opens the music of Snacks on Spotify.</figcaption></figure>
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow"><img src="qr-page/img/eyebrow-arrow.svg" width="25" height="8" alt="">Dynamic QR codes</p>
+      <div class="box"><h1 id="hero-title"><span>Print once.</span> <span>Point anywhere.</span> <span class="turn">Whenever.</span></h1></div>
+      <div class="box">
+        <p class="sub">Manage tags that are free to wander.</p>
+        <p class="lede">QR Manager gives every printed code a short, permanent address. Where that address sends people can change at any time, from any phone, so the sticker, the flyer and the business card never go back to the printer. Even tags long out in the wild can be controlled, so they stay current.</p>
+      </div>
+      <div class="band-actions">
+        <a class="btn btn--go" href="#sample">Point the sample code</a>
+        <a class="btn btn--ghost" href="#wild">See it in the wild</a>
+      </div>
+      <p class="fine"><span class="soon">Coming soon</span>Accounts and sign-up. Until then the app is in private use, and the sample code on this page is open to everyone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 01 IN THE WILD -->
+<section class="ch t-study" id="wild" aria-labelledby="wild-title">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">01</p><p class="mg-l">In the wild</p></div>
+    <div>
+      <h2 id="wild-title">Stick around.</h2>
+      <p class="lede">Printed codes end up in odd places. Between the sections of this page are a few of them, each a short story about what changed after the ink dried.</p>
+      <p class="fineprint">The sticker story is real. The other people are made up, the photos are illustrations, and the codes in them don’t scan. Anything marked <span class="soon">Coming soon</span>isn’t built yet.</p>
+      <article class="story" aria-labelledby="s-sticker">
+        <figure class="story-photo"><img src="qr-page/img/scene-bottle-640.webp" srcset="qr-page/img/scene-bottle-640.webp 640w, qr-page/img/scene-bottle-1200.webp 1200w" sizes="(min-width: 980px) 460px, 92vw" width="640" height="794" loading="lazy" alt="A dark teal water bottle covered in stickers: a cactus, a cassette, a mountain badge, and front and center the glitter Snacks sticker."></figure>
+        <div>
+          <p class="who">Snacks · songwriter · glitter sticker</p>
+          <h3 id="s-sticker">Stuck on repeat.</h3>
+          <p>I put my face on a glitter sticker, the kind that ends up on water bottles and laptop lids. Code 002 hides in the helmet and sends people to my Spotify artist page. When a new song comes out, the same sticker can point straight at it for release week, then go back.</p>
+          <ul class="uses" aria-label="Features used"><li>Repoint</li><li>History with one-click restore</li><li>Scan map by city</li><li class="later"><span class="soon">Coming soon</span>Scan milestones</li></ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 02 WHAT IT DOES -->
+<section class="ch t-paper" id="results" aria-labelledby="results-title">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">02</p><p class="mg-l">What it does</p></div>
+    <div>
+      <h2 id="results-title">Change the ending.</h2>
+      <p class="lede">A printed code is a promise that can keep up with the news. Here is one lost-cat flyer and what it did for everyone who scanned it, without a single reprint.</p>
+      <div class="journey">
+        <figure class="journey-print">
+          <img src="qr-page/img/scene-flyer-640.webp" srcset="qr-page/img/scene-flyer-640.webp 640w, qr-page/img/scene-flyer-1200.webp 688w" sizes="(min-width: 980px) 360px, 80vw" width="640" height="953" loading="lazy" alt="A LOST CAT flyer for Biscuit, an orange tabby, stapled to a weathered utility pole, with a photo, a QR code and tear-off phone tabs.">
+          <figcaption class="caption"><span class="stamp">Printed once</span>The same flyer on 40 poles, start to finish.</figcaption>
+        </figure>
+        <ol class="legs">
+          <li class="leg">
+            <div><p class="day">Day 1</p><h3>Every scan reaches the right page.</h3><p>Biscuit is missing. Forty flyers go up around Maple Ave and 7th St, and every scan opens his photo and a number to call.</p></div>
+            <div class="phone"><div class="phone-screen"><div class="dest">
+              <p class="dest-bar">example.com/biscuit/lost</p>
+              <div class="dest-body"><p class="dest-h">Have you seen Biscuit?</p><img src="qr-page/img/biscuit.webp" width="424" height="606" loading="lazy" alt="Biscuit, an orange tabby with a white chest, sitting on a rug."><p>Orange tabby, white chest and paws. Last seen near Maple Ave and 7th St.</p><p class="dest-call">Call or text (555) 248-7631</p></div>
+            </div></div></div>
+          </li>
+          <li class="leg">
+            <div><p class="day">Day 11</p><h3>Good news travels without a reprint.</h3><p>Biscuit strolls home like he went out for milk. One change from the couch, and every flyer on every pole opens a thank-you page instead of a plea.</p></div>
+            <div class="phone"><div class="phone-screen"><div class="dest">
+              <p class="dest-bar">example.com/biscuit/home</p>
+              <div class="dest-body"><p class="dest-h">Biscuit is home.</p><img src="qr-page/img/biscuit-held-640.webp" width="640" height="800" loading="lazy" alt="Biscuit held up under his front legs, back legs dangling, staring straight at the camera, unimpressed."><p>Thank you to everyone on Maple and 7th who looked.</p></div>
+            </div></div></div>
+          </li>
+          <li class="leg">
+            <div><p class="day">Day 60</p><h3>Old print bows out politely.</h3><p>The flyers fade and the code retires. Anyone who scans a sun-bleached flyer gets a gentle goodbye, never a dead link or somebody else’s page.</p></div>
+            <div class="phone"><div class="phone-screen"><img src="qr-page/img/shot-p-fallback-retired.webp" width="780" height="1688" loading="lazy" alt="The app’s real retired page: the pudding hat and the words This code has retired. It no longer points anywhere. Thanks for scanning."></div></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 IN THE WILD, night -->
+<section class="ch t-night" aria-labelledby="s-party">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">03</p><p class="mg-l">In the wild</p></div>
+    <article class="story story--flip" style="margin-top:0">
+      <figure class="story-photo"><img src="qr-page/img/scene-party-640.webp" srcset="qr-page/img/scene-party-640.webp 640w, qr-page/img/scene-party-1200.webp 896w" sizes="(min-width: 980px) 460px, 92vw" width="640" height="800" loading="lazy" alt="A black poster wheatpasted on a brick wall in a dark alley under an orange streetlight. Green ink reads NO ADDRESS, SAT 10 PM, LOCATION DROPS AT 9, around a large QR code."></figure>
+      <div>
+        <p class="who">Rae · throws parties with no address · alley wall</p>
+        <h3 id="s-party">Off the map.</h3>
+        <p>The poster says NO ADDRESS, and it means it. All week the code opens a teaser that just says 9 PM. At 9 sharp a scheduled change swaps in the warehouse map. When the room hits capacity I pause it, so latecomers get a polite “taking a break” page. By sunrise it’s retired, and anybody who comes looking later, uniform or not, finds a code that points nowhere.</p>
+        <ul class="uses" aria-label="Features used"><li>Scheduled changes</li><li>Pause</li><li>Retire</li><li class="later"><span class="soon">Coming soon</span>Expiration date, to retire it at sunrise automatically</li></ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 04 TRY IT, the green band -->
+<section class="ch t-go" id="sample" aria-labelledby="sample-title">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">04</p><p class="mg-l">Try it</p></div>
+    <div>
+      <h2 id="sample-title">Point taken.</h2>
+      <p class="lede">This is code 000, the sample. It is a real QR code with a real address, and anyone can change where it goes. Paste a link, press the button, then scan it with a phone.</p>
+      <p class="welcome">Scanned the sample and landed here? This page is its home. Send it somewhere new.</p>
+      <div class="sample-grid">
+        <figure>
+          <div class="tile"><img src="qr-page/img/qr-000.svg" width="330" height="330" alt="QR code for qr.puddnsnacks.com/000, the sample code."></div>
+          <figcaption class="caption" style="color:var(--go-ink)"><span class="mono">qr.puddnsnacks.com/000</span></figcaption>
+        </figure>
+        <div class="panel" data-sample>
+          <div class="now" aria-live="polite">
+            <p class="label">Right now it opens</p>
+            <p class="host" data-sample-host>qr.puddnsnacks.com</p>
+            <p class="when" data-sample-when>This page, its home.</p>
+          </div>
+          <form data-sample-form novalidate>
+            <label class="label" for="sample-url">Where should it go?</label>
+            <div class="row">
+              <input id="sample-url" name="url" type="url" inputmode="url" autocomplete="url" placeholder="https://" required maxlength="300" aria-describedby="sample-rules sample-msg">
+              <button class="btn btn--go" type="submit">Point it here</button>
+            </div>
+            <p class="msg" id="sample-msg" role="status" data-sample-msg></p>
+          </form>
+          <ol class="how">
+            <li>Paste any public link that starts with https.</li>
+            <li>Press <b>Point it here</b>.</li>
+            <li>Scan the code, or <a href="https://qr.puddnsnacks.com/000" target="_blank" rel="noopener">open it on this device<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>.</li>
+          </ol>
+          <p class="rules" id="sample-rules">Everyone shares this one code, so the last link wins. It comes back home after 15 minutes. Links must be public, start with https, and not be a shortened link.</p>
+          <p class="rules"><span class="soon">Coming soon</span>Live scans of the sample, shown right here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 IN THE WILD -->
+<section class="ch t-study" aria-labelledby="s-openmic">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">05</p><p class="mg-l">In the wild</p></div>
+    <article class="story" style="margin-top:0">
+      <figure class="story-photo"><img src="qr-page/img/scene-bathroom-640.webp" srcset="qr-page/img/scene-bathroom-640.webp 640w, qr-page/img/scene-bathroom-1200.webp 1200w" sizes="(min-width: 980px) 460px, 92vw" width="640" height="794" loading="lazy" alt="A dark green bar bathroom wall layered with band stickers. In the middle, a die-cut sticker shaped like a vintage microphone reads OPEN MIC TUESDAYS above a small QR code, one corner curling."></figure>
+      <div>
+        <p class="who">Dee · runs an open mic · bar bathroom wall</p>
+        <h3 id="s-openmic">Writing on the wall.</h3>
+        <p>The sticker by the hand dryer gets more eyeballs than my Instagram, no offense to my Instagram. All week it points at the sign-up sheet. Each Monday I queue two changes. Tuesday at 7 it flips to the night’s lineup by itself while I’m tuning the house guitar, and Wednesday morning it flips back.</p>
+        <ul class="uses" aria-label="Features used"><li>Scheduled changes</li><li>Scans by hour and weekday</li><li class="later"><span class="soon">Coming soon</span>Unique vs. repeat scans, to count the same three regulars once</li></ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 06 THE APP -->
+<section class="ch t-band" id="inside" aria-labelledby="inside-title">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">06</p><p class="mg-l">The app</p></div>
+    <div>
+      <h2 id="inside-title">Back of house.</h2>
+      <p class="lede">Behind every printed code is a private web app, built phone first, roomy on a laptop, and opened with a passkey instead of a password.</p>
+      <figure class="rig" data-gallery>
+        <div class="devices">
+          <div class="laptop">
+            <div class="lid">
+              <img data-shot="0" src="qr-page/img/shot-l-analytics-map.webp" width="1800" height="1125" loading="lazy" alt="Analytics on a laptop: a map of the United States with one circle per city, sized by scans, above a ranked city list.">
+              <img data-shot="1" hidden src="qr-page/img/shot-l-analytics-compare.webp" width="1800" height="1125" loading="lazy" alt="Analytics on a laptop comparing the last 7 days with the 7 before, as paired bars per day.">
+              <img data-shot="2" hidden src="qr-page/img/shot-l-studio-005.webp" width="1800" height="1125" loading="lazy" alt="The style studio on a laptop: ink and background, the verdict Scannable with contrast 8.4 to 1, export buttons, and previews on light, dark and transparent surfaces.">
+              <img data-shot="3" hidden src="qr-page/img/shot-l-home-dark.webp" width="1800" height="1125" loading="lazy" alt="Home in dark mode on a laptop: scans this week and all time, active codes, a repoint picker, top codes and recent changes.">
+            </div>
+            <div class="base" aria-hidden="true"></div>
+          </div>
+          <div class="phone"><div class="phone-screen">
+            <img data-shot="0" src="qr-page/img/shot-p-analytics-map.webp" width="780" height="1688" loading="lazy" alt="The same scan map on a phone, with the city list below it.">
+            <img data-shot="1" hidden src="qr-page/img/shot-p-analytics-compare.webp" width="780" height="1688" loading="lazy" alt="The same week-against-week comparison on a phone.">
+            <img data-shot="2" hidden src="qr-page/img/shot-p-studio-005.webp" width="780" height="1688" loading="lazy" alt="The style studio on a phone, with the scannability verdict and export buttons.">
+            <img data-shot="3" hidden src="qr-page/img/shot-p-home-dark.webp" width="780" height="1688" loading="lazy" alt="Home in dark mode on a phone.">
+          </div></div>
+        </div>
+        <div class="tabs" role="group" aria-label="Show this screen on both devices">
+          <button type="button" class="chip" aria-pressed="true" data-show="0">Scan map</button>
+          <button type="button" class="chip" aria-pressed="false" data-show="1">This week vs. last</button>
+          <button type="button" class="chip" aria-pressed="false" data-show="2">Style studio</button>
+          <button type="button" class="chip" aria-pressed="false" data-show="3">Home, dark mode</button>
+        </div>
+        <figcaption class="caption" data-caption aria-live="polite">One circle per city, sized by scans. Location is the city a scanner’s network resolves to, never the scanner’s position.</figcaption>
+      </figure>
+      <p class="fineprint">Every screen is the real app running on a local copy with sample data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07 IN THE WILD -->
+<section class="ch t-paper" aria-labelledby="s-card">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">07</p><p class="mg-l">In the wild</p></div>
+    <article class="story story--flip" style="margin-top:0">
+      <figure class="story-photo"><img src="qr-page/img/scene-card-640.webp" srcset="qr-page/img/scene-card-640.webp 640w, qr-page/img/scene-card-1200.webp 1200w" sizes="(min-width: 980px) 520px, 92vw" width="640" height="478" loading="lazy" alt="Two business cards on a wooden cafe table beside a film camera and a coffee. One reads PRIYA PHOTOGRAPHS. The other shows a small teal QR code."></figure>
+      <div>
+        <p class="who">Priya · photographer · business card</p>
+        <h3 id="s-card">Cards on the table.</h3>
+        <p>I ordered 500 cards, once. My work changes with the season, weddings in spring and headshots in fall. The code on the back follows the calendar on a schedule, so a card that has lived in someone’s wallet since March still shows what I’m shooting now.</p>
+        <ul class="uses" aria-label="Features used"><li>Scheduled changes</li><li>Teal on cream, with a scannability check</li><li>Vector PDF for the printer</li><li class="later"><span class="soon">Coming soon</span>Saved style presets</li></ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 08 FEATURES -->
+<section class="ch t-white" id="features" aria-labelledby="line-title">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">08</p><p class="mg-l">Features</p></div>
+    <div>
+      <h2 id="line-title">Ready and working.</h2>
+      <p class="lede">Everything on this list works today. The queue below is what comes next, in the order it is worth the most.</p>
+      <div class="feat-grid">
+        <div class="feat"><h3>Codes</h3><ul class="ticks">
+          <li>Permanent short addresses, never reused</li><li>Repoint, with history and one-click restore</li><li>Scheduled changes that fire on the minute</li><li>Pause, retire and archive, with fallback pages</li><li>Categories, tags, used-on notes, images and custom fields</li><li>Library search, filters and keyboard shortcuts</li></ul></div>
+        <div class="feat"><h3>Print</h3><ul class="ticks">
+          <li>Ink, background and transparent styles</li><li>Compact encoding for a smaller pattern</li><li>A scannability check with a real decode</li><li>PNG, SVG and vector PDF export</li><li>Smallest print size, side by side at one scale</li></ul></div>
+        <div class="feat"><h3>Scans</h3><ul class="ticks">
+          <li>Time, city, device, OS, browser and referrer</li><li>An explorer with charts, a map and tables</li><li>Date ranges and period comparison</li><li>A Home dashboard with what needs attention</li><li>Your own test scans left out of the count</li></ul></div>
+        <div class="feat"><h3>Keys</h3><ul class="ticks">
+          <li>Passkey sign-in on any number of devices</li><li>Full backup and restore, images included</li></ul></div>
+      </div>
+      <div class="queue">
+        <h3>In the queue <span class="soon">Coming soon</span></h3>
+        <ul>
+          <li><b>Accounts and sign-up</b></li><li>Live scans on the sample code</li><li>Placement attribution</li><li>Unique vs. repeat scans</li>
+          <li>Batch export named by ID and name</li><li>Saved style presets</li><li>Physical size input</li><li>Quiet-zone margin control</li>
+          <li>Destination preview and health check</li><li>Center logo, custom dots and corners</li><li>Change log</li><li>Saved views and filters</li>
+          <li>Bulk actions</li><li>Tag merging</li><li>Duplicate a code</li><li>Search inside custom fields and captions</li>
+          <li>Expiration date</li><li>Last verified date</li><li>Analytics CSV export</li><li>Scan milestones and spike alerts</li>
+          <li>Reminders</li><li>Favorites and pinning</li><li>Different destinations for iPhone and Android</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 THE MANUAL -->
+<section class="ch t-study" id="manual" aria-labelledby="manual-title">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">09</p><p class="mg-l">Operations manual</p></div>
+    <div class="man">
+      <div>
+        <h2 id="manual-title">Read the fine print.</h2>
+        <p class="lede">Ten procedures cover everything the app does today, from the first passkey to the day something breaks. Every step names the words on the buttons.</p>
+        <a class="btn btn--line" href="https://qr.puddnsnacks.com/manual/" target="_blank" rel="noopener">Open the manual<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>
+      </div>
+      <ol class="man-index" aria-label="What the manual covers">
+        <li><a href="https://qr.puddnsnacks.com/manual/#m-sign-in" target="_blank" rel="noopener">Sign in with a passkey<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></li>
+        <li><a href="https://qr.puddnsnacks.com/manual/#m-create" target="_blank" rel="noopener">Make a code<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></li>
+        <li><a href="https://qr.puddnsnacks.com/manual/#m-print" target="_blank" rel="noopener">Style, check and print<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></li>
+        <li><a href="https://qr.puddnsnacks.com/manual/#m-repoint" target="_blank" rel="noopener">Change where it points<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></li>
+        <li><a href="https://qr.puddnsnacks.com/manual/#m-schedule" target="_blank" rel="noopener">Schedule a change<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></li>
+        <li><a href="https://qr.puddnsnacks.com/manual/#m-status" target="_blank" rel="noopener">Pause, retire or archive<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></li>
+        <li><a href="https://qr.puddnsnacks.com/manual/#m-scans" target="_blank" rel="noopener">Read the scans<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></li>
+        <li><a href="https://qr.puddnsnacks.com/manual/#m-organize" target="_blank" rel="noopener">Keep it organized<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></li>
+        <li><a href="https://qr.puddnsnacks.com/manual/#m-backup" target="_blank" rel="noopener">Back it up<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></li>
+        <li><a href="https://qr.puddnsnacks.com/manual/#m-breaks" target="_blank" rel="noopener">If something breaks<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 10 MORE FROM THE WILD -->
+<section class="ch t-paper" id="more" aria-labelledby="feed-title">
+  <div class="wrap ch-grid">
+    <div class="mg"><p class="mg-n">10</p><p class="mg-l">More from the wild</p></div>
+    <div>
+      <h2 id="feed-title">Seen around town.</h2>
+      <p class="lede">More codes, more places, more second chances. Open any post for the full story.</p>
+      <ul class="feed">
+        <li><button type="button" class="post" data-story="truck"><img src="qr-page/img/scene-truck-640.webp" width="640" height="430" loading="lazy" alt=""><span class="p-who">Luis · taco truck</span><span class="p-t">Moving target.</span></button></li>
+        <li><button type="button" class="post" data-story="savedate"><img src="qr-page/img/scene-savedate-640.webp" width="640" height="794" loading="lazy" alt=""><span class="p-who">Sam and Jordan · save-the-date</span><span class="p-t">Something new.</span></button></li>
+        <li><button type="button" class="post" data-story="nursery"><img src="qr-page/img/scene-nursery-640.webp" width="640" height="430" loading="lazy" alt=""><span class="p-who">Marguerite · plant nursery</span><span class="p-t">Out of season.</span></button></li>
+        <li><button type="button" class="post" data-story="sign"><img src="qr-page/img/scene-sign-640.webp" width="640" height="483" loading="lazy" alt=""><span class="p-who">Tasha · yard sign</span><span class="p-t">Curb appeal.</span></button></li>
+        <li><button type="button" class="post" data-story="flyer"><img src="qr-page/img/scene-flyer-640.webp" width="640" height="953" loading="lazy" alt=""><span class="p-who">Ray · utility pole</span><span class="p-t">The cat came back.</span></button></li>
+      </ul>
+    </div>
+  </div>
+
+  <template id="story-truck"><figure class="pop-photo"><img src="qr-page/img/scene-truck-1200.webp" width="1024" height="688" alt="A taco truck service window at dusk with string lights and a chalk menu. A sign taped in the window reads WHERE WE PARK TOMORROW above a QR code."></figure>
+    <div class="pop-body"><p class="who">Luis · taco truck · service window</p><h3 id="pop-title">Moving target.</h3>
+    <p>The sign in the window says where we park tomorrow. Every night after close I repoint it from the Home screen to the next corner. When we shut down for two weeks in January, I pause it, so people get a friendly “taking a break” page instead of last Tuesday’s parking lot.</p>
+    <ul class="uses" aria-label="Features used"><li>Repoint from Home</li><li>Pause</li><li>Top codes on the dashboard</li><li class="later"><span class="soon">Coming soon</span>Reminders, for the night I forget</li></ul></div></template>
+  <template id="story-savedate"><figure class="pop-photo"><img src="qr-page/img/scene-savedate-1200.webp" width="1200" height="1490" alt="A letterpress save-the-date on linen with eucalyptus and a pink ribbon: SAM and JORDAN, SAVE THE DATE, JUNE 13, with a small QR code labeled RSVP HERE."></figure>
+    <div class="pop-body"><p class="who">Sam and Jordan · getting married · save-the-date</p><h3 id="pop-title">Something new.</h3>
+    <p>We mailed 140 cards with one small code that says RSVP here. The morning after the wedding it switches to our photo gallery on its own, while we sleep in. Same card on everyone’s fridge, new reason to scan it.</p>
+    <ul class="uses" aria-label="Features used"><li>Scheduled changes</li><li>Custom fields for the date and the card count</li><li>Used-on notes</li><li class="later"><span class="soon">Coming soon</span>Expiration date</li></ul></div></template>
+  <template id="story-nursery"><figure class="pop-photo"><img src="qr-page/img/scene-nursery-1200.webp" width="1024" height="688" alt="Potted succulents and herbs in a sunny greenhouse. White plant stakes each carry a plant name and a QR code. The closest reads ECHEVERIA."></figure>
+    <div class="pop-body"><p class="who">Marguerite · plant nursery · greenhouse stakes</p><h3 id="pop-title">Out of season.</h3>
+    <p>Every stake gets its own code and its own care sheet, so nobody has to ask me how often to water an echeveria. Basil goes on pause when it is out of season. Tags keep the whole greenhouse in rows.</p>
+    <ul class="uses" aria-label="Features used"><li>Categories and tags</li><li>Pause</li><li>Library filters and search</li><li class="later"><span class="soon">Coming soon</span>Batch export named by ID and name</li><li class="later"><span class="soon">Coming soon</span>Bulk actions</li></ul></div></template>
+  <template id="story-sign"><figure class="pop-photo"><img src="qr-page/img/scene-sign-1200.webp" width="1200" height="905" alt="A FOR SALE yard sign at golden hour in front of a craftsman house, with a rider below reading SCAN FOR THE TOUR beside a QR code."></figure>
+    <div class="pop-body"><p class="who">Tasha · real estate agent · yard sign</p><h3 id="pop-title">Curb appeal.</h3>
+    <p>Each sign gets its own code and its own listing. When 412 Elm sold, I retired its code that afternoon. I compare signs side by side, and each one against last month, to see which corner does the work.</p>
+    <ul class="uses" aria-label="Features used"><li>Retire</li><li>Compare codes and periods</li><li>Home dashboard</li><li class="later"><span class="soon">Coming soon</span>Analytics CSV export, for the broker</li></ul></div></template>
+  <template id="story-flyer"><figure class="pop-photo"><img src="qr-page/img/scene-flyer-1200.webp" width="688" height="1024" alt="The LOST CAT flyer for Biscuit on a utility pole, two tear-off tabs already gone."></figure>
+    <div class="pop-body"><p class="who">Ray · cat person · utility pole</p><h3 id="pop-title">The cat came back.</h3>
+    <p>Forty flyers went up around Maple and 7th, each with a code to Biscuit’s photo and my number. On day 11 he strolled in like he’d been at the store. I repointed the code to a thank-you page before I fed him, and retired it once the flyers came down.</p>
+    <ul class="uses" aria-label="Features used"><li>Repoint</li><li>Retire with a polite fallback page</li><li>Scan map</li><li class="later"><span class="soon">Coming soon</span>Placement attribution, to see which pole did the work</li></ul></div></template>
+</section>
+
+<dialog class="pop" id="pop" aria-labelledby="pop-title">
+  <div class="pop-panel" data-pop-panel></div>
+</dialog>
+
+<!-- CLOSE: one code, many destinations -->
+<section class="close t-go" aria-labelledby="close-title">
+  <div class="wrap close-grid">
+    <div class="loop" aria-hidden="true">
+      <svg viewBox="0 0 600 300" preserveAspectRatio="none"><path d="M300 150 C 380 40, 560 40, 560 150 C 560 260, 380 260, 300 150 C 220 40, 40 40, 40 150 C 40 260, 220 260, 300 150 Z"/></svg>
+      <div class="loop-code"><img src="qr-page/img/qr-000.svg" width="120" height="120" alt=""></div>
+      <span class="stop" style="--x:22%;--y:16%">a lost-cat page</span>
+      <span class="stop extra" style="--x:7%;--y:50%">a thank-you note</span>
+      <span class="stop" style="--x:22%;--y:84%">a party map</span>
+      <span class="stop" style="--x:78%;--y:16%">tonight’s lineup</span>
+      <span class="stop extra" style="--x:93%;--y:50%">a spring portfolio</span>
+      <span class="stop" style="--x:78%;--y:84%">a polite goodbye</span>
+    </div>
+    <div>
+      <h2 id="close-title">One code on an endless journey.</h2>
+      <p class="lede">A printed code can outlive every plan made for it. Point it, repoint it, schedule it, pause it and retire it, and the ink never needs to know.</p>
+      <div class="actions">
+        <a class="btn btn--dark" href="#sample">Point the sample code</a>
+        <a class="btn btn--line" style="border-color:var(--go-ink);color:var(--go-ink)" href="https://qr.puddnsnacks.com/manual/" target="_blank" rel="noopener">Read the manual<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>
+      </div>
+      <p class="fine"><span class="soon">Coming soon</span>Accounts and sign-up, for a library of your own.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ftr t-study">
+  <div class="wrap">
+    <p>QR Manager is a <a href="https://puddnsnacks.com/" target="_blank" rel="noopener">puddnsnacks<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a> project, made in Houston.</p>
+    <p><a href="https://qr.puddnsnacks.com/manual/" target="_blank" rel="noopener">Manual<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a> · <a href="https://qr.puddnsnacks.com/app" target="_blank" rel="noopener">Sign in<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a> · <a href="#top">Back to top</a></p>
+    <p class="colophon">Set in Boldonse, Handjet, Hanken Grotesk, Libertinus Serif, Cabin and IBM Plex Mono, with the frame in the system font.</p>
+  </div>
+</footer>
+<footer class="gf gf--qr" style="--acc:#1ef083;--acc-ink:#22140d;--acc-on-dark:#1ef083">
+  <div class="gf__wrap">
+    <div class="gf__map">
+      <div class="gf__me" id="contact" tabindex="-1"><p class="gf__nm">Michael Lombardi</p><p><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p></div>
+      <nav class="gf__cols" aria-label="Site map">
+        <div class="gf__solo"><p class="gf__h"><a href="index.html">Story</a></p></div>
+        <div><p class="gf__h">Featured</p><p class="gf__sub">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div>
+        <div><p class="gf__h">Case Studies</p><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li></ul></div>
+        <div><p class="gf__h">Snacks</p><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html" aria-current="page">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div>
+        <div class="gf__solo"><p class="gf__h"><a href="resume.html">Résumé</a></p></div>
+      </nav>
+    </div>
+    <div class="gf__base"><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // 1. Back of house: one set of tabs switches the laptop and the phone together.
+  var gallery = document.querySelector("[data-gallery]");
+  if (gallery) {
+    var CAPTIONS = [
+      "One circle per city, sized by scans. Location is the city a scanner’s network resolves to, never the scanner’s position.",
+      "This week against last, lined up day for day, on whichever screen is closest.",
+      "The style studio checks contrast, polarity and a real decode on every change, then exports PNG, SVG or vector PDF.",
+      "Home in dark mode, which follows the system or a setting."
+    ];
+    var tabs = [].slice.call(gallery.querySelectorAll("[data-show]"));
+    var shots = [].slice.call(gallery.querySelectorAll("[data-shot]"));
+    var caption = gallery.querySelector("[data-caption]");
+    tabs.forEach(function(t){ t.addEventListener("click", function(){
+      var i = Number(t.dataset.show);
+      tabs.forEach(function(x){ x.setAttribute("aria-pressed", String(x === t)); });
+      shots.forEach(function(s){ s.hidden = Number(s.dataset.shot) !== i; });
+      caption.textContent = CAPTIONS[i];
+    }); });
+  }
+
+  // 2. Feed posts open their story in a dialog.
+  var pop = document.getElementById("pop");
+  if (pop && typeof pop.showModal === "function") {
+    var panel = pop.querySelector("[data-pop-panel]"), opener = null;
+    document.querySelectorAll("[data-story]").forEach(function(btn){ btn.addEventListener("click", function(){
+      var tpl = document.getElementById("story-" + btn.dataset.story); if (!tpl) return;
+      opener = btn;
+      panel.replaceChildren(tpl.content.cloneNode(true));
+      var body = panel.querySelector(".pop-body");
+      var close = document.createElement("button"); close.type = "button"; close.className = "btn btn--line btn--sm pop-close"; close.textContent = "Close";
+      close.addEventListener("click", function(){ pop.close(); });
+      body.prepend(close);
+      pop.showModal(); close.focus();
+    }); });
+    pop.addEventListener("click", function(e){ if (e.target === pop) pop.close(); });
+    pop.addEventListener("close", function(){ panel.replaceChildren(); if (opener) opener.focus(); });
+  }
+
+  // 3. The sample code (000): read where it points, and let anyone point it somewhere for a while.
+  var sample = document.querySelector("[data-sample]");
+  if (sample) {
+    var host = sample.querySelector("[data-sample-host]"), when = sample.querySelector("[data-sample-when]");
+    var form = sample.querySelector("[data-sample-form]"), msg = sample.querySelector("[data-sample-msg]");
+    var input = form.querySelector("input"), button = form.querySelector("button");
+    var API = location.protocol === "file:" ? "https://qr.puddnsnacks.com/api/demo" : "/api/demo";
+    var time = function(iso){ return new Date(iso).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }); };
+    var show = function(view){
+      host.textContent = view.isDefault ? "qr.puddnsnacks.com" : view.host;
+      if (!view.active) when.textContent = "The sample is taking a break right now.";
+      else if (view.isDefault) when.textContent = "This page, its home.";
+      else when.textContent = "Set at " + time(view.setAt) + ". Comes home at " + time(view.returnsAt) + ".";
+      form.hidden = !view.active;
+    };
+    var say = function(text, tone){
+      msg.textContent = text; msg.dataset.tone = tone;
+      if (tone === "error") { input.setAttribute("aria-invalid", "true"); input.focus(); } else input.removeAttribute("aria-invalid");
+    };
+    input.addEventListener("input", function(){ input.removeAttribute("aria-invalid"); });
+    var refresh = function(){
+      fetch(API, { headers: { Accept: "application/json" } }).then(function(r){ return r.ok ? r.json() : null; }).then(function(v){ if (v) show(v); }).catch(function(){});
+    };
+    refresh();
+    setInterval(function(){ if (document.visibilityState === "visible") refresh(); }, 30000);
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var url = input.value.trim();
+      if (!url) { say("Paste a link first.", "error"); return; }
+      button.disabled = true; say("Pointing it…", "info");
+      fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: url }) })
+        .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(data){
+          if (!r.ok) { say(data.error ? data.error + "." : "That didn’t work. Try again in a moment.", "error"); return; }
+          show(data); input.value = ""; say("Done. Scan the code now and it opens " + data.host + ".", "ok");
+        }); })
+        .catch(function(){ say("The sample couldn’t be reached. Check the connection and try again.", "error"); })
+        .finally(function(){ button.disabled = false; });
+    });
+  }
+
+  // 4. Printing: lazy images that never scrolled into view would print blank, so load them all first.
+  window.addEventListener("beforeprint", function(){ document.querySelectorAll('img[loading="lazy"]').forEach(function(img){ img.loading = "eager"; }); });
+})();
+</script>
+<script src="pp/chrome.js"></script>
+</body>
+</html>

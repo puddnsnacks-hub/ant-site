@@ -1,0 +1,42 @@
+/* DRAFT · the PDS layer's tokens, from layers/pds/tokens/{s,c}.tokens.json. */
+:root {
+  --s-pds-rung-line: var(--g-color-brand-gray-0);
+  --s-pds-rung-ink-dark: var(--g-color-brand-gray-100);
+  --s-pds-rung-ink-light: var(--g-color-brand-gray-0);
+  --s-pds-rung-empty-ground: var(--g-color-brand-gray-90);
+  --s-pds-rung-empty-ink: var(--g-color-brand-gray-20);
+  --s-pds-rung-empty-line: var(--g-color-brand-gray-30);
+  --s-pds-rung-height: var(--g-size-48);
+  --s-pds-rung-tag-tracking: var(--g-theme-label-tracking);
+  --s-pds-button-plate: var(--g-color-brand-gray-20);
+  --s-pds-button-shadow: var(--g-color-overlay-black-16);
+  --s-pds-button-motion-in: var(--g-duration-fast);
+  --s-pds-button-motion-out: var(--g-duration-base);
+}
+.aods-pds-rung {
+  --c-pds-rung-fill: var(--s-color-surface-raised);
+  --c-pds-rung-line: var(--s-pds-rung-line);
+  --c-pds-rung-ink-dark: var(--s-pds-rung-ink-dark);
+  --c-pds-rung-ink-light: var(--s-pds-rung-ink-light);
+  --c-pds-rung-empty-ground: var(--s-pds-rung-empty-ground);
+  --c-pds-rung-empty-ink: var(--s-pds-rung-empty-ink);
+  --c-pds-rung-empty-line: var(--s-pds-rung-empty-line);
+  --c-pds-rung-height: var(--s-pds-rung-height);
+  --c-pds-rung-inset-inline: var(--s-space-xs);
+  --c-pds-rung-inset-block-end: var(--s-space-xs);
+  --c-pds-rung-step-font-family: var(--s-font-family-ui);
+  --c-pds-rung-step-size: var(--s-type-ui-md-size);
+  --c-pds-rung-step-line-height: var(--s-type-ui-md-line-height);
+  --c-pds-rung-tag-size: var(--s-type-ui-xs-size);
+  --c-pds-rung-tag-weight: var(--s-font-weight-semibold);
+  --c-pds-rung-tag-tracking: var(--s-pds-rung-tag-tracking);
+}
+.aods-pds-button {
+  --c-pds-button-plate: var(--s-pds-button-plate);
+  --c-pds-button-shadow: var(--s-pds-button-shadow);
+  --c-pds-button-plate-offset: var(--s-space-xs);
+  --c-pds-button-shadow-offset: var(--s-space-xs);
+  --c-pds-button-pressed-offset: var(--s-space-2xs);
+  --c-pds-button-motion-in: var(--s-pds-button-motion-in);
+  --c-pds-button-motion-out: var(--s-pds-button-motion-out);
+}

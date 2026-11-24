@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(6833db113f2c.woff2) format('woff2');
+  unicode-range: U+20, U+41, U+44, U+53, U+65, U+67, U+69, U+6d-6e, U+73-74, U+79;
+}
+@font-face {
+  font-family: 'Young Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(3dbe2bf9c3bd.woff2) format('woff2');
+  unicode-range: U+20, U+41, U+44, U+53, U+65, U+67, U+69, U+6d-6e, U+73-74, U+79;
+}

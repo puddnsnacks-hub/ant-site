@@ -1,0 +1,53 @@
+/* AGID personas: the research deliverable as cards; a swipe strip on phones. Shell tokens only. */
+.x-agid-personas { display: grid; gap: 12px; }
+.x-agid-personas__label { margin: 0; font: 600 14px/1.3 var(--sx-ui); letter-spacing: .1em; text-transform: uppercase; color: var(--sx-ink-2); }
+.x-agid-personas__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.x-agid-personas__card { display: grid; align-content: start; gap: 12px; padding: 20px; background: var(--sx-paper); border: 2px solid var(--sx-ink); box-shadow: var(--sx-shadow); }
+.x-agid-personas__card header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.x-agid-personas__name { margin: 0; font: 600 28px/1.1 var(--sx-display); color: var(--sx-ink); }
+.x-agid-personas__role { margin: 0; font: 600 14px/1.2 var(--sx-ui); letter-spacing: .1em; text-transform: uppercase; color: var(--grp-ink); background: var(--grp-band); padding: 5px 8px; }
+.x-agid-personas__ex { margin: 0; font: 400 17px/1.5 var(--sx-body); color: var(--sx-ink); }
+.x-agid-personas__pairs { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.x-agid-personas__pairs li { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 8px; align-items: center; margin: 0; }
+.x-agid-personas__pain, .x-agid-personas__gain { padding: 8px 10px; font: 400 15px/1.35 var(--sx-body); color: var(--sx-ink); height: 100%; box-sizing: border-box; }
+.x-agid-personas__pain { background: var(--g-color-brand-primary-10); }
+.x-agid-personas__gain { background: var(--g-color-brand-vivid-10); }
+.x-agid-personas__arrow { font: 600 18px/1 var(--sx-ui); color: var(--sx-ink); }
+.x-agid-personas__more { display: grid; gap: 12px; }
+.x-agid-personas__more summary { display: flex; align-items: center; min-height: 44px; padding: 0 12px; border: 2px solid var(--sx-ink); font: 600 16px/1 var(--sx-ui); color: var(--sx-ink); cursor: pointer; }
+.x-agid-personas__more summary:focus-visible, .x-agid-personas__btn:focus-visible { outline: 3px solid var(--sx-focus); outline-offset: 2px; }
+.x-agid-personas__more[open] > summary { margin-bottom: 12px; }
+.x-agid-personas__q { margin: 0 0 12px; padding: 0 0 0 14px; border-left: 2px solid var(--sx-line-strong); }
+.x-agid-personas__q blockquote { margin: 0; }
+.x-agid-personas__q p { margin: 0; font: 400 17px/1.5 var(--sx-body); color: var(--sx-ink); }
+.x-agid-personas__q figcaption { margin-top: 8px; font: 400 14px/1.4 var(--sx-caption); color: var(--sx-ink-2); }
+.x-agid-personas__jobs { margin: 0 0 12px; font: 400 15px/1.5 var(--sx-caption); color: var(--sx-ink-2); }
+.x-agid-personas__jobs span { font: 600 14px/1 var(--sx-ui); letter-spacing: .1em; text-transform: uppercase; color: var(--sx-ink); margin-right: 6px; }
+.x-agid-personas__pg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.x-agid-personas__pains, .x-agid-personas__gains { padding: 12px 14px; }
+.x-agid-personas__pains { background: var(--g-color-brand-primary-10); }
+.x-agid-personas__gains { background: var(--g-color-brand-vivid-10); }
+.x-agid-personas__h { margin: 0 0 6px; font: 600 15px/1.2 var(--sx-ui); color: var(--sx-ink); }
+.x-agid-personas__pg ul { margin: 0; padding-left: 18px; }
+.x-agid-personas__pg li { margin: 0 0 4px; font: 400 15px/1.4 var(--sx-body); color: var(--sx-ink); }
+.x-agid-personas__nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.x-agid-personas__nav[hidden] { display: none; }
+.x-agid-personas__btn { min-width: 48px; min-height: 48px; border: 2px solid var(--sx-ink); background: var(--sx-paper); color: var(--sx-ink); font: 600 20px/1 var(--sx-ui); cursor: pointer; }
+.x-agid-personas__count { margin: 0; font: 600 15px/1 var(--sx-ui); color: var(--sx-ink); }
+/* Desktop with script: the full card is open, so the short view would repeat it. */
+@media (min-width: 768px) {
+  .x-agid-personas[data-ready] .x-agid-personas__ex, .x-agid-personas[data-ready] .x-agid-personas__pairs, .x-agid-personas[data-ready] .x-agid-personas__more > summary, .x-agid-personas[data-ready] .x-agid-personas__jobs { display: none; }
+}
+@media (min-width: 768px) and (max-width: 1099px) { .x-agid-personas__grid { grid-template-columns: 1fr; } }
+@media (max-width: 767px) {
+  .x-agid-personas__grid { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 6px 8px 2px; align-items: flex-start; }
+  .x-agid-personas__card { flex: 0 0 calc(100% - 8px); scroll-snap-align: start; padding: 16px; }
+  .x-agid-personas__name { font-size: 26px; }
+  .x-agid-personas__pg { grid-template-columns: 1fr; }
+}
+@media print { .x-agid-personas__nav { display: none; } .x-agid-personas__grid { display: grid; overflow: visible; } }
+.x-agid-personas__more summary { justify-content: space-between; list-style: none; }
+.x-agid-personas__more summary::-webkit-details-marker { display: none; }
+.x-agid-personas__more summary::after { content: "+"; font: 600 22px/1 var(--sx-ui); }
+.x-agid-personas__more[open] > summary::after { content: "\2212"; }
+.x-agid-personas__card { box-sizing: border-box; min-width: 0; }
