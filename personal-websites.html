@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="gate-config.js"></script><script src="gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal websites · Michael Lombardi</title>
+<meta name="description" content="Phone-first sites I design for one person and one situation, such as a concert weekend or a trip through Spain.">
+<link rel="stylesheet" href="pp/system.css">
+<style>
+  :root{ --accent:#d3cf34; --accent-text:#5f5c00; }
+  /* Page-specific: phone screens of the sites, the live phone, the seed ramps, the four mastheads. */
+  .hero__fig img{width:100%;max-width:390px;margin-inline:auto;box-shadow:var(--s2) var(--s2) 0 var(--accent)}
+  .phones{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s5) var(--s3)}
+  .phones--4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .phones img{width:100%;max-width:390px;border:1px solid var(--rule)}
+  .phones figcaption{margin-top:var(--s1);font:400 var(--t-caption)/var(--lh-caption) var(--f-small);max-width:none}
+  .phones figcaption b{font-weight:600}
+  .live{display:grid;grid-template-columns:minmax(0,1fr) 422px;gap:var(--s6);align-items:start}
+  .live__phone{border:16px solid var(--ink);background:var(--ink);box-shadow:var(--s2) var(--s2) 0 var(--accent)}
+  .live__phone iframe{display:block;width:390px;height:760px;border:0;background:#191a14}
+  .live__still{display:none}
+  .live__words>*+*{margin-top:var(--s4)}
+  .kc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4)}
+  .seedrow{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:var(--s6);align-items:center}
+  .seedrow img{width:100%;max-width:340px;transform:rotate(-2deg);box-shadow:var(--s2) var(--s2) 0 var(--accent)}
+  .seed{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3)}
+  .seed li{display:grid;gap:4px;font:400 var(--t-caption)/var(--lh-caption) var(--f-small)}
+  .seed__chip{display:block;height:72px;border:1px solid rgba(255,248,235,.35)}
+  .seed__n{font:600 1.125rem/1.5rem var(--f-ui)}
+  .seed__h{font-family:var(--f-code,ui-monospace,monospace)}
+  .plain{list-style:none;padding:0;display:grid;gap:var(--s2);max-width:42rem}
+  .plain li{padding-left:var(--s3);border-left:var(--s1) solid var(--accent)}
+  .nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4);max-width:36rem}
+  .nums b{display:block;font:600 clamp(2.5rem,2rem + 2vw,4rem)/1 var(--f-display,var(--f-ui));letter-spacing:-.02em}
+  .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,390px);gap:var(--s6);align-items:start}
+  .two img{width:100%;border:1px solid var(--rule)}
+  @media (max-width:1099px){
+    .live{grid-template-columns:minmax(0,1fr)} .live__phone{display:none} .live__still{display:block;max-width:390px}
+    .live__still img{width:100%;border:1px solid var(--rule)}
+    .phones--4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  @media (max-width:759px){
+    .phones{grid-template-columns:minmax(0,1fr)} .phones--4{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .phones li{max-width:390px}
+    .kc,.seedrow,.two,.nums{grid-template-columns:minmax(0,1fr)} .seed{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .seedrow img{max-width:280px}
+  }
+</style>
+<link rel="stylesheet" href="pp/chrome.css">
+<style id="thread">html:root{--accent:#d3cf34;--accent-text:#5f5c00;--gold:#d3cf34;--teal:#452f23;--teal-deep:#22140d;--ph-fill:#5c4a3d}</style>
+</head>
+<body id="top">
+<header class="gh gh--std" style="--acc:#d3cf34;--acc-ink:#22140d;--acc-on-dark:#d3cf34">
+  <a class="gh__skip" href="#main">Skip to content</a>
+  <div class="gh__strip" aria-hidden="true"></div>
+  <div class="gh__bar">
+    <div class="gh__who"><a class="gh__home" href="index.html" aria-label="Story" title="Story"><img src="assets/hatlamp-mark@2x.png" srcset="assets/hatlamp-mark@2x.png 2x, assets/hatlamp-mark@3x.png 3x" width="79" height="101" alt=""></a><button class="gh__btn gh__name" type="button" aria-expanded="false" aria-controls="gh-name">Michael Lombardi</button>
+      <div class="gh__panel gh__panel--who" id="gh-name"><ul><li><span class="gh__k">Email</span><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></li><li><span class="gh__k">Résumé</span><a href="resume.html">View the résumé</a></li></ul></div></div>
+    <button class="gh__toggle" type="button" aria-expanded="false" aria-controls="gh-nav">Menu<svg class="gh__io" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/></svg><svg class="gh__ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="2"/></svg></button>
+    <nav class="gh__nav" id="gh-nav" aria-label="Site"><ul class="gh__list">
+      <li><a class="gh__link" href="index.html">Story</a></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-featured">Featured</button><span class="gh__glabel">Featured</span><div class="gh__panel" id="gh-featured"><p class="gh__ph">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-cases"><span class="gh__star" aria-hidden="true"><img src="assets/hatlamp-star@2x.png" srcset="assets/hatlamp-star@2x.png 2x, assets/hatlamp-star@3x.png 3x" width="27" height="45" alt=""></span>Case Studies</button><span class="gh__glabel">Case Studies</span><div class="gh__panel" id="gh-cases"><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li><li><a href="personal-websites.html" aria-current="page">Personal Websites</a></li></ul></div></li>
+      <li><button class="gh__btn" type="button" aria-expanded="false" aria-controls="gh-snacks">Snacks</button><span class="gh__glabel">Snacks</span><div class="gh__panel" id="gh-snacks"><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div></li>
+      <li><a class="gh__link" href="resume.html">Résumé</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">Case study · Personal websites</p>
+        <h1 class="hero__title" id="hero-title">Made <span class="turn">to order.</span></h1>
+        <p class="lede hero__lede">Phone-first sites I design for one person and one situation, such as a concert weekend or a trip through Spain.</p>
+        <div class="actions">
+          <a class="btn" href="https://stu.puddnsnacks.com/" target="_blank" rel="noopener">Open Stu’s Food Retreat<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>
+          <a class="btn btn--quiet" href="#family">The trip sites</a>
+        </div>
+      </div>
+      <figure class="hero__fig">
+        <img src="pp/img/personal-websites/stu-hero.jpg" width="780" height="1688" alt="Stu’s Food Retreat on a phone: a photograph of Stu in a gray knit cap eating noodles with chopsticks, posterized in pink, yellow and mint, above the title Stu’s Food Retreat in mint and pink on a dark ground.">
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec" id="stu" aria-labelledby="s1">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The fifth site</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s1">A sibling, <span class="turn">not a recoloring.</span></h2>
+        <div class="live">
+          <div class="live__words">
+            <div class="prose">
+              <p>The fifth site is a trade-event planner for a friend who runs a small catering business. I asked for new colors, fonts and component styles on the same patterns, so it would read as family without looking like a copy.</p>
+            </div>
+            <blockquote class="quote">
+              <p>A sibling to the design system in [the Milwaukee site] but not just a recoloring.</p>
+              <footer>Michael Lombardi</footer>
+            </blockquote>
+            <div class="kc">
+              <div class="feature"><h3>Kept</h3><p>The hero band, section openers on colored bands, the map with a detail panel and the three token tiers.</p></div>
+              <div class="feature"><h3>Changed</h3><p>Dark only, line-work actions and headlines, hairline frames with cut corners and two new typefaces.</p></div>
+            </div>
+            <figure class="fig live__still"><img src="pp/img/personal-websites/stu-trips-top.jpg" width="780" height="1688" loading=lazy alt="Stu’s Food Retreat on a phone: the trips section, Road tripping and High flying, with a trip card listing two stops, the miles and the drive time between them."></figure>
+          </div>
+          <div class="live__phone"><iframe src="https://stu.puddnsnacks.com/" title="Stu’s Food Retreat, the live site"></iframe></div>
+        </div>
+        <ul class="phones">
+          <li><figure><img src="pp/img/personal-websites/stu-where.jpg" width="780" height="1688" loading=lazy alt="The map section, Where they are: a map of the United States drawn in line work with numbered pins, and a list of event categories, each with its own color."><figcaption><b>Where they are.</b> The map with a detail panel.</figcaption></figure></li>
+          <li><figure><img src="pp/img/personal-websites/stu-when.jpg" width="780" height="1688" loading=lazy alt="The calendar section, When they happen: events in order under month headings in pink, each with its dates, city and kind."><figcaption><b>When they happen.</b> In order or by month.</figcaption></figure></li>
+          <li><figure><img src="pp/img/personal-websites/stu-trips.jpg" width="780" height="1688" loading=lazy alt="A road trip card: two stops with the miles and drive time between them, a badge reading All stops confirmed and a Show on map button."><figcaption><b>Road tripping and high flying.</b> Events close on the map and on the calendar.</figcaption></figure></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--dark sec--tilt" aria-labelledby="s2">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">Palette</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s2">Six seeds from <span class="turn">one photograph.</span></h2>
+        <div class="prose">
+          <p>Sampled from one photograph. Each ramp keeps one saturated step and turns the rest into near-gray tints.</p>
+          <p>The photograph’s fade into the dark became a hard edge with a cut corner.</p>
+        </div>
+        <div class="seedrow">
+          <img src="pp/img/personal-websites/stu-photo.jpg" width="900" height="1180" alt="The photograph of Stu from the site: a gray knit cap and glasses, chopsticks lifting noodles from a bowl, posterized in pink, yellow, magenta and mint.">
+          <ul class="seed"><li><span class="seed__chip" style="background:#00f894"></span><span class="seed__n">Mint</span><span class="seed__h">#00f894</span><span class=seed__u>Map</span></li><li><span class="seed__chip" style="background:#e34b7c"></span><span class="seed__n">Pink</span><span class="seed__h">#e34b7c</span><span class=seed__u>Calendar</span></li><li><span class="seed__chip" style="background:#edb100"></span><span class="seed__n">Marigold</span><span class="seed__h">#edb100</span><span class=seed__u>Trips</span></li><li><span class="seed__chip" style="background:#d3cf34"></span><span class="seed__n">Chartreuse</span><span class="seed__h">#d3cf34</span><span class=seed__u>All events</span></li><li><span class="seed__chip" style="background:#d1308e"></span><span class="seed__n">Magenta</span><span class="seed__h">#d1308e</span></li><li><span class="seed__chip" style="background:#191a14"></span><span class="seed__n">Sage</span><span class="seed__h">#191a14</span><span class=seed__u>Ground</span></li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s3">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">Checked</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s3">Each one wears <span class="turn">its status.</span></h2>
+        <div class="two">
+          <ul class="plain prose">
+            <li>Every event was checked against the organizer’s own site before the build, and each one wears its status.</li>
+            <li>A proposed filter was cut when the research could not back it.</li>
+          </ul>
+          <figure class="fig"><img src="pp/img/personal-websites/stu-events.jpg" width="780" height="1688" loading=lazy alt="Event cards in the whole list: each has its dates, category, city and kind, and a badge reading Verified or Unverified."></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--dark sec--tilt" id="family" aria-labelledby="s4">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The trip sites</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s4">Same slots, <span class="turn">new values.</span></h2>
+        <div class="prose">
+          <p>Every trip site loads the same token file and layout stylesheets, byte for byte. A theme keeps the slot names and moves the values, so Spain puts Mediterranean blue in the teal slot and saffron in the gold slot.</p>
+        </div>
+        <ul class="phones phones--4">
+          <li><figure><img src="pp/img/personal-websites/masthead-mke.jpg" width="780" height="1060" loading=lazy alt="The Milwaukee site’s masthead on a phone: the band name set large on deep teal, three printed buttons for the Bloody Mary bar, Sunday brunch and set lists, and a lemon slice."><figcaption><b>Milwaukee.</b> A concert weekend.</figcaption></figure></li>
+          <li><figure><img src="pp/img/personal-websites/masthead-esp.jpg" width="780" height="1060" loading=lazy alt="The Spain site’s masthead on Mediterranean blue: España, Oct 28 to Nov 10, the city codes MAD, BCN and EAS with their dates, and printed buttons for Botín, La Sagrada Família and Cava country."><figcaption><b>Spain.</b> The first reuse. The trip is the timeline, one chapter per stop.</figcaption></figure></li>
+          <li><figure><img src="pp/img/personal-websites/masthead-nola.jpg" width="780" height="1060" loading=lazy alt="The New Orleans site’s masthead on purple: NOLA, Oct 30 to Nov 1, a box for each day, and printed buttons for the walks, the bus and late-night eats beside a folded map."><figcaption><b>New Orleans.</b> The Milwaukee theme with one slot moved to purple.</figcaption></figure></li>
+          <li><figure><img src="pp/img/personal-websites/masthead-aloha.jpg" width="780" height="1060" loading=lazy alt="The Hawaii site’s masthead on dark lagoon green: Aloha, Dec 19 to Jan 3, the airport codes for four islands, and printed buttons for Pick a trip, Christmas and the Donn Beach story."><figcaption><b>Hawaii.</b> Built from the Spain site.</figcaption></figure></li>
+        </ul>
+        <p class="lede">Four trips wearing one system. The theme file changes the colors of the same masthead.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s5">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The first site</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s5">The menu is <span class="turn">her day.</span></h2>
+        <div class="two">
+          <div class="prose">
+            <p>The first site was built for one person’s concert weekend in Milwaukee, October 23 to 25, 2026. Its categories run in the order of her day: the Bloody Mary bar first, then breakfast, the street party, places to eat, the city, getting around, baseball, the shows and the after parties last.</p>
+            <p>Each category answers what she needs at that hour. The first street card led with road closures, so I moved the party to the top.</p>
+          </div>
+          <figure class="fig"><img src="pp/img/personal-websites/stack-mke.jpg" width="780" height="1690" loading=lazy alt="The Milwaukee site’s categories on a phone, each a raised paper label on its own flat color band: The Bloody Mary bar, Brunch and breakfast, The Street and Eat and drink."><figcaption>The navigation reads like her itinerary.</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s6">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">Content</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s6">Data files, sourced <span class="turn">and refreshed.</span></h2>
+        <div class="two">
+          <div>
+            <ul class="plain prose">
+              <li>Content lives in data files, never in the page.</li>
+              <li>Research agents write one JSON file per topic, with a source on every fact.</li>
+              <li>On game days, a scheduled task posts the lineups and the final score as notes.</li>
+              <li>New Orleans rechecked restaurant hours on official sites on the day of the first show.</li>
+            </ul>
+            <div class="prose" style="margin-top:var(--s4)"><p>The agents bring speed and a source for every hour, price and address. I decide what each person sees first, and my own note stays pinned above the automatic ones.</p></div>
+          </div>
+          <figure class="fig"><img src="pp/img/personal-websites/notes-mke.jpg" width="780" height="916" loading=lazy alt="The bottom of the notes card: a Sunday brunch link from a pinned note, then an automatic note headed Game 3: Brewers 10, Rays 1, and a link to the games."><figcaption>The score posts itself overnight, under the note I pinned.</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--dark sec--tilt" aria-labelledby="s7">
+    <div class="wrap sec__grid">
+      <div class="sec__rail"><p class="sec__label">The gate</p></div>
+      <div class="sec__body">
+        <h2 class="sec__title" id="s7">Two passes <span class="turn">and a revision.</span></h2>
+        <blockquote class="quote">
+          <p>If your design passes two reviews, you do a revision, and the next review it passes, you can put it live.</p>
+          <footer>Michael Lombardi</footer>
+        </blockquote>
+        <div class="prose">
+          <p>Separate UX and design reviews checked each Milwaukee build, including phone widths of 320 and 390 pixels. The design passed two rounds, got its revision and passed the next. The UX review failed twelve rounds, first on contrast, text size and layout, then on keyboard focus, before it passed. The release went live that evening.</p>
+        </div>
+        <div class="nums">
+          <p><b>3.2:1</b> New badge contrast the review caught</p>
+          <p><b>4.77:1</b> The same badge on a darker orange, as shipped</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="close-title">
+    <div class="wrap">
+      <h2 class="close__title" id="close-title">One person, <span class="turn">one situation.</span></h2>
+      <div class="actions">
+        <a class="btn" href="https://stu.puddnsnacks.com/" target="_blank" rel="noopener">Open Stu’s Food Retreat<span class="nt-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap"> (opens in a new tab)</span></a>
+        <a class="btn btn--quiet" href="mailto:mccabelombardi@gmail.com">Email Michael</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="gf gf--std" style="--acc:#d3cf34;--acc-ink:#22140d;--acc-on-dark:#d3cf34">
+  <div class="gf__wrap">
+    <div class="gf__map">
+      <div class="gf__me" id="contact" tabindex="-1"><p class="gf__nm">Michael Lombardi</p><p><a href="mailto:mccabelombardi@gmail.com">mccabelombardi@gmail.com</a></p></div>
+      <nav class="gf__cols" aria-label="Site map">
+        <div class="gf__solo"><p class="gf__h"><a href="index.html">Story</a></p></div>
+        <div><p class="gf__h">Featured</p><p class="gf__sub">Agent Optimized Design System (AODS)</p><ul><li><a href="aods-reference/docs/index.html">Documentation</a></li><li><a href="aods-reference/docs/guide/index.html">Style Guide</a></li><li><a href="aods-reference/templates/index.html">Page Templates</a></li><li><a href="accessibility.html">Accessibility</a></li></ul></div>
+        <div><p class="gf__h">Case Studies</p><ul><li><a href="universal-email.html">Universal Email Design System (EDS)</a></li><li><a href="universal-design-system.html">Universal Design System</a></li><li><a href="agid-data-explorer.html">AGID Data Explorer</a></li><li><a href="dreadnought.html">Dreadnought</a></li><li><a href="personal-websites.html" aria-current="page">Personal Websites</a></li></ul></div>
+        <div><p class="gf__h">Snacks</p><ul><li><a href="intro-characterstudy.html">Character Study</a></li><li><a href="intro-qr-manager.html">QR Manager</a></li><li><a href="lyric-video-studio.html">Lyric Video Studio</a></li><li><a href="maxine.html">Max Well Maxine</a></li></ul></div>
+        <div class="gf__solo"><p class="gf__h"><a href="resume.html">Résumé</a></p></div>
+      </nav>
+    </div>
+    <div class="gf__base"><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+
+<script src="pp/system.js"></script>
+<script src="pp/chrome.js"></script>
+</body>
+</html>
